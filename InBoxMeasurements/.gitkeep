@@ -1,0 +1,4 @@
+# Placeholder — drop in-box impedance (.zma) and frequency response (.frd) files here after prototype install.
+# One subfolder per driver recommended, e.g.:
+#   Woofer1_InBox/, Woofer2_InBox/, Mid3_InBox/, Mid4_InBox/, Tweeter_InBox/
+# Import .zma and .frd into VituixCAD for crossover design.
