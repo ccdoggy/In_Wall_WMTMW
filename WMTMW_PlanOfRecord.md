@@ -2,7 +2,7 @@
 
 > **3× identical WMTMW sealed in-wall speakers for L/C/R**
 > **Last updated:** March 29, 2026
-> **Companion files:** `WMTMW_InWall_Speaker_Design.md` · `WMTMW_CutList.md` · `WMTMW_Enclosure_3D.html`
+> **Companion files:** `WMTMW_InWall_Speaker_Design.md` · `WMTMW_Enclosure_3D.html`
 
 ---
 
