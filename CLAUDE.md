@@ -20,7 +20,6 @@ Do not rely on `WMTMW_Development_History.md` for current values — it is a his
 |---------------|---------|
 | `WMTMW_PlanOfRecord.md` | **Primary spec** — all finalized dimensions, drivers, assembly, crossover targets, status |
 | `WMTMW_InWall_Speaker_Design.md` | Full engineering detail, crossover math, risk log |
-| `WMTMW_CutList.md` | MDF cut list, baffle routing specs, assembly sequence |
 | `WMTMW_Enclosure_3D.html` | Interactive 3D shop drawings (printed for build reference) |
 | `WMTMW_Development_History.md` | Session-by-session decision log — historical only, do not read in full |
 | `FreeAirMeasurements/` | DATS V3 free-air impedance files (.txt, .tzz, .zma) for all prototype drivers |
