@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>WMTMW In-Wall Speaker — Printable Shop Drawings</title>
+<style>
+  /* ── SCREEN STYLES ── */
+  body {
+    background: #fff;
+    color: #111;
+    font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    font-size: 13px;
+    line-height: 1.4;
+  }
+  h1 { font-size: 22px; text-align: center; margin: 0 0 2px; }
+  .subtitle { text-align: center; color: #555; margin: 0 0 15px; font-size: 12px; }
+  h2 { font-size: 16px; border-bottom: 2px solid #000; padding-bottom: 3px; margin: 25px 0 10px; }
+  h3 { font-size: 13px; margin: 12px 0 6px; }
+
+  .page { max-width: 8in; margin: 0 auto; }
+  .page-break { page-break-after: always; }
+
+  svg text { font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; }
+
+  table { border-collapse: collapse; margin: 8px 0; font-size: 12px; width: 100%; }
+  th { background: #e8e8e8; padding: 4px 8px; border: 1px solid #999; text-align: left; font-size: 11px; }
+  td { padding: 3px 8px; border: 1px solid #bbb; }
+  tr:nth-child(even) { background: #f5f5f5; }
+
+  .note-box { border: 1px solid #999; background: #f9f9f0; padding: 8px 12px; margin: 10px 0; font-size: 11px; }
+  .note-box strong { font-size: 12px; }
+
+  .two-col { display: flex; gap: 20px; }
+  .two-col > div { flex: 1; }
+
+  .legend { display: flex; flex-wrap: wrap; gap: 12px; margin: 8px 0; font-size: 11px; }
+  .legend-item { display: flex; align-items: center; gap: 4px; }
+  .legend-swatch { width: 14px; height: 14px; border: 1px solid #666; }
+
+  .dim-highlight { font-weight: bold; }
+  .center-mark { color: #c00; font-weight: bold; }
+
+  /* ── PRINT STYLES ── */
+  @media print {
+    body { padding: 0; margin: 0; font-size: 11px; }
+    .page { max-width: 100%; }
+    .page-break { page-break-after: always; }
+    .no-print { display: none; }
+    h1 { font-size: 18px; }
+    h2 { font-size: 14px; margin: 15px 0 8px; }
+    table { font-size: 10px; }
+    th { padding: 3px 6px; }
+    td { padding: 2px 6px; }
+    .note-box { font-size: 10px; padding: 6px 10px; }
+    @page { margin: 0.5in; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ╔══════════════════════════════════════════════════════════════════╗ -->
+<!-- ║  PAGE 1: TITLE, KEY DIMENSIONS, CUT LIST                       ║ -->
+<!-- ╚══════════════════════════════════════════════════════════════════╝ -->
+<div class="page">
+
+<h1>WMTMW In-Wall Speaker &mdash; Shop Drawings</h1>
+<p class="subtitle">Build 3 identical units (L / C / R) &bull; March 2026 &bull; All dimensions in inches unless noted</p>
+
+<div class="legend">
+  <div class="legend-item"><div class="legend-swatch" style="background:#4a90d9"></div> Baffle (3/4" MDF)</div>
+  <div class="legend-item"><div class="legend-swatch" style="background:#d4a44a"></div> Back panel (1/2" MDF)</div>
+  <div class="legend-item"><div class="legend-swatch" style="background:#7ab87a"></div> Top/Bottom (3/4" MDF)</div>
+  <div class="legend-item"><div class="legend-swatch" style="background:#c47a7a"></div> Sides (1/2" MDF)</div>
+  <div class="legend-item"><div class="legend-swatch" style="background:#9060b0"></div> Dividers (1/2" MDF)</div>
+</div>
+
+<h2>Key Enclosure Dimensions</h2>
+
+<div class="two-col">
+<div>
+<table>
+<tr><th colspan="2">External (box, excl. baffle)</th></tr>
+<tr><td>Width</td><td class="dim-highlight">14.25"</td></tr>
+<tr><td>Depth</td><td class="dim-highlight">5.50"</td></tr>
+<tr><td>Height</td><td class="dim-highlight">46.50"</td></tr>
+</table>
+
+<table>
+<tr><th colspan="2">Internal (air space)</th></tr>
+<tr><td>Width</td><td class="dim-highlight">13.25"</td></tr>
+<tr><td>Depth</td><td class="dim-highlight">4.25"</td></tr>
+<tr><td>Height</td><td class="dim-highlight">45.00"</td></tr>
+<tr><td>Cross-section</td><td>56.31 sq in</td></tr>
+</table>
+</div>
+<div>
+<table>
+<tr><th colspan="2">Baffle</th></tr>
+<tr><td>Width</td><td class="dim-highlight">16.00"</td></tr>
+<tr><td>Height</td><td class="dim-highlight">48.00"</td></tr>
+<tr><td>Thickness</td><td>3/4" (rabbeted to 1/2" at edges)</td></tr>
+<tr><td>Overhang per side</td><td>0.875"</td></tr>
+</table>
+
+<table>
+<tr><th colspan="2">Depth Stack (front to back)</th></tr>
+<tr><td>Baffle</td><td>0.75" (3/4" MDF)</td></tr>
+<tr><td>Internal</td><td>4.25"</td></tr>
+<tr><td>Back panel</td><td>0.50" (1/2" MDF)</td></tr>
+<tr><td><strong>Total</strong></td><td><strong>5.50"</strong> = 2&times;6 stud depth</td></tr>
+</table>
+</div>
+</div>
+
+<h2>MDF Cut List (Per Speaker)</h2>
+
+<table>
+<tr><th>#</th><th>Piece</th><th>Material</th><th>Width</th><th>Height / Length</th><th>Qty</th><th>Notes</th></tr>
+<tr><td>1</td><td><strong>Front baffle</strong></td><td>3/4" MDF</td><td>16.00"</td><td>48.00"</td><td>1</td><td>Rabbeted + driver holes + recesses</td></tr>
+<tr><td>2</td><td><strong>Top panel</strong></td><td>3/4" MDF</td><td>14.25"</td><td>4.75"</td><td>1</td><td>Full width, caps sides</td></tr>
+<tr><td>3</td><td><strong>Bottom panel</strong></td><td>3/4" MDF</td><td>14.25"</td><td>4.75"</td><td>1</td><td>Full width, supports sides</td></tr>
+<tr><td>4</td><td><strong>Back panel</strong></td><td>1/2" MDF</td><td>14.25"</td><td>46.50"</td><td>1</td><td>Structural backbone</td></tr>
+<tr><td>5</td><td><strong>Side panels</strong></td><td>1/2" MDF</td><td>4.75"</td><td>45.00"</td><td>2</td><td>Fit between top &amp; bottom</td></tr>
+<tr><td>6</td><td><strong>Dividers</strong></td><td>1/2" MDF</td><td>13.25"</td><td>4.25"</td><td>2</td><td>Chamber boundaries</td></tr>
+<tr><td>7</td><td>Back battens</td><td>3/4" MDF</td><td>3/4" sq</td><td>13.25"</td><td>2</td><td>Glue to back panel</td></tr>
+<tr><td>8</td><td>F-B ties</td><td>3/4" MDF</td><td>3/4" sq</td><td>4.25"</td><td>6</td><td>Bridge baffle to back</td></tr>
+</table>
+
+<table>
+<tr><th colspan="3">MDF Stock Required (for 3 speakers)</th></tr>
+<tr><td>3/4" MDF</td><td>1.5 sheets (4&times;8)</td><td>Baffle, top/bottom, bracing</td></tr>
+<tr><td>1/2" MDF</td><td>1.5 sheets (4&times;8)</td><td>Back, sides, dividers</td></tr>
+</table>
+
+<h2>Internal Chambers</h2>
+
+<table>
+<tr><th>Chamber</th><th>Height</th><th>Volume</th><th>Treatment</th></tr>
+<tr><td>Upper woofer</td><td>13.96"</td><td>12.9 L (0.46 ft&sup3;)</td><td>Polyfill ~50%</td></tr>
+<tr><td>Mid / Tweeter (shared)</td><td>16.08"</td><td>14.8 L (0.52 ft&sup3;)</td><td>1" acoustic foam on walls</td></tr>
+<tr><td>Lower woofer</td><td>13.96"</td><td>12.9 L (0.46 ft&sup3;)</td><td>Polyfill ~50%</td></tr>
+<tr><td><strong>Total</strong></td><td><strong>45.00"</strong></td><td><strong>40.6 L (1.43 ft&sup3;)</strong></td><td></td></tr>
+</table>
+
+<table>
+<tr><th>Divider</th><th>Position (from inside bottom)</th><th>Bottom surface</th><th>Top surface</th></tr>
+<tr><td>Divider 1 (lower)</td><td>14.21" center</td><td>13.96"</td><td>14.46"</td></tr>
+<tr><td>Divider 2 (upper)</td><td>30.79" center</td><td>30.54"</td><td>31.04"</td></tr>
+</table>
+
+<div class="note-box">
+<strong>Height verification:</strong> 13.96" + 0.50" (div) + 16.08" + 0.50" (div) + 13.96" = 45.00"
+</div>
+
+</div><!-- end page -->
+<div class="page-break"></div>
+
+<!-- ╔══════════════════════════════════════════════════════════════════╗ -->
+<!-- ║  PAGE 2: FRONT BAFFLE LAYOUT — PRIMARY SHOP DRAWING             ║ -->
+<!-- ╚══════════════════════════════════════════════════════════════════╝ -->
+<div class="page">
+
+<h2>Front Baffle Layout &mdash; All Driver Positions (from front face)</h2>
+
+<div class="note-box">
+<strong>All drivers centered horizontally.</strong> Horizontal offset from baffle center: <span class="center-mark">0.000"</span> for every driver.<br>
+Baffle center = 8.000" from either side edge. Mark a vertical center line on the baffle first, then measure each driver center vertically from the bottom edge.
+</div>
+
+<svg viewBox="0 0 680 1050" width="100%" style="max-width:680px; display:block; margin:0 auto;">
+  <!-- Scale: UNIFORM 1" = 18px (both axes) -->
+  <!-- Baffle: 16.00" × 48.00" → 288 × 864 px -->
+  <!-- Origin at top-left of baffle, baffle starts at (164, 30) -->
+
+  <defs>
+    <marker id="arrow-up" viewBox="0 0 10 10" refX="5" refY="0" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,10 L5,0 L10,10" fill="none" stroke="#333" stroke-width="1.5"/>
+    </marker>
+    <marker id="arrow-down" viewBox="0 0 10 10" refX="5" refY="10" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L5,10 L10,0" fill="none" stroke="#333" stroke-width="1.5"/>
+    </marker>
+    <marker id="arrow-left" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M10,0 L0,5 L10,10" fill="none" stroke="#333" stroke-width="1.5"/>
+    </marker>
+    <marker id="arrow-right" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10" fill="none" stroke="#333" stroke-width="1.5"/>
+    </marker>
+    <!-- Red arrows for centerline dims -->
+    <marker id="rarrow-up" viewBox="0 0 10 10" refX="5" refY="0" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,10 L5,0 L10,10" fill="none" stroke="#c00" stroke-width="1.5"/>
+    </marker>
+    <marker id="rarrow-down" viewBox="0 0 10 10" refX="5" refY="10" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L5,10 L10,0" fill="none" stroke="#c00" stroke-width="1.5"/>
+    </marker>
+  </defs>
+
+  <g transform="translate(164, 30)">
+    <!-- ── BAFFLE OUTLINE ── -->
+    <rect x="0" y="0" width="288" height="864" fill="#f0f4f8" stroke="#000" stroke-width="2"/>
+
+    <!-- Rabbet boundary (1" from edge = 18px) -->
+    <rect x="18" y="18" width="252" height="828" fill="none" stroke="#888" stroke-width="0.7" stroke-dasharray="6,4"/>
+    <text x="24" y="858" fill="#888" font-size="8">rabbet boundary (1" from edge, 1/4" deep, back face)</text>
+
+    <!-- ── VERTICAL CENTER LINE ── -->
+    <line x1="144" y1="-10" x2="144" y2="874" stroke="#c00" stroke-width="0.8" stroke-dasharray="8,4"/>
+    <text x="144" y="-14" text-anchor="middle" fill="#c00" font-size="9" font-weight="bold">CENTER LINE (8.000" from each edge)</text>
+
+    <!-- ── DRIVER: UPPER WOOFER ── center 36.00" from bottom = 864 - 36*18 = 216 -->
+    <!-- Recess: 171mm = 6.73" → r = 6.73/2 * 18 = 60.6 ≈ 61px -->
+    <!-- Cutout: 149mm = 5.87" → r = 5.87/2 * 18 = 52.8 ≈ 53px -->
+    <circle cx="144" cy="216" r="61" fill="none" stroke="#888" stroke-width="1" stroke-dasharray="4,3"/>
+    <circle cx="144" cy="216" r="53" fill="#e8e8e8" stroke="#000" stroke-width="1.5"/>
+    <circle cx="144" cy="216" r="3" fill="#000"/>
+    <text x="144" y="212" text-anchor="middle" font-size="10" font-weight="bold">UPPER WOOFER</text>
+    <text x="144" y="225" text-anchor="middle" font-size="9">SB17MFC35-8</text>
+    <!-- Cutout/recess labels -->
+    <text x="215" y="202" fill="#000" font-size="8">cutout: 149mm (5.87")</text>
+    <text x="215" y="213" fill="#888" font-size="8">recess: 171mm (6.73")</text>
+
+    <!-- ── DRIVER: UPPER MID ── center 29.25" = 864 - 29.25*18 = 337.5 -->
+    <!-- Recess: 137mm = 5.39" → r = 5.39/2 * 18 = 48.5 ≈ 49px -->
+    <!-- Cutout: 116mm = 4.57" → r = 4.57/2 * 18 = 41.1 ≈ 41px -->
+    <circle cx="144" cy="338" r="49" fill="none" stroke="#888" stroke-width="1" stroke-dasharray="4,3"/>
+    <circle cx="144" cy="338" r="41" fill="#e8e8e8" stroke="#000" stroke-width="1.5"/>
+    <circle cx="144" cy="338" r="3" fill="#000"/>
+    <text x="144" y="334" text-anchor="middle" font-size="10" font-weight="bold">UPPER MID</text>
+    <text x="144" y="347" text-anchor="middle" font-size="9">SB13PFCR25-08</text>
+    <text x="215" y="325" fill="#000" font-size="8">cutout: 116mm (4.57")</text>
+    <text x="215" y="336" fill="#888" font-size="8">recess: 137mm (5.39")</text>
+
+    <!-- ── DRIVER: TWEETER ── center 24.00" = 864 - 24*18 = 432 (dead center) -->
+    <!-- H2606/9200: ROUND faceplate ∅104mm = 4.09" → r = 4.09/2 * 18 = 36.8 ≈ 37px -->
+    <!-- Round cutout: 72mm = 2.83" → r = 2.83/2 * 18 = 25.5 ≈ 26px -->
+    <!-- ROUND RECESS shown as circle -->
+    <circle cx="144" cy="432" r="37" fill="none" stroke="#888" stroke-width="1" stroke-dasharray="4,3"/>
+    <circle cx="144" cy="432" r="26" fill="#e8e8e8" stroke="#000" stroke-width="1.5"/>
+    <circle cx="144" cy="432" r="3" fill="#000"/>
+    <text x="144" y="428" text-anchor="middle" font-size="10" font-weight="bold">TWEETER</text>
+    <text x="144" y="441" text-anchor="middle" font-size="9">H2606/9200</text>
+    <text x="215" y="411" fill="#000" font-size="8">cutout: 72mm (2.83") round</text>
+    <text x="215" y="422" fill="#888" font-size="8">recess: &empty;104mm (4.09") round</text>
+
+    <!-- ── DRIVER: LOWER MID ── center 18.75" = 864 - 18.75*18 = 526.5 -->
+    <circle cx="144" cy="526" r="49" fill="none" stroke="#888" stroke-width="1" stroke-dasharray="4,3"/>
+    <circle cx="144" cy="526" r="41" fill="#e8e8e8" stroke="#000" stroke-width="1.5"/>
+    <circle cx="144" cy="526" r="3" fill="#000"/>
+    <text x="144" y="522" text-anchor="middle" font-size="10" font-weight="bold">LOWER MID</text>
+    <text x="144" y="535" text-anchor="middle" font-size="9">SB13PFCR25-08</text>
+    <text x="215" y="512" fill="#000" font-size="8">cutout: 116mm (4.57")</text>
+    <text x="215" y="523" fill="#888" font-size="8">recess: 137mm (5.39")</text>
+
+    <!-- ── DRIVER: LOWER WOOFER ── center 12.00" = 864 - 12*18 = 648 -->
+    <circle cx="144" cy="648" r="61" fill="none" stroke="#888" stroke-width="1" stroke-dasharray="4,3"/>
+    <circle cx="144" cy="648" r="53" fill="#e8e8e8" stroke="#000" stroke-width="1.5"/>
+    <circle cx="144" cy="648" r="3" fill="#000"/>
+    <text x="144" y="644" text-anchor="middle" font-size="10" font-weight="bold">LOWER WOOFER</text>
+    <text x="144" y="657" text-anchor="middle" font-size="9">SB17MFC35-8</text>
+    <text x="215" y="635" fill="#000" font-size="8">cutout: 149mm (5.87")</text>
+    <text x="215" y="646" fill="#888" font-size="8">recess: 171mm (6.73")</text>
+
+    <!-- ════════════════════════════════════════════════════════════════ -->
+    <!-- DIMENSION LINES — LEFT SIDE: positions from bottom edge       -->
+    <!-- ════════════════════════════════════════════════════════════════ -->
+
+    <!-- Ticks at each driver center extending left -->
+    <line x1="-8" y1="216" x2="5" y2="216" stroke="#333" stroke-width="1"/>
+    <line x1="-8" y1="338" x2="5" y2="338" stroke="#333" stroke-width="1"/>
+    <line x1="-8" y1="432" x2="5" y2="432" stroke="#333" stroke-width="1"/>
+    <line x1="-8" y1="526" x2="5" y2="526" stroke="#333" stroke-width="1"/>
+    <line x1="-8" y1="648" x2="5" y2="648" stroke="#333" stroke-width="1"/>
+
+    <!-- Bottom reference ticks -->
+    <line x1="-8" y1="864" x2="5" y2="864" stroke="#333" stroke-width="1"/>
+
+    <!-- Vertical guide on left -->
+    <line x1="-5" y1="216" x2="-5" y2="864" stroke="#333" stroke-width="0.5" stroke-dasharray="2,3"/>
+
+    <!-- FROM BOTTOM labels (left side, measuring up from bottom=864) -->
+    <!-- Lower woofer: 12.00" from bottom -->
+    <line x1="-32" y1="648" x2="-32" y2="864" stroke="#333" stroke-width="0.8" marker-start="url(#arrow-up)" marker-end="url(#arrow-down)"/>
+    <text x="-50" y="760" text-anchor="middle" fill="#333" font-size="10" font-weight="bold" transform="rotate(-90,-50,760)">12.00"</text>
+
+    <!-- Lower mid: 18.75" from bottom -->
+    <line x1="-55" y1="526" x2="-55" y2="864" stroke="#333" stroke-width="0.8" marker-start="url(#arrow-up)" marker-end="url(#arrow-down)"/>
+    <text x="-73" y="700" text-anchor="middle" fill="#333" font-size="10" font-weight="bold" transform="rotate(-90,-73,700)">18.75"</text>
+
+    <!-- Tweeter: 24.00" from bottom -->
+    <line x1="-78" y1="432" x2="-78" y2="864" stroke="#333" stroke-width="0.8" marker-start="url(#arrow-up)" marker-end="url(#arrow-down)"/>
+    <text x="-96" y="650" text-anchor="middle" fill="#333" font-size="10" font-weight="bold" transform="rotate(-90,-96,650)">24.00"</text>
+
+    <!-- Upper mid: 29.25" from bottom -->
+    <line x1="-55" y1="338" x2="-55" y2="864" stroke="#333" stroke-width="0.8" marker-start="url(#arrow-up)" marker-end="url(#arrow-down)"/>
+    <text x="-73" y="590" text-anchor="middle" fill="#333" font-size="10" font-weight="bold" transform="rotate(-90,-73,590)">29.25"</text>
+
+    <!-- Upper woofer: 36.00" from bottom -->
+    <line x1="-32" y1="216" x2="-32" y2="864" stroke="#333" stroke-width="0.8" marker-start="url(#arrow-up)" marker-end="url(#arrow-down)"/>
+    <text x="-50" y="545" text-anchor="middle" fill="#333" font-size="10" font-weight="bold" transform="rotate(-90,-50,545)">36.00"</text>
+
+    <!-- ════════════════════════════════════════════════════════════════ -->
+    <!-- DIMENSION LINES — FAR LEFT: offset from center (24.00")       -->
+    <!-- ════════════════════════════════════════════════════════════════ -->
+
+    <!-- Center line at 24.00" = y=432 -->
+    <line x1="-120" y1="432" x2="-108" y2="432" stroke="#c00" stroke-width="1.5"/>
+    <text x="-135" y="436" text-anchor="middle" fill="#c00" font-size="8" font-weight="bold">CTR</text>
+
+    <!-- Upper woofer offset: +12.00" above center -->
+    <line x1="-115" y1="216" x2="-115" y2="432" stroke="#c00" stroke-width="0.8" marker-start="url(#rarrow-up)" marker-end="url(#rarrow-down)"/>
+    <text x="-130" y="330" text-anchor="middle" fill="#c00" font-size="9" font-weight="bold" transform="rotate(-90,-130,330)">+12.00"</text>
+
+    <!-- Upper mid offset: +5.25" above center -->
+    <line x1="-115" y1="338" x2="-115" y2="432" stroke="#c00" stroke-width="0.8" marker-start="url(#rarrow-up)" marker-end="url(#rarrow-down)"/>
+    <text x="-130" y="388" text-anchor="middle" fill="#c00" font-size="9" font-weight="bold" transform="rotate(-90,-130,388)">+5.25"</text>
+
+    <!-- Tweeter: 0.000" -->
+    <text x="-115" y="437" text-anchor="middle" fill="#c00" font-size="9" font-weight="bold">0.000"</text>
+
+    <!-- Lower mid offset: -5.25" below center -->
+    <line x1="-115" y1="432" x2="-115" y2="526" stroke="#c00" stroke-width="0.8" marker-start="url(#rarrow-up)" marker-end="url(#rarrow-down)"/>
+    <text x="-130" y="483" text-anchor="middle" fill="#c00" font-size="9" font-weight="bold" transform="rotate(-90,-130,483)">&minus;5.25"</text>
+
+    <!-- Lower woofer offset: -12.00" below center -->
+    <line x1="-115" y1="432" x2="-115" y2="648" stroke="#c00" stroke-width="0.8" marker-start="url(#rarrow-up)" marker-end="url(#rarrow-down)"/>
+    <text x="-130" y="545" text-anchor="middle" fill="#c00" font-size="9" font-weight="bold" transform="rotate(-90,-130,545)">&minus;12.00"</text>
+
+    <!-- ════════════════════════════════════════════════════════════════ -->
+    <!-- CENTER-TO-CENTER SPACINGS (right of center line)              -->
+    <!-- ════════════════════════════════════════════════════════════════ -->
+
+    <!-- C-to-C markers between adjacent drivers, shown to left of drivers -->
+    <line x1="60" y1="216" x2="60" y2="338" stroke="#06a" stroke-width="0.8" marker-start="url(#arrow-up)" marker-end="url(#arrow-down)"/>
+    <text x="50" y="281" text-anchor="end" fill="#06a" font-size="9" font-weight="bold">6.75"</text>
+
+    <line x1="60" y1="338" x2="60" y2="432" stroke="#06a" stroke-width="0.8" marker-start="url(#arrow-up)" marker-end="url(#arrow-down)"/>
+    <text x="50" y="389" text-anchor="end" fill="#06a" font-size="9" font-weight="bold">5.25"</text>
+
+    <line x1="60" y1="432" x2="60" y2="526" stroke="#06a" stroke-width="0.8" marker-start="url(#arrow-up)" marker-end="url(#arrow-down)"/>
+    <text x="50" y="483" text-anchor="end" fill="#06a" font-size="9" font-weight="bold">5.25"</text>
+
+    <line x1="60" y1="526" x2="60" y2="648" stroke="#06a" stroke-width="0.8" marker-start="url(#arrow-up)" marker-end="url(#arrow-down)"/>
+    <text x="50" y="591" text-anchor="end" fill="#06a" font-size="9" font-weight="bold">6.75"</text>
+
+    <!-- Total driver stack -->
+    <line x1="38" y1="216" x2="38" y2="648" stroke="#06a" stroke-width="0.5" marker-start="url(#arrow-up)" marker-end="url(#arrow-down)"/>
+    <text x="28" y="436" text-anchor="end" fill="#06a" font-size="8" transform="rotate(-90,28,436)">24.00" stack</text>
+
+    <!-- ════════════════════════════════════════════════════════════════ -->
+    <!-- BAFFLE OUTER DIMENSIONS                                        -->
+    <!-- ════════════════════════════════════════════════════════════════ -->
+
+    <!-- Height: right side -->
+    <line x1="301" y1="0" x2="301" y2="864" stroke="#000" stroke-width="1" marker-start="url(#arrow-up)" marker-end="url(#arrow-down)"/>
+    <line x1="291" y1="0" x2="311" y2="0" stroke="#000" stroke-width="1"/>
+    <line x1="291" y1="864" x2="311" y2="864" stroke="#000" stroke-width="1"/>
+    <text x="316" y="436" text-anchor="start" fill="#000" font-size="12" font-weight="bold" transform="rotate(90,316,436)">48.00"</text>
+
+    <!-- Width: bottom -->
+    <line x1="0" y1="886" x2="288" y2="886" stroke="#000" stroke-width="1" marker-start="url(#arrow-left)" marker-end="url(#arrow-right)"/>
+    <line x1="0" y1="876" x2="0" y2="896" stroke="#000" stroke-width="1"/>
+    <line x1="288" y1="876" x2="288" y2="896" stroke="#000" stroke-width="1"/>
+    <text x="144" y="903" text-anchor="middle" fill="#000" font-size="12" font-weight="bold">16.00"</text>
+
+    <!-- Left edge to center -->
+    <line x1="0" y1="920" x2="144" y2="920" stroke="#c00" stroke-width="0.8" marker-start="url(#arrow-left)" marker-end="url(#arrow-right)"/>
+    <text x="72" y="935" text-anchor="middle" fill="#c00" font-size="10" font-weight="bold">8.000" to center</text>
+
+    <!-- Right edge to center -->
+    <line x1="144" y1="920" x2="288" y2="920" stroke="#c00" stroke-width="0.8" marker-start="url(#arrow-left)" marker-end="url(#arrow-right)"/>
+    <text x="216" y="935" text-anchor="middle" fill="#c00" font-size="10" font-weight="bold">8.000" to center</text>
+
+    <!-- Center tick bottom -->
+    <line x1="144" y1="910" x2="144" y2="928" stroke="#c00" stroke-width="1"/>
+
+  </g>
+
+  <!-- ── DIMENSION KEY ── -->
+  <g transform="translate(10, 970)">
+    <text x="0" y="0" font-size="10" font-weight="bold">Dimension Key:</text>
+    <line x1="0" y1="12" x2="30" y2="12" stroke="#333" stroke-width="1"/>
+    <text x="35" y="16" font-size="9">Black = from bottom edge</text>
+    <line x1="0" y1="28" x2="30" y2="28" stroke="#c00" stroke-width="1"/>
+    <text x="35" y="32" font-size="9" fill="#c00">Red = offset from center (24.00")</text>
+    <line x1="0" y1="44" x2="30" y2="44" stroke="#06a" stroke-width="1"/>
+    <text x="35" y="48" font-size="9" fill="#06a">Blue = center-to-center spacing</text>
+    <line x1="240" y1="12" x2="270" y2="12" stroke="#888" stroke-width="1" stroke-dasharray="4,3"/>
+    <text x="275" y="16" font-size="9">Dashed circle = recess outline</text>
+    <line x1="240" y1="28" x2="270" y2="28" stroke="#000" stroke-width="1.5"/>
+    <text x="275" y="32" font-size="9">Solid circle = through-cutout</text>
+    <text x="240" y="48" font-size="9">Horizontal offset from center: <tspan fill="#c00" font-weight="bold">0.000" for ALL drivers</tspan></text>
+  </g>
+</svg>
+
+</div><!-- end page -->
+<div class="page-break"></div>
+
+<!-- ╔══════════════════════════════════════════════════════════════════╗ -->
+<!-- ║  PAGE 3: SIDE CROSS-SECTION & CHAMBER LAYOUT                    ║ -->
+<!-- ╚══════════════════════════════════════════════════════════════════╝ -->
+<div class="page">
+
+<h2>Side Cross-Section &mdash; Depth Stack &amp; Chamber Layout</h2>
+
+<div class="two-col">
+<div>
+
+<h3>Cut Through Center (looking from left side)</h3>
+
+<svg viewBox="0 0 380 600" width="100%" style="max-width:380px;">
+  <!-- Depth scale: 50px/inch, Height scale: 10px/inch -->
+  <!-- Total depth 5.50" = 275px, Box height 46.50" = 465px -->
+
+  <g transform="translate(70, 25)">
+    <!-- ── BAFFLE (front) ── 0.75" = 38px -->
+    <rect x="-38" y="-8" width="38" height="478" fill="#4a90d9" fill-opacity="0.25" stroke="#4a90d9" stroke-width="1.5"/>
+    <text x="-19" y="240" text-anchor="middle" fill="#4a90d9" font-size="9" font-weight="bold" transform="rotate(-90,-19,240)">BAFFLE 3/4"</text>
+
+    <!-- ── BACK PANEL ── 0.50" = 25px, at right -->
+    <rect x="250" y="0" width="25" height="465" fill="#d4a44a" fill-opacity="0.35" stroke="#d4a44a" stroke-width="1.5"/>
+    <text x="262" y="240" text-anchor="middle" fill="#9a7a2a" font-size="9" font-weight="bold" transform="rotate(-90,262,240)">BACK 1/2"</text>
+
+    <!-- ── TOP PANEL ── 0.75" = 38px tall -->
+    <rect x="0" y="0" width="250" height="38" fill="#7ab87a" fill-opacity="0.3" stroke="#7ab87a" stroke-width="1"/>
+    <text x="125" y="24" text-anchor="middle" fill="#3a6a3a" font-size="9" font-weight="bold">TOP 3/4"</text>
+
+    <!-- ── BOTTOM PANEL ── -->
+    <rect x="0" y="427" width="250" height="38" fill="#7ab87a" fill-opacity="0.3" stroke="#7ab87a" stroke-width="1"/>
+    <text x="125" y="451" text-anchor="middle" fill="#3a6a3a" font-size="9" font-weight="bold">BOTTOM 3/4"</text>
+
+    <!-- ── INTERNAL SPACE outline ── -->
+    <rect x="0" y="38" width="250" height="389" fill="none" stroke="#06a" stroke-width="1" stroke-dasharray="3,3"/>
+
+    <!-- ── DIVIDERS ── -->
+    <!-- Div 1 at 14.21" from inside bottom → inside bottom is y=427, so y = 427 - 14.21*8.65 = 427 - 123 = 304 -->
+    <!-- Using height scale: internal 45" = 389px → 8.644px/inch -->
+    <!-- Div 1 center: 14.21" up from y=427 → y = 427 - 14.21*8.644 = 427-123 = 304 -->
+    <rect x="0" y="300" width="250" height="8" fill="#9060b0" fill-opacity="0.5" stroke="#9060b0" stroke-width="1"/>
+    <text x="260" y="307" fill="#9060b0" font-size="8" font-weight="bold">Div 1 (14.21")</text>
+
+    <!-- Div 2: 30.79" up from inside bottom → y = 427 - 30.79*8.644 = 427-266 = 161 -->
+    <rect x="0" y="157" width="250" height="8" fill="#9060b0" fill-opacity="0.5" stroke="#9060b0" stroke-width="1"/>
+    <text x="260" y="164" fill="#9060b0" font-size="8" font-weight="bold">Div 2 (30.79")</text>
+
+    <!-- ── CHAMBER LABELS ── -->
+    <text x="125" y="112" text-anchor="middle" font-size="10" font-weight="bold">UPPER WOOFER</text>
+    <text x="125" y="124" text-anchor="middle" font-size="9">13.96" | 12.9 L</text>
+    <text x="125" y="136" text-anchor="middle" font-size="8" fill="#666" font-style="italic">polyfill</text>
+
+    <text x="125" y="228" text-anchor="middle" font-size="10" font-weight="bold">MID / TWEETER</text>
+    <text x="125" y="240" text-anchor="middle" font-size="9">16.08" | 14.8 L</text>
+    <text x="125" y="252" text-anchor="middle" font-size="8" fill="#666" font-style="italic">acoustic foam</text>
+
+    <text x="125" y="355" text-anchor="middle" font-size="10" font-weight="bold">LOWER WOOFER</text>
+    <text x="125" y="367" text-anchor="middle" font-size="9">13.96" | 12.9 L</text>
+    <text x="125" y="379" text-anchor="middle" font-size="8" fill="#666" font-style="italic">polyfill</text>
+
+    <!-- ── DRIVER DEPTH INDICATOR (in lower woofer) ── -->
+    <rect x="0" y="330" width="22" height="22" fill="#999" fill-opacity="0.3" stroke="#666" stroke-width="1"/>
+    <text x="28" y="342" fill="#666" font-size="7">driver magnet</text>
+    <text x="28" y="352" fill="#666" font-size="7">2.44" deep</text>
+    <line x1="22" y1="358" x2="250" y2="358" stroke="#666" stroke-width="0.5" stroke-dasharray="2,2"/>
+    <text x="140" y="370" text-anchor="middle" fill="#666" font-size="7">1.81" clearance behind</text>
+
+    <!-- ── F-B TIE ── -->
+    <rect x="0" y="265" width="250" height="6" fill="#996633" fill-opacity="0.3" stroke="#996633" stroke-width="1"/>
+    <text x="260" y="272" fill="#996633" font-size="7">F-B tie</text>
+
+    <!-- ── DEPTH DIMENSIONS ── -->
+    <!-- Total depth line -->
+    <line x1="-38" y1="488" x2="275" y2="488" stroke="#000" stroke-width="1" marker-start="url(#arrow-left)" marker-end="url(#arrow-right)"/>
+    <line x1="-38" y1="482" x2="-38" y2="494" stroke="#000" stroke-width="0.8"/>
+    <line x1="275" y1="482" x2="275" y2="494" stroke="#000" stroke-width="0.8"/>
+    <text x="118" y="502" text-anchor="middle" font-size="10" font-weight="bold">5.50" total depth</text>
+
+    <!-- Internal depth -->
+    <line x1="0" y1="510" x2="250" y2="510" stroke="#06a" stroke-width="0.8" marker-start="url(#arrow-left)" marker-end="url(#arrow-right)"/>
+    <text x="125" y="523" text-anchor="middle" fill="#06a" font-size="9">4.25" internal</text>
+
+    <!-- Depth breakdown labels -->
+    <text x="-19" y="540" text-anchor="middle" font-size="8">0.75"</text>
+    <text x="125" y="540" text-anchor="middle" font-size="8">4.25"</text>
+    <text x="262" y="540" text-anchor="middle" font-size="8">0.50"</text>
+
+    <!-- ── HEIGHT DIMENSIONS ── -->
+    <!-- Box height (right side) -->
+    <line x1="290" y1="0" x2="290" y2="465" stroke="#000" stroke-width="1" marker-start="url(#arrow-up)" marker-end="url(#arrow-down)"/>
+    <line x1="282" y1="0" x2="298" y2="0" stroke="#000" stroke-width="0.8"/>
+    <line x1="282" y1="465" x2="298" y2="465" stroke="#000" stroke-width="0.8"/>
+    <text x="302" y="236" text-anchor="start" font-size="9" font-weight="bold" transform="rotate(90,302,236)">46.50" box</text>
+
+    <!-- Baffle height (far left) -->
+    <line x1="-52" y1="-8" x2="-52" y2="472" stroke="#4a90d9" stroke-width="1" marker-start="url(#arrow-up)" marker-end="url(#arrow-down)"/>
+    <text x="-62" y="236" text-anchor="middle" fill="#4a90d9" font-size="9" font-weight="bold" transform="rotate(-90,-62,236)">48.00" baffle</text>
+  </g>
+</svg>
+
+</div>
+<div>
+
+<h3>Panel Lapping &mdash; Top View</h3>
+
+<svg viewBox="0 0 310 230" width="100%" style="max-width:310px;">
+  <g transform="translate(10, 15)">
+    <!-- Baffle: 16.00" wide, 0.75" deep → drawn 240×15 -->
+    <rect x="0" y="0" width="240" height="15" fill="#4a90d9" fill-opacity="0.25" stroke="#4a90d9" stroke-width="1.5"/>
+    <text x="120" y="12" text-anchor="middle" fill="#4a90d9" font-size="8" font-weight="bold">BAFFLE 3/4"</text>
+
+    <!-- Box starts 0.875" (13px) in from each side -->
+    <!-- Back panel: 14.25" = 214px wide, 0.50" = 7px deep -->
+    <rect x="13" y="80" width="214" height="7" fill="#d4a44a" fill-opacity="0.35" stroke="#d4a44a" stroke-width="1"/>
+    <text x="120" y="78" text-anchor="middle" fill="#9a7a2a" font-size="7">BACK 1/2"</text>
+
+    <!-- Side panels: 0.50" = 7px wide -->
+    <rect x="13" y="15" width="7" height="65" fill="#c47a7a" fill-opacity="0.4" stroke="#c47a7a" stroke-width="1"/>
+    <text x="17" y="50" text-anchor="middle" fill="#a55" font-size="6" transform="rotate(-90,17,50)">SIDE 1/2"</text>
+
+    <rect x="220" y="15" width="7" height="65" fill="#c47a7a" fill-opacity="0.4" stroke="#c47a7a" stroke-width="1"/>
+    <text x="224" y="50" text-anchor="middle" fill="#a55" font-size="6" transform="rotate(-90,224,50)">SIDE 1/2"</text>
+
+    <!-- Internal space -->
+    <rect x="20" y="15" width="200" height="65" fill="none" stroke="#06a" stroke-width="0.7" stroke-dasharray="2,2"/>
+    <text x="120" y="52" text-anchor="middle" fill="#06a" font-size="8">13.25" &times; 4.25"</text>
+
+    <!-- Dimensions -->
+    <line x1="0" y1="100" x2="240" y2="100" stroke="#000" stroke-width="0.8"/>
+    <text x="120" y="112" text-anchor="middle" font-size="8" font-weight="bold">16.00" baffle</text>
+    <line x1="13" y1="120" x2="227" y2="120" stroke="#666" stroke-width="0.5"/>
+    <text x="120" y="132" text-anchor="middle" font-size="8">14.25" box</text>
+
+    <!-- Depth dimension -->
+    <line x1="250" y1="0" x2="250" y2="87" stroke="#000" stroke-width="0.8"/>
+    <line x1="245" y1="0" x2="255" y2="0" stroke="#000" stroke-width="0.5"/>
+    <line x1="245" y1="87" x2="255" y2="87" stroke="#000" stroke-width="0.5"/>
+    <text x="262" y="48" font-size="8" font-weight="bold" transform="rotate(90,262,48)">5.50"</text>
+
+    <!-- Overhang labels -->
+    <text x="7" y="145" text-anchor="middle" font-size="7">0.875"</text>
+    <text x="233" y="145" text-anchor="middle" font-size="7">0.875"</text>
+
+    <!-- Panel stack diagram -->
+    <text x="120" y="165" text-anchor="middle" font-size="9" font-weight="bold">Depth Breakdown:</text>
+    <text x="120" y="178" text-anchor="middle" font-size="8">0.75" baffle + 4.25" internal + 0.50" back = 5.50"</text>
+
+    <text x="120" y="198" text-anchor="middle" font-size="9" font-weight="bold">Side Panel Depth = 4.75"</text>
+    <text x="120" y="211" text-anchor="middle" font-size="8">(4.25" internal + 0.50" back panel)</text>
+  </g>
+</svg>
+
+<h3>Front View &mdash; Panel Lapping</h3>
+
+<svg viewBox="0 0 310 340" width="100%" style="max-width:310px;">
+  <g transform="translate(35, 15)">
+    <!-- Baffle outline: 16" W × 48" H → 240 × 288 (scale: 15px/in × 6px/in) -->
+    <rect x="0" y="0" width="240" height="288" fill="#4a90d9" fill-opacity="0.08" stroke="#4a90d9" stroke-width="1.5"/>
+
+    <!-- Box outline (behind baffle) -->
+    <rect x="13" y="5" width="214" height="279" fill="none" stroke="#666" stroke-width="1" stroke-dasharray="2,2"/>
+
+    <!-- Top panel 3/4" -->
+    <rect x="13" y="5" width="214" height="8" fill="#7ab87a" fill-opacity="0.4" stroke="#7ab87a" stroke-width="1"/>
+    <text x="120" y="12" text-anchor="middle" font-size="6" fill="#3a6a3a">TOP 3/4"</text>
+
+    <!-- Bottom panel 3/4" -->
+    <rect x="13" y="276" width="214" height="8" fill="#7ab87a" fill-opacity="0.4" stroke="#7ab87a" stroke-width="1"/>
+    <text x="120" y="283" text-anchor="middle" font-size="6" fill="#3a6a3a">BOTTOM 3/4"</text>
+
+    <!-- Side panels (between top/bottom) -->
+    <rect x="13" y="13" width="5" height="263" fill="#c47a7a" fill-opacity="0.4" stroke="#c47a7a" stroke-width="0.8"/>
+    <rect x="222" y="13" width="5" height="263" fill="#c47a7a" fill-opacity="0.4" stroke="#c47a7a" stroke-width="0.8"/>
+
+    <!-- Internal space -->
+    <rect x="18" y="13" width="204" height="263" fill="none" stroke="#06a" stroke-width="0.5" stroke-dasharray="2,2"/>
+    <text x="120" y="148" text-anchor="middle" fill="#06a" font-size="7">13.25" W &times; 45.00" H</text>
+
+    <!-- Height labels -->
+    <line x1="250" y1="0" x2="250" y2="288" stroke="#4a90d9" stroke-width="0.8"/>
+    <text x="262" y="148" text-anchor="start" fill="#4a90d9" font-size="8" font-weight="bold" transform="rotate(90,262,148)">48.00" baffle</text>
+
+    <line x1="235" y1="5" x2="235" y2="284" stroke="#666" stroke-width="0.5"/>
+    <text x="240" y="148" text-anchor="start" fill="#666" font-size="7" transform="rotate(90,240,148)">46.50" box</text>
+
+    <!-- Width labels -->
+    <text x="120" y="304" text-anchor="middle" font-size="8">Sides fit BETWEEN top &amp; bottom panels</text>
+    <text x="120" y="316" text-anchor="middle" font-size="8">Side height: 46.50" &minus; 2(0.75") = <tspan font-weight="bold">45.00"</tspan></text>
+  </g>
+</svg>
+
+</div>
+</div>
+
+</div><!-- end page -->
+<div class="page-break"></div>
+
+<!-- ╔══════════════════════════════════════════════════════════════════╗ -->
+<!-- ║  PAGE 4: ASSEMBLY SEQUENCE & NOTES                              ║ -->
+<!-- ╚══════════════════════════════════════════════════════════════════╝ -->
+<div class="page">
+
+<h2>Assembly Sequence</h2>
+
+<svg viewBox="0 0 660 240" width="100%" style="max-width:660px; display:block; margin:0 auto;">
+  <!-- Step 1: Back + Bottom -->
+  <g transform="translate(10, 28)">
+    <text x="55" y="-8" text-anchor="middle" font-size="11" font-weight="bold">Step 1</text>
+    <rect x="10" y="0" width="90" height="160" fill="#d4a44a" fill-opacity="0.35" stroke="#d4a44a" stroke-width="1.5"/>
+    <rect x="10" y="147" width="90" height="13" fill="#7ab87a" fill-opacity="0.5" stroke="#7ab87a" stroke-width="1"/>
+    <text x="55" y="80" text-anchor="middle" font-size="9">Back</text>
+    <text x="55" y="158" text-anchor="middle" font-size="7">Bottom</text>
+    <text x="55" y="186" text-anchor="middle" font-size="9">Back + Bottom</text>
+  </g>
+
+  <text x="125" y="110" fill="#333" font-size="18">&rarr;</text>
+
+  <!-- Step 2: + Sides -->
+  <g transform="translate(140, 28)">
+    <text x="55" y="-8" text-anchor="middle" font-size="11" font-weight="bold">Step 2</text>
+    <rect x="10" y="0" width="90" height="160" fill="#d4a44a" fill-opacity="0.15" stroke="#ccc" stroke-width="0.5"/>
+    <rect x="10" y="0" width="7" height="147" fill="#c47a7a" fill-opacity="0.5" stroke="#c47a7a" stroke-width="1"/>
+    <rect x="93" y="0" width="7" height="147" fill="#c47a7a" fill-opacity="0.5" stroke="#c47a7a" stroke-width="1"/>
+    <rect x="10" y="147" width="90" height="13" fill="#7ab87a" fill-opacity="0.2" stroke="#ccc" stroke-width="0.5"/>
+    <text x="55" y="186" text-anchor="middle" font-size="9">+ Sides</text>
+  </g>
+
+  <text x="255" y="110" fill="#333" font-size="18">&rarr;</text>
+
+  <!-- Step 3: + Dividers + Top -->
+  <g transform="translate(270, 28)">
+    <text x="55" y="-8" text-anchor="middle" font-size="11" font-weight="bold">Step 3&ndash;4</text>
+    <rect x="10" y="0" width="90" height="160" fill="#fff" stroke="#ccc" stroke-width="0.5"/>
+    <rect x="10" y="0" width="90" height="13" fill="#7ab87a" fill-opacity="0.5" stroke="#7ab87a" stroke-width="1"/>
+    <line x1="17" y1="50" x2="93" y2="50" stroke="#9060b0" stroke-width="3"/>
+    <line x1="17" y1="100" x2="93" y2="100" stroke="#9060b0" stroke-width="3"/>
+    <text x="55" y="186" text-anchor="middle" font-size="9">+ Dividers + Top</text>
+    <text x="55" y="199" text-anchor="middle" font-size="7" fill="#c00">wire through divs first!</text>
+  </g>
+
+  <text x="385" y="110" fill="#333" font-size="18">&rarr;</text>
+
+  <!-- Step 5: Stuff + Seal -->
+  <g transform="translate(400, 28)">
+    <text x="55" y="-8" text-anchor="middle" font-size="11" font-weight="bold">Step 5</text>
+    <rect x="10" y="0" width="90" height="160" fill="#f5f5e8" stroke="#999" stroke-width="1"/>
+    <text x="55" y="40" text-anchor="middle" font-size="8" fill="#666" font-style="italic">polyfill</text>
+    <text x="55" y="80" text-anchor="middle" font-size="8" fill="#484" font-style="italic">foam</text>
+    <text x="55" y="130" text-anchor="middle" font-size="8" fill="#666" font-style="italic">polyfill</text>
+    <text x="55" y="186" text-anchor="middle" font-size="9">Seal + Stuff + Wire</text>
+  </g>
+
+  <text x="515" y="110" fill="#333" font-size="18">&rarr;</text>
+
+  <!-- Step 6: Baffle -->
+  <g transform="translate(530, 22)">
+    <text x="55" y="-2" text-anchor="middle" font-size="11" font-weight="bold">Step 6</text>
+    <rect x="10" y="6" width="90" height="170" fill="#f5f5f5" stroke="#999" stroke-width="0.5"/>
+    <rect x="7" y="4" width="6" height="174" fill="#4a90d9" fill-opacity="0.5" stroke="#4a90d9" stroke-width="1.5"/>
+    <!-- Drivers -->
+    <circle cx="55" cy="42" r="12" fill="#e0e0e0" stroke="#666" stroke-width="1"/>
+    <circle cx="55" cy="68" r="9" fill="#e0e0e0" stroke="#666" stroke-width="1"/>
+    <circle cx="55" cy="91" r="6" fill="#e0e0e0" stroke="#666" stroke-width="1"/>
+    <circle cx="55" cy="114" r="9" fill="#e0e0e0" stroke="#666" stroke-width="1"/>
+    <circle cx="55" cy="142" r="12" fill="#e0e0e0" stroke="#666" stroke-width="1"/>
+    <text x="55" y="192" text-anchor="middle" font-size="9">Glue Baffle</text>
+    <text x="55" y="205" text-anchor="middle" font-size="7">+ Mount Drivers</text>
+    <text x="55" y="222" text-anchor="middle" font-size="8" font-weight="bold" fill="#c00">POINT OF NO RETURN</text>
+  </g>
+</svg>
+
+<h2>Assembly Notes</h2>
+
+<div class="two-col">
+<div>
+<h3>Build Order (detail)</h3>
+<ol style="font-size:11px; padding-left:18px;">
+  <li>Lay back panel flat (14.25" &times; 46.50" &times; 1/2")</li>
+  <li>Glue bottom panel perpendicular at bottom edge. Brad nail every 4&ndash;6".</li>
+  <li>Glue both side panels against back, resting ON TOP of bottom panel. Sides sit 0.50" in from each edge.</li>
+  <li>Glue back panel battens at center of each woofer chamber.</li>
+  <li><strong style="color:#c00">Thread woofer cables through divider holes BEFORE gluing dividers.</strong></li>
+  <li>Glue Divider 1 at <strong>14.21"</strong> from inside bottom.</li>
+  <li>Glue Divider 2 at <strong>30.79"</strong> from inside bottom.</li>
+  <li>Glue top panel, flush with back.</li>
+  <li>Cure 24 hours.</li>
+  <li>Seal all joints (PL Premium fillet or silicone bead).</li>
+  <li>Install 6&times; front-to-back ties (3/4" &times; 3/4" &times; 4.25").</li>
+  <li>Stuff woofer chambers with polyfill (~50%).</li>
+  <li>Line mid/tweeter chamber with 1" acoustic foam.</li>
+  <li>Route all driver cables.</li>
+  <li>Verify: all joints sealed, bracing cured, stuffing in place, cables routed, nothing loose.</li>
+  <li>Glue baffle onto front edges. Brad nail perimeter + divider edges.</li>
+  <li>Cure 24 hours.</li>
+  <li>Mount drivers with M4 screws into T-nuts (foam gasket tape under flanges).</li>
+</ol>
+</div>
+<div>
+<h3>Baffle Routing Operations</h3>
+<table>
+<tr><th>Operation</th><th>Details</th></tr>
+<tr><td>1. Perimeter rabbet</td><td>Back face, 1/4" deep &times; 1" wide, all four edges</td></tr>
+<tr><td>2. Driver cutouts</td><td>5&times; through-holes (see diameters on Page 2)</td></tr>
+<tr><td>3. Flush-mount recesses</td><td>5&times; shallow pockets on front face, ~3mm deep at frame OD</td></tr>
+<tr><td>4. T-nut holes</td><td>4&times; per driver (20 total), drill through, press T-nuts into back</td></tr>
+</table>
+
+<h3>Driver Cutout Quick-Reference</h3>
+<table>
+<tr><th>Driver</th><th>From Bottom</th><th>Offset from CTR</th><th>Cutout</th><th>Recess</th></tr>
+<tr><td>Upper woofer</td><td><strong>36.00"</strong></td><td>+12.00"</td><td>5.87" round</td><td>6.73" round</td></tr>
+<tr><td>Upper mid</td><td><strong>29.25"</strong></td><td>+5.25"</td><td>4.57" round</td><td>5.39" round</td></tr>
+<tr><td>Tweeter</td><td><strong>24.00"</strong></td><td>0.000"</td><td>2.83" round</td><td>4.09" round</td></tr>
+<tr><td>Lower mid</td><td><strong>18.75"</strong></td><td>&minus;5.25"</td><td>4.57" round</td><td>5.39" round</td></tr>
+<tr><td>Lower woofer</td><td><strong>12.00"</strong></td><td>&minus;12.00"</td><td>5.87" round</td><td>6.73" round</td></tr>
+</table>
+
+<div class="note-box">
+<strong>Tweeter shape note:</strong> The H2606/9200 has a <strong>round</strong> faceplate (&empty;104 mm). Route a round recess pocket. The through-hole cutout is round (72mm).
+</div>
+
+<h3>Critical Reminders</h3>
+<ul style="font-size:11px; padding-left:16px;">
+  <li>Press T-nuts into baffle back face <strong>before</strong> gluing baffle to box</li>
+  <li>All internal work must be done before baffle goes on</li>
+  <li>Build one speaker first as a reference</li>
+  <li>Use 1/2" cable holes in dividers (not 3/8")</li>
+  <li>Seal divider cable holes with silicone after threading wires</li>
+</ul>
+</div>
+</div>
+
+<h2>Materials Checklist</h2>
+
+<div class="two-col">
+<div>
+<table>
+<tr><th>Item</th><th>Per Speaker</th><th>For 3</th></tr>
+<tr><td>3/4" MDF (4&times;8)</td><td>~0.4 sheet</td><td>1.5 sheets</td></tr>
+<tr><td>1/2" MDF (4&times;8)</td><td>~0.4 sheet</td><td>1.5 sheets</td></tr>
+<tr><td>PL Premium</td><td>~1/2 tube</td><td>2 tubes</td></tr>
+<tr><td>18ga brads (1.5" + 1")</td><td>~100</td><td>1 box each</td></tr>
+<tr><td>Silicone caulk</td><td>&mdash;</td><td>1 tube</td></tr>
+</table>
+</div>
+<div>
+<table>
+<tr><th>Item</th><th>Per Speaker</th><th>For 3</th></tr>
+<tr><td>M4 T-nuts</td><td>20</td><td>60+</td></tr>
+<tr><td>Foam gasket tape</td><td>1 roll</td><td>3 rolls</td></tr>
+<tr><td>Polyfill (12 oz bags)</td><td>2 bags</td><td>6 bags</td></tr>
+<tr><td>Acoustic foam (1" sheets)</td><td>~2 sq ft</td><td>~6 sq ft</td></tr>
+<tr><td>Spray adhesive</td><td>&mdash;</td><td>1 can</td></tr>
+</table>
+</div>
+</div>
+
+<div class="note-box" style="margin-top:15px; text-align:center;">
+<strong>WMTMW In-Wall Speaker Shop Drawings</strong> &bull; March 2026 &bull; Verify all driver dimensions against actual hardware before cutting baffle holes.
+</div>
+
+</div><!-- end page -->
+
+</body>
+</html>
