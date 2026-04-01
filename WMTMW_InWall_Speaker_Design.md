@@ -1405,8 +1405,21 @@ Step 9 ─── Drill cable exit holes in top panel:
 Step 10 ── Dry-assemble box (no glue) — verify all panels align squarely
 Step 11 ── Test-fit drivers in baffle — confirm cutouts and screw holes
 Step 12 ── Verify divider positions: 14.96" and 31.54" from bottom (inside)
-Step 13 ── Mark divider positions on side panels with pencil
+Step 13 ── Mark divider SLOT LINES on side panels (both bottom and top of
+           each divider, not just center):
+             Divider 1: 14.71" (bottom surface) and 15.21" (top surface)
+             Divider 2: 31.29" (bottom surface) and 31.79" (top surface)
+           Mark on both side panels while they are still accessible.
+           Drop the divider into this slot during assembly — rest it on the
+           lower line, confirm it seats flush against the back panel face.
+Step 13b── Dry-fit each divider: confirm it sits flush with the back panel
+           face. Any gap will create an air leak between chambers. Check
+           with finger and straight edge from open top and front. Fix fit.
 Step 14 ── Mark bracing positions (front-to-back tie locations, batten positions)
+Step 14b── Cut cardboard template of baffle hole pattern. Test-fit against
+           box opening to confirm F-B tie positions clear all driver cutouts
+           by ≥1" before installing ties. Mid/tweeter chamber gap is tight —
+           verify each tie position visually with the template.
 ```
 
 ### Phase 4: Glue Box (without front baffle)
@@ -1418,15 +1431,33 @@ Step 14 ── Mark bracing positions (front-to-back tie locations, batten posit
     The box is assembled as an open-front box first. The front baffle goes
     on LAST after all internal work (wiring, bracing, stuffing) is complete.
 
-Step 15 ── Apply PL Premium bead to joint, press back panel to bottom panel
+Step 15 ── BEFORE assembling the box, glue back panel battens to the back
+           panel while it is still flat and fully accessible:
+           • Position battens at the vertical midpoint of each woofer chamber
+             (~7.35" above/below the divider lines marked in step 13)
+           • Apply PL Premium, press in place
+           • Shoot 1" brads through the back panel FACE (outside) into each
+             batten end-grain to lock position during cure
+           This is far easier than reaching into a 13.25" × 4.25" box.
+
+Step 16 ── Apply PL Premium bead to joint, press back panel to bottom panel
            Shoot 1.5" 18ga brads every 4-6" to lock alignment
-Step 16 ── Glue both side panels to back + bottom
-Step 17 ── Glue back panel battens inside each woofer chamber area
-           (center of each woofer section, flat against back panel)
-Step 18 ── Install divider 1: glue at 14.96" from bottom (inside)
+
+Step 17 ── Glue both side panels to back + bottom
+           *** SQUARENESS CHECK: before shooting brads, measure both
+           diagonals (corner to corner) of the open box. They must be equal.
+           Rack the assembly on a flat surface until diagonals match, then
+           nail. A racked box cannot be fixed after cure. ***
+
+Step 18 ── Install divider 1: rest on lower slot line (14.71" from bottom)
            *** Run woofer cable through divider hole BEFORE gluing ***
-Step 19 ── Install divider 2: glue at 31.54" from bottom (inside)
+           Glue, press flush to back panel, brad through sides into divider edges.
+           Seal cable hole with silicone.
+
+Step 19 ── Install divider 2: rest on lower slot line (31.29" from bottom)
            *** Run woofer cable through divider hole BEFORE gluing ***
+           Same process.
+
 Step 20 ── Glue top panel to sides + back
 Step 21 ── Let cure 24 hours
 ```
@@ -1443,8 +1474,13 @@ Step 23 ── Seal wire pass-throughs in dividers with silicone (around wires)
 Step 24 ── Install front-to-back ties:
            • 2× in each woofer chamber (flanking driver cutout positions)
            • 2× in mid/tweeter chamber (in gaps between driver positions)
-           • Glue one end to back panel, leave front end flush with box
-             edge — the baffle will glue to these when applied
+           • Verify positions against cardboard template (Step 14b) — each
+             tie must clear all driver cutouts by ≥1". Mid/tweeter gap is
+             tight; measure before committing.
+           • Glue front face flush with box opening, back end against back panel
+           • Shoot 1" brads through back panel FACE (outside) into each tie
+             end-grain to lock alignment during cure
+           — the baffle will glue to the front faces when applied
            
 Step 25 ── Woofer chambers: stuff with polyfill (~50% fill, ~12 oz each)
            Pull apart into fluffy clouds, distribute evenly, don't pack
@@ -1480,10 +1516,20 @@ Step 28 ── VERIFY everything is in place:
 ```
     *** POINT OF NO RETURN — interior is permanently sealed ***
 
+Step 28b── Pre-mark divider positions on the FRONT FACE of the baffle before
+           spreading any glue. Transfer the slot positions from the side panel
+           marks (use a square off the baffle side edges):
+             Divider 1 top surface: 15.21" from baffle bottom → draw line
+             Divider 2 top surface: 31.79" from baffle bottom → draw line
+           These are your blind brad lines — once PL is spread you cannot
+           see the divider edges. Shooting brads blind into a 1/2" edge over
+           a 48" span is how brads miss; pre-marking eliminates the guesswork.
+
 Step 29 ── Apply PL Premium to the front edges of: side panels, top panel,
            bottom panel, both dividers, and all front-to-back tie ends
 Step 30 ── Press front baffle onto box, align carefully
-           Shoot 1.5" 18ga brads around the full perimeter + at divider edges
+           Shoot 1.5" 18ga brads along the pre-marked divider lines + around
+           the full perimeter
            Ensure divider edges and tie ends make contact with the baffle
 Step 31 ── Let cure 24 hours
 
