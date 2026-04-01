@@ -66,7 +66,7 @@ Sensitivity:    ~87–88 dB (2.83V / 1m, in-wall half-space)
                               ┌─── Room side
                               │
     Drywall (removed):        │  0.50"   ← Speaker baffle sits here (flush)
-    Front baffle (3/4" MDF):  │  0.75"   ← Perimeter rabbeted to 1/2" at edges
+    Front baffle (3/4" MDF):  │  0.75"   ← Rabbeted to 1/2" at L/R edges only
                               │            (flush with drywall; full 3/4" at center)
     Internal depth:           │  4.25"   ← Driver + air space + polyfill
     Back panel (1/2" MDF):    │  0.50"
@@ -95,10 +95,10 @@ Sensitivity:    ~87–88 dB (2.83V / 1m, in-wall half-space)
 ### Height
 
 ```
-    Enclosure height:          46.50"
+    Enclosure height:          48.00" (flush with baffle, no T/B overhang)
     Driver stack (C-to-C):     24.00" (bottom woofer to top woofer)
     Frame extent:              30.74" (bottom woofer frame to top woofer frame)
-    Cap space (top & bottom):   7.89" each — provides woofer volume
+    Cap space (top & bottom):   8.64" each — provides woofer volume
 ```
 
 **Verdict: The in-wall design is fully feasible in a standard 2×6 wall.**
@@ -457,26 +457,27 @@ preserving sensitivity.
 ```
     ┌──────────────────────────────────────────────────────────┐
     │                                                          │
-    │   Box External:    14.25" W  ×  5.50" D  ×  46.50" H    │
+    │   Box External:    14.25" W  ×  5.50" D  ×  48.00" H    │
     │   Front Baffle:    16.00" W  ×  48.00" H  ×  0.75" D    │
     │                                                          │
     │   Box Width:   14.25"  (fits between studs)              │
-    │   Baffle Width:16.00"  (3/4" overlap onto each stud)     │
+    │   Baffle Width:16.00"  (0.875" overlap onto each stud)   │
     │   Depth:        5.50"  (full 2×6 stud cavity)            │
-    │   Box Height:  46.50"                          │
-    │   Baffle Height:  48.00" (3/4" overlap onto cross studs)   │
+    │   Box Height:  48.00"  (flush with baffle, no T/B overhang) │
+    │   Baffle Height:  48.00"                                   │
     │                                                          │
     └──────────────────────────────────────────────────────────┘
 ```
 
-**Baffle mounting:** The 3/4" MDF baffle has a 1/4"-deep perimeter rabbet on
-its back face, reducing the overhang edges to 1/2" thick — the same thickness
-as standard drywall. This makes the baffle face flush with the wall surface.
-The full 3/4" thickness is maintained in the center for strong driver mounting.
-The baffle extends 0.875" past each side of the box to overlap the stud faces
-by 3/4". The remaining 3/4" of each stud face holds the drywall. Screws through
-the baffle flanges into the studs provide the primary mounting (#8 × 2"
-pan-head coarse-thread wood screws, 7/64" pilot holes, ~6" spacing).
+**Baffle mounting:** The 3/4" MDF baffle has a 1/4"-deep rabbet on its back
+face on the left and right edges only, reducing those flanges to 1/2" thick —
+the same thickness as standard drywall. This makes the baffle face flush with
+the wall surface at the sides. The full 3/4" thickness is maintained in the
+center for strong driver mounting. No rabbet on top/bottom — the box is flush
+with the baffle at those edges (no overhang). The baffle extends 0.875" past
+each side of the box to overlap the stud faces. Screws through the baffle
+flanges into the studs provide the primary mounting (#8 × 2" pan-head
+coarse-thread wood screws, 7/64" pilot holes, ~6" spacing).
 A horizontal cross stud at the bottom supports the enclosure weight.
 
 Driver flanges are flush-mounted into ~3mm (1/8") shallow recesses routed into
@@ -494,11 +495,11 @@ enclosure (24" from bottom), the bottom of the box should be at ~14" from floor.
 
 | Element          | Material | Thickness | Notes                                           |
 |------------------|----------|-----------|--------------------------------------------------|
-| Front baffle     | MDF      | 3/4"      | Perimeter rabbeted to 1/2" at edges; driver recesses on front |
+| Front baffle     | MDF      | 3/4"      | Rabbeted to 1/2" at L/R edges only; driver recesses on front |
 | Back panel       | MDF      | 1/2"      | Sealed, screwed + glued                          |
 | Side panels      | MDF      | 1/2"      | Line the stud cavity; short span (~4.75") = stiff at 1/2" |
-| Top panel        | MDF      | 3/4"      | Sealed                                           |
-| Bottom panel     | MDF      | 3/4"      | Sealed                                           |
+| Top panel        | MDF      | 3/4"      | Sealed; flush with baffle top                    |
+| Bottom panel     | MDF      | 3/4"      | Sealed; flush with baffle bottom                 |
 | Internal dividers| MDF      | 1/2"      | Horizontal shelves separating chambers           |
 | Internal braces  | MDF      | 3/4"      | Horizontal battens, front-to-back ties           |
 
@@ -519,7 +520,7 @@ are the only components accessible after assembly (they remove through the front
 
 The 3/4" baffle has two types of routed features:
 
-**1. Perimeter rabbet (back face) — flush wall interface:**
+**1. Side rabbet (back face) — flush wall interface:**
 ```
     CROSS-SECTION (horizontal cut through baffle at stud):
 
@@ -534,12 +535,14 @@ The 3/4" baffle has two types of routed features:
     On stud      On stud               Box sides butt here
     face         face                  (full 3/4" thickness)
 ```
-- Location: back face of baffle, all four edges
-- Width: 1" from each edge (covers 7/8" side overhang + 3/4" top/bottom overhang)
+- Location: back face of baffle, **left and right edges only** (no top/bottom)
+- Width: 1" from each side edge (covers 7/8" side overhang)
 - Depth: 1/4" (leaves 1/2" at edges = drywall thickness)
 - Tool: router table + 1" straight bit + fence, or handheld router + edge guide
 - The rabbet extends slightly past the stud overhang into the box footprint;
-  the box sides/top/bottom cover it when glued
+  the box sides cover it when glued
+- Top/bottom: no rabbet needed — box is flush with baffle at those edges
+  (no stud overlap, no structural or flush-mounting requirement)
 
 **2. Driver recesses (front face) — flush driver mounting:**
 - Location: front face of baffle, centered on each driver cutout
@@ -552,11 +555,11 @@ The 3/4" baffle has two types of routed features:
 ### 9.3 Internal Dimensions
 
 ```
-    Internal:  13.25" W  ×  4.25" D  ×  45.00" H
+    Internal:  13.25" W  ×  4.25" D  ×  46.50" H
 
     Width:   14.25" - 2(0.50") = 13.25"
     Depth:    5.50" - 0.75" - 0.50" =  4.25"  (3/4" baffle + 1/2" back)
-    Height:  46.50" - 2(0.75") = 45.00"
+    Height:  48.00" - 2(0.75") = 46.50"
 
     Cross-section area:  13.25" × 4.25" = 56.31 sq in
 ```
@@ -593,14 +596,14 @@ baffle. The tweeter is at the vertical center of the enclosure.
 ```
     Driver positions measured from BOTTOM of baffle (0" = bottom edge):
 
-    ┌──────────────────────────────┐ ← 46.50" (top of enclosure)
+    ┌──────────────────────────────┐ ← 48.00" (top of enclosure/baffle)
     │                              │
     │                              │
     │     ┌────────────────┐       │
     │     │   6.5" WOOFER  │       │ ← center at 36.00"
     │     │  SB17MFC35-8   │       │   frame: 31.88" to 38.62"
     │     └────────────────┘       │
-    │    ═══════════════════════   │ ← DIVIDER 2 at ~30.79"
+    │    ═══════════════════════   │ ← DIVIDER 2 at ~31.54"
     │       ┌────────────┐         │
     │       │ 5" MIDRANGE│         │ ← center at 29.25"
     │       │ SB13PFCR25 │         │   frame: 25.80" to 31.20"
@@ -613,14 +616,14 @@ baffle. The tweeter is at the vertical center of the enclosure.
     │       │ 5" MIDRANGE│         │ ← center at 18.75"
     │       │ SB13PFCR25 │         │   frame: 15.30" to 20.70"
     │       └────────────┘         │
-    │    ═══════════════════════   │ ← DIVIDER 1 at ~14.21"
+    │    ═══════════════════════   │ ← DIVIDER 1 at ~14.96"
     │     ┌────────────────┐       │
     │     │   6.5" WOOFER  │       │ ← center at 12.00"
     │     │  SB17MFC35-8   │       │   frame: 7.88" to 14.62"
     │     └────────────────┘       │
     │                              │
     │                              │
-    └──────────────────────────────┘ ← 0" (bottom of enclosure)
+    └──────────────────────────────┘ ← 0" (bottom of enclosure/baffle)
 
               ← 14.25" →
 ```
@@ -632,12 +635,12 @@ Two 1/2" MDF horizontal dividers create three sealed chambers:
 ```
     ┌──────────────────────────────┐
     │                              │
-    │     UPPER WOOFER CHAMBER     │  13.96" tall
-    │     (sealed, polyfill)       │  12.9 L  (0.46 ft³)
+    │     UPPER WOOFER CHAMBER     │  14.71" tall
+    │     (sealed, polyfill)       │  13.6 L  (0.48 ft³)
     │                              │
     │     [====WOOFER====]         │  ← SB17MFC35-8
     │                              │
-    ├══════════════════════════════┤  ← Divider 2 (1/2" MDF) at 30.79"
+    ├══════════════════════════════┤  ← Divider 2 (1/2" MDF) at 31.54"
     │                              │
     │     [====MID====]            │  ← SB13PFCR25-08
     │                              │
@@ -649,12 +652,12 @@ Two 1/2" MDF horizontal dividers create three sealed chambers:
     │                              │
     │     [====MID====]            │  ← SB13PFCR25-08
     │                              │
-    ├══════════════════════════════┤  ← Divider 1 (1/2" MDF) at 14.21"
+    ├══════════════════════════════┤  ← Divider 1 (1/2" MDF) at 14.96"
     │                              │
     │     [====WOOFER====]         │  ← SB17MFC35-8
     │                              │
-    │     LOWER WOOFER CHAMBER     │  13.96" tall
-    │     (sealed, polyfill)       │  12.9 L  (0.46 ft³)
+    │     LOWER WOOFER CHAMBER     │  14.71" tall
+    │     (sealed, polyfill)       │  13.6 L  (0.48 ft³)
     │                              │
     └──────────────────────────────┘
 ```
@@ -663,24 +666,24 @@ Two 1/2" MDF horizontal dividers create three sealed chambers:
 
 | Chamber           | Height  | Volume     | Volume     | Damping         |
 |-------------------|---------|------------|------------|-----------------|
-| Lower woofer      | 13.96"  | 12.9 L     | 0.46 ft³   | Polyfill, medium|
+| Lower woofer      | 14.71"  | 13.6 L     | 0.48 ft³   | Polyfill, medium|
 | Mid/tweeter       | 16.08"  | 14.8 L     | 0.52 ft³   | Acoustic foam   |
-| Upper woofer      | 13.96"  | 12.9 L     | 0.46 ft³   | Polyfill, medium|
-| **Total internal**| 45.00"  | **40.6 L** |**1.43 ft³**|                 |
+| Upper woofer      | 14.71"  | 13.6 L     | 0.48 ft³   | Polyfill, medium|
+| **Total internal**| 46.50"  | **42.0 L** |**1.48 ft³**|                 |
 
 **Woofer sealed alignment (each chamber independently):**
 
 Official SB Acoustics T/S for SB17MFC35-8: Fs = 33 Hz, Qts = 0.37, Vas = 39 L
 
-Without polyfill (12.9 L gross, ~12.4 L net after bracing/driver displacement):
-- Qtc = 0.37 × sqrt(1 + 39/12.4) = 0.37 × 2.04 = **0.75**
-- Fc = 33 × 2.04 = 67.2 Hz
-- F3 ≈ 63 Hz
+Without polyfill (13.6 L gross, ~13.1 L net after bracing/driver displacement):
+- Qtc = 0.37 × sqrt(1 + 39/13.1) = 0.37 × 2.00 = **0.74**
+- Fc = 33 × 2.00 = 65.9 Hz
+- F3 ≈ 62 Hz
 - Slightly above Butterworth — tight, well-controlled bass
 
-With polyfill (effective +20% volume → ~14.9 L net):
-- Qtc = 0.37 × sqrt(1 + 39/14.9) = 0.37 × 1.90 = **0.70**
-- Fc = 33 × 1.90 = 62.8 Hz
+With polyfill (effective +20% volume → ~15.7 L net):
+- Qtc = 0.37 × sqrt(1 + 39/15.7) = 0.37 × 1.87 = **0.69**
+- Fc = 33 × 1.87 = 61.6 Hz
 - F3 ≈ 63 Hz
 - **Essentially ideal Butterworth (0.707) — maximally flat, clean transients**
 
@@ -701,24 +704,21 @@ Response at key frequencies (with polyfill, net volume):
 
 **Sealed alignment with MEASURED T/S parameters (DATS V3, post-break-in):**
 
-With polyfill (effective ~14.9 L net):
+With polyfill (effective ~15.7 L net):
 
 | Parameter      | Published | Woofer 1 (measured) | Woofer 2 (measured) |
 |----------------|-----------|---------------------|---------------------|
 | Qts            | 0.37      | 0.460               | 0.423               |
 | Vas            | 39 L      | 22.74 L             | 24.64 L             |
-| **Qtc**        | **0.70**  | **0.73**            | **0.69**            |
-| **Fc**         | 62.8 Hz   | 58.2 Hz             | 57.6 Hz             |
-| **F3**         | ~63 Hz    | ~55 Hz              | ~59 Hz              |
+| **Qtc**        | **0.69**  | **0.72**            | **0.68**            |
+| **Fc**         | 61.6 Hz   | 57.4 Hz             | 56.4 Hz             |
+| **F3**         | ~63 Hz    | ~54 Hz              | ~58 Hz              |
 | Character      | Ideal BW  | Just above BW       | Just below BW       |
 
-Average Qtc ≈ 0.71, average F3 ≈ 57 Hz — essentially ideal Butterworth.
+Average Qtc ≈ 0.70, average F3 ≈ 56 Hz — essentially ideal Butterworth.
 The higher Qts (vs published 0.37) is offset by the lower Vas, and the
 result lands right at the Butterworth target. F3 is actually *better*
 (lower) than the 63 Hz estimated from published specs.
-
-**The current enclosure design works as-is with measured parameters.
-No height, depth, or back panel changes needed.**
 
 **This alignment supports a 50–70 Hz sub crossover.** The woofer holds
 together well into the 60 Hz range. Room gain in a basement theater
@@ -730,7 +730,7 @@ deliver real bass impact down to the sub crossover point.
 
 The NRX2L35-8 was evaluated as a potential upgrade. It has a massively
 stronger motor (Bl = 7.84 Tm, magnet = 0.89 kg) giving Qts = 0.28 and
-89 dB sensitivity — impressive specs. However, in 12.9 L sealed:
+89 dB sensitivity — impressive specs. However, in 13.6 L sealed:
 
 | Parameter     | MFC35-8 (chosen) | NRX2L35-8 (rejected) | NRX2C35-8 (ref)  |
 |---------------|-------------------|----------------------|-------------------|
@@ -741,16 +741,16 @@ stronger motor (Bl = 7.84 Tm, magnet = 0.89 kg) giving Qts = 0.28 and
 | Sensitivity   | 88 dB             | 89 dB                | 87 dB             |
 | Bl            | 5.9 Tm            | 7.84 Tm              | 6.25 Tm           |
 | Xmax (1-way)  | 5.5 mm            | 4.8 mm               | 5.5 mm            |
-| **Qtc in 12.9L** | **0.74**      | **0.49**             | **0.74**          |
-| **Qtc net ~12.4L**| **0.75**     | **0.49**             | **0.75**          |
-| **F3 (gross)**   | **~63 Hz**    | **~105 Hz**          | **~63 Hz**        |
+| **Qtc in 13.6L** | **0.73**      | **0.48**             | **0.73**          |
+| **Qtc net ~13.1L**| **0.74**     | **0.48**             | **0.74**          |
+| **F3 (gross)**   | **~62 Hz**    | **~103 Hz**          | **~62 Hz**        |
 
-The NRX2L's Qts of 0.28 means it's severely overdamped in 12.9 L
-(Qtc = 0.49). It needs a ~5 L box for Butterworth alignment:
+The NRX2L's Qts of 0.28 means it's severely overdamped in 13.6 L
+(Qtc = 0.48). It needs a ~5 L box for Butterworth alignment:
 - At 60 Hz: MFC is -3.5 dB, NRX2L is -7.1 dB (3.6 dB worse)
 - At 80 Hz: MFC is -1.4 dB, NRX2L is -4.7 dB (3.3 dB worse)
 The NRX2L is an excellent driver for small sealed monitors (5–8 L),
-but wrong for 12 L chambers and a 50–70 Hz crossover target.
+but wrong for 13.6 L chambers and a 50–70 Hz crossover target.
 
 In-wall loading does NOT change this: half-space loading adds ~6 dB
 across all frequencies equally — it raises the level but does not
@@ -954,7 +954,7 @@ is needed for the tweeter beyond what's already in the chamber.
 
 | Element          | Material       | Thickness | Notes                                  |
 |------------------|----------------|-----------|----------------------------------------|
-| Front baffle     | MDF            | 3/4"      | Perimeter rabbeted; driver recesses; flush w/ drywall |
+| Front baffle     | MDF            | 3/4"      | L/R side rabbet; driver recesses; flush w/ drywall |
 | Back panel       | MDF            | 1/2"      | Sealed, PL Premium + brad nails        |
 | Side panels      | MDF            | 1/2"      | Line the stud cavity; short span = stiff |
 | Top/bottom       | MDF            | 3/4"      | Sealed                                 |
@@ -1362,8 +1362,8 @@ Step 4 ─── Cut 3/4" MDF panels (baffle, top, bottom):
            • Bottom panel:    14.25" × 4.75"   (×1)
 
 Step 5 ─── Cut 1/2" MDF panels:
-           • Back panel:      14.25" × 46.50"  (×1)
-           • Side panels:      4.75" × 45.00"  (×2)  ← fits between top + bottom panels
+           • Back panel:      14.25" × 48.00"  (×1)
+           • Side panels:      4.75" × 46.50"  (×2)  ← fits between top + bottom panels
            • Divider 1:       13.25" × 4.25"   (×1)
            • Divider 2:       13.25" × 4.25"   (×1)
 
@@ -1371,8 +1371,8 @@ Step 5b ── Cut 3/4" MDF bracing pieces:
            • Back panel battens:   3/4" × 3/4" × 13.25"  (×2)
            • Front-to-back ties:   3/4" × 3/4" × 4.25"   (×6)
 
-Step 6 ─── Route baffle perimeter rabbet (back face):
-           1/4" deep × 1" wide around all four edges
+Step 6 ─── Route baffle side rabbet (back face):
+           1/4" deep × 1" wide on left and right edges only
            (Router table + straight bit + fence)
 
 Step 6b ── Cut driver holes in front baffle:
@@ -1382,8 +1382,7 @@ Step 6b ── Cut driver holes in front baffle:
                 (centers at 18.75" and 29.25" from bottom, 8.00" from sides)
            • 1× 72mm (2.83") hole for tweeter
                 (center at 24.00" from bottom, 8.00" from sides)
-           NOTE: "from bottom" means from baffle bottom which is 0.75"
-                 below the box bottom due to overlap flange
+           NOTE: "from bottom" means from baffle bottom edge (flush with box bottom)
 
 Step 6c ── Route driver recesses (front face):
            ~3mm (1/8") deep to frame OD at each driver position
@@ -1405,7 +1404,7 @@ Step 9 ─── Drill cable exit holes in top panel:
 ```
 Step 10 ── Dry-assemble box (no glue) — verify all panels align squarely
 Step 11 ── Test-fit drivers in baffle — confirm cutouts and screw holes
-Step 12 ── Verify divider positions: 14.21" and 30.79" from bottom (inside)
+Step 12 ── Verify divider positions: 14.96" and 31.54" from bottom (inside)
 Step 13 ── Mark divider positions on side panels with pencil
 Step 14 ── Mark bracing positions (front-to-back tie locations, batten positions)
 ```
@@ -1424,9 +1423,9 @@ Step 15 ── Apply PL Premium bead to joint, press back panel to bottom panel
 Step 16 ── Glue both side panels to back + bottom
 Step 17 ── Glue back panel battens inside each woofer chamber area
            (center of each woofer section, flat against back panel)
-Step 18 ── Install divider 1: glue at 14.21" from bottom (inside)
+Step 18 ── Install divider 1: glue at 14.96" from bottom (inside)
            *** Run woofer cable through divider hole BEFORE gluing ***
-Step 19 ── Install divider 2: glue at 30.79" from bottom (inside)
+Step 19 ── Install divider 2: glue at 31.54" from bottom (inside)
            *** Run woofer cable through divider hole BEFORE gluing ***
 Step 20 ── Glue top panel to sides + back
 Step 21 ── Let cure 24 hours

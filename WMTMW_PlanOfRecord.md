@@ -2,7 +2,7 @@
 
 > **3× identical WMTMW sealed in-wall speakers for L/C/R**
 > **Last updated:** March 29, 2026
-> **Companion files:** `WMTMW_InWall_Speaker_Design.md` · `WMTMW_Enclosure_3D.html`
+> **Companion files:** `WMTMW_InWall_Speaker_Design.md` · `WMTMW_Enclosure_Plans.html`
 
 ---
 
@@ -69,11 +69,11 @@ Mid matching: excellent (Fs gap 1.9%, Mms 0.9%).
 ## 4. Enclosure Dimensions
 
 ```
-BOX EXTERNAL:     14.25" W  ×  5.50" D  ×  46.50" H
-FRONT BAFFLE:     16.00" W  ×  48.00" H ×  0.75" thick (rabbeted to 1/2" at edges)
-BOX INTERNAL:     13.25" W  ×  4.25" D  ×  45.00" H
+BOX EXTERNAL:     14.25" W  ×  5.50" D  ×  48.00" H
+FRONT BAFFLE:     16.00" W  ×  48.00" H ×  0.75" thick (rabbeted to 1/2" at L/R edges)
+BOX INTERNAL:     13.25" W  ×  4.25" D  ×  46.50" H
 DRYWALL CUTOUT:   16.00" W  ×  48.00" H
-STUD OVERLAP:     0.75" per side (baffle flange)
+STUD OVERLAP:     0.875" per side (baffle flange, L/R only — no T/B overhang)
 BOX CLEARANCE:    0.125" per side in stud cavity
 ```
 
@@ -91,14 +91,16 @@ BOX CLEARANCE:    0.125" per side in stud cavity
 
 ```
 Baffle 0.75" + Internal 4.25" + Back 0.50" = 5.50" (fills 2×6 cavity)
+Box height matches baffle height (48.00") — no top/bottom overhang.
 ```
 
 ---
 
 ## 5. Baffle Details
 
-**Perimeter rabbet (back face):** 1/4" deep × 1" wide on all four edges.
-Reduces flange to 1/2" = drywall thickness = flush wall surface.
+**Side rabbet (back face):** 1/4" deep × 1" wide on left and right edges only.
+Reduces side flanges to 1/2" = drywall thickness = flush wall surface.
+No rabbet on top/bottom — box is flush with baffle at those edges.
 
 **Driver recesses (front face):** ~3mm (1/8") deep, diameter matches frame OD.
 Drivers sit flush with baffle. Remaining material behind recess: 16mm — solid for T-nuts.
@@ -132,25 +134,25 @@ Two 1/2" MDF horizontal dividers create three sealed chambers.
 
 | Chamber | Height | Volume | Damping |
 |---------|--------|--------|---------|
-| Lower woofer | 13.96" | 12.9 L | Polyfill ~50% |
+| Lower woofer | 14.71" | 13.6 L | Polyfill ~50% |
 | Mid / Tweeter (shared) | 16.08" | 14.8 L | 1" acoustic foam on walls |
-| Upper woofer | 13.96" | 12.9 L | Polyfill ~50% |
+| Upper woofer | 14.71" | 13.6 L | Polyfill ~50% |
 
 **Divider positions** (from inside bottom):
-- Divider 1: 14.21" (center) — lower woofer / mid-tweeter boundary
-- Divider 2: 30.79" (center) — mid-tweeter / upper woofer boundary
+- Divider 1: 14.96" (center) — lower woofer / mid-tweeter boundary
+- Divider 2: 31.54" (center) — mid-tweeter / upper woofer boundary
 
-Height check: 13.96 + 0.50 + 16.08 + 0.50 + 13.96 = 45.00" ✓
+Height check: 14.71 + 0.50 + 16.08 + 0.50 + 14.71 = 46.50" ✓
 
-### Sealed Woofer Alignment (measured, with polyfill ~14.9 L effective)
+### Sealed Woofer Alignment (measured, with polyfill ~15.7 L effective)
 
 | | Woofer 1 | Woofer 2 | Average |
 |---|----------|----------|---------|
-| Qtc | 0.73 | 0.69 | **0.71** |
-| Fc | 58 Hz | 58 Hz | 58 Hz |
-| F3 | ~55 Hz | ~59 Hz | **~57 Hz** |
+| Qtc | 0.72 | 0.68 | **0.70** |
+| Fc | 57 Hz | 56 Hz | 57 Hz |
+| F3 | ~54 Hz | ~58 Hz | **~56 Hz** |
 
-Essentially ideal Butterworth (0.707). **Enclosure confirmed — no changes needed.**
+Essentially ideal Butterworth (0.707). **Enclosure confirmed.**
 
 ---
 
@@ -200,7 +202,7 @@ Tweeter:  HPF ~2.5 kHz (LR4) + L-pad (~10–13 dB) + Zobel + impedance EQ
 
 ### Assembly Sequence (abbreviated)
 
-1. Cut all panels; route baffle (perimeter rabbet + driver holes + recesses)
+1. Cut all panels; route baffle (L/R side rabbet + driver holes + recesses)
 2. Press T-nuts into baffle back; drill mounting bolt holes
 3. Lay back panel flat → glue bottom panel → glue side panels → glue battens
 4. Thread woofer cables through divider holes **before** gluing dividers
@@ -279,7 +281,8 @@ Tweeter:  HPF ~2.5 kHz (LR4) + L-pad (~10–13 dB) + Zobel + impedance EQ
 | WMTMW config | Yes | Symmetry for L/C/R, dual mids for power handling, industry standard |
 | Sealed (no port) | Yes | Sub handles LF; sealed = simpler, better transients, fits depth |
 | 8 Ω parallel | Yes | Standard 4 Ω load per section, proven in commercial designs |
-| 3/4" baffle | Yes | Strong driver mounting, T-nut engagement, rabbeted to 1/2" at edges |
+| 3/4" baffle | Yes | Strong driver mounting, T-nut engagement, rabbeted to 1/2" at L/R edges |
+| No T/B rabbet | Yes | No studs at top/bottom; box flush with baffle; extra woofer volume |
 | 1/2" sides + back | Yes | Sufficient stiffness at short spans, maximizes internal volume |
 | PL Premium + brads | Yes | Best MDF edge-grain bond, no splitting risk |
 | 16" baffle width | Keep | 3/4" stud overlap is adequate with pre-drilled #8 screws at 6" spacing |
@@ -293,7 +296,7 @@ Tweeter:  HPF ~2.5 kHz (LR4) + L-pad (~10–13 dB) + Zobel + impedance EQ
 ### Completed
 - [x] Driver selection and procurement (prototype set: 2 woofers, 2 mids, 1 tweeter reused)
 - [x] Free-air T/S measurement of all prototype drivers (3 break-in rounds for woofers)
-- [x] Sealed alignment confirmed with measured values (Qtc ≈ 0.71, F3 ≈ 57 Hz)
+- [x] Sealed alignment confirmed with measured values (Qtc ≈ 0.70, F3 ≈ 56 Hz)
 - [x] Full enclosure engineering (dimensions, chambers, bracing, damping)
 - [x] Baffle layout with all driver positions and routing specs
 - [x] Cut list finalized
