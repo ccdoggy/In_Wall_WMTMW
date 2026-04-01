@@ -20,7 +20,7 @@ Do not rely on `WMTMW_Development_History.md` for current values — it is a his
 |---------------|---------|
 | `WMTMW_PlanOfRecord.md` | **Primary spec** — all finalized dimensions, drivers, assembly, crossover targets, status |
 | `WMTMW_InWall_Speaker_Design.md` | Full engineering detail, crossover math, risk log |
-| `WMTMW_Enclosure_3D.html` | Interactive 3D shop drawings (printed for build reference) |
+| `WMTMW_Enclosure_Plans.html` | Printable shop drawings — cut list, baffle layout, chamber details, assembly sequence |
 | `WMTMW_Development_History.md` | Session-by-session decision log — historical only, do not read in full |
 | `FreeAirMeasurements/` | DATS V3 free-air impedance files (.txt, .tzz, .zma) for all prototype drivers |
 | `InBoxMeasurements/` | *(next phase)* In-box impedance (.zma) + frequency response (.frd) from REW/UMIK-1 |
