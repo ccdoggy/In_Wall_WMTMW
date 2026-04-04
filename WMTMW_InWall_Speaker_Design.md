@@ -68,14 +68,16 @@ Sensitivity:    ~87–88 dB (2.83V / 1m, in-wall half-space)
     Drywall (removed):        │  0.50"   ← Speaker baffle sits here (flush)
     Front baffle (3/4" MDF):  │  0.75"   ← Rabbeted to 1/2" at L/R edges only
                               │            (flush with drywall; full 3/4" at center)
-    Internal depth:           │  4.25"   ← Driver + air space + polyfill
+                              │            Only 0.25" protrudes past stud face into cavity
+    Internal depth:           │  4.50"   ← Driver + air space + polyfill
     Back panel (1/2" MDF):    │  0.50"
                               │
-    Total stud cavity used:   │  5.50"
+    Stud cavity (measured):   │  5.25"   (from room-side stud face to back of cavity)
+    Total (baffle front to back): 5.75"
                               └─── Back of wall
 
     Deepest driver (6.5" woofer):  2.44" mounting depth
-    Clearance behind driver:       1.81"  ← Room for air + stuffing
+    Clearance behind driver:       2.06"  ← Room for air + stuffing
 ```
 
 **Verdict: Depth is NOT a concern.** All drivers fit with 1.5"+ clearance.
@@ -132,11 +134,11 @@ Power = 60 W     Magnet = 0.54 kg                Net weight = 1.56 kg
 - Well-damped polypropylene cone simplifies crossover (no sharp breakup peaks)
 - Shallow mounting depth fits 2×6 wall with margin
 - SB Acoustics quality at a reasonable price point
-- Excellent sealed alignment in 12.9L chambers (Qtc ≈ 0.70 with polyfill — ideal Butterworth)
-- F3 ≈ 63 Hz with polyfill — supports a 50–70 Hz sub crossover with room gain
+- Excellent sealed alignment in 14.4L chambers (Qtc ≈ 0.68 with polyfill — near-ideal Butterworth)
+- F3 ≈ 60 Hz with polyfill — supports a 50–70 Hz sub crossover with room gain
 - SB17NRX2L35-8 (Norex, NEW) was evaluated and rejected: its very low Qts (0.28)
-  makes it severely overdamped in 12.9L (Qtc = 0.49, F3 ≈ 105 Hz) — excellent driver
-  but needs a 5–6L box, not 12L. See Section 9.7 for full comparison.
+  makes it severely overdamped in 14.4L (Qtc = 0.45, F3 ≈ 96 Hz) — excellent driver
+  but needs a 5–6L box, not 14L. See Section 9.7 for full comparison.
 
 **Measured T/S Parameters (DATS V3, free-air, post-break-in):**
 
@@ -165,7 +167,7 @@ within 3–4% (see below) — validating the measurement method. The woofer Mms
 discrepancy is genuine, not a measurement artifact. The sealed alignment still
 works well with measured values (see Section 9.7).
 
-**Measured alignment in 14.9 L effective chamber (with polyfill):**
+**Measured alignment in ~16.6 L effective chamber (with polyfill):**
 - Woofer 1: Qtc ≈ 0.73, Fc ≈ 58 Hz, F3 ≈ 55 Hz — just above Butterworth
 - Woofer 2: Qtc ≈ 0.69, Fc ≈ 58 Hz, F3 ≈ 59 Hz — just below Butterworth
 - Average: Qtc ≈ 0.71, F3 ≈ 57 Hz — essentially ideal Butterworth
@@ -228,7 +230,7 @@ the woofer Mms discrepancy (~16.15g vs 11.8g published) is a genuine driver
 characteristic, not measurement error.
 
 The elevated Fs (52–53 Hz vs 45 published) is consistent with incomplete break-in.
-For the mids, Fs does not drive the enclosure design — the 14.8 L shared chamber
+For the mids, Fs does not drive the enclosure design — the 15.7 L shared chamber
 is well oversized, and the crossover high-pass at 400 Hz dominates the low end.
 
 ### Tweeter — Scan-Speak Discovery H2606/9200
@@ -457,12 +459,12 @@ preserving sensitivity.
 ```
     ┌──────────────────────────────────────────────────────────┐
     │                                                          │
-    │   Box External:    14.25" W  ×  5.50" D  ×  48.00" H    │
+    │   Box External:    14.25" W  ×  5.75" D  ×  48.00" H    │
     │   Front Baffle:    16.00" W  ×  48.00" H  ×  0.75" D    │
     │                                                          │
     │   Box Width:   14.25"  (fits between studs)              │
     │   Baffle Width:16.00"  (0.875" overlap onto each stud)   │
-    │   Depth:        5.50"  (full 2×6 stud cavity)            │
+    │   Depth:        5.75"  (baffle front to back outer)      │
     │   Box Height:  48.00"  (flush with baffle, no T/B overhang) │
     │   Baffle Height:  48.00"                                   │
     │                                                          │
@@ -497,7 +499,7 @@ enclosure (24" from bottom), the bottom of the box should be at ~14" from floor.
 |------------------|----------|-----------|--------------------------------------------------|
 | Front baffle     | MDF      | 3/4"      | Rabbeted to 1/2" at L/R edges only; driver recesses on front |
 | Back panel       | MDF      | 1/2"      | Sealed, screwed + glued                          |
-| Side panels      | MDF      | 1/2"      | Line the stud cavity; short span (~4.75") = stiff at 1/2" |
+| Side panels      | MDF      | 1/2"      | Line the stud cavity; short span (~5.00") = stiff at 1/2" |
 | Top panel        | MDF      | 3/4"      | Sealed; flush with baffle top                    |
 | Bottom panel     | MDF      | 3/4"      | Sealed; flush with baffle bottom                 |
 | Internal dividers| MDF      | 1/2"      | Horizontal shelves separating chambers           |
@@ -555,13 +557,13 @@ The 3/4" baffle has two types of routed features:
 ### 9.3 Internal Dimensions
 
 ```
-    Internal:  13.25" W  ×  4.25" D  ×  46.50" H
+    Internal:  13.25" W  ×  4.50" D  ×  46.50" H
 
     Width:   14.25" - 2(0.50") = 13.25"
-    Depth:    5.50" - 0.75" - 0.50" =  4.25"  (3/4" baffle + 1/2" back)
+    Depth:    5.75" - 0.75" - 0.50" =  4.50"  (3/4" baffle + 1/2" back)
     Height:  48.00" - 2(0.75") = 46.50"
 
-    Cross-section area:  13.25" × 4.25" = 56.31 sq in
+    Cross-section area:  13.25" × 4.50" = 59.63 sq in
 ```
 
 ### 9.4 Driver Physical Dimensions
@@ -577,7 +579,7 @@ The 3/4" baffle has two types of routed features:
 | Mounting depth   |  62 mm / 2.44" |  ~55 mm / 2.17"|  ~22 mm / 0.87" |
 | Screw holes      | 4× M4          | 4× M4          | 4× M4           |
 | Fits 13.25" W?   | YES (6.73")    | YES (5.39")    | YES (4.09")     |
-| Fits 4.25" D?    | YES (1.81" clr)| YES (2.08" clr)| YES (3.38" clr) |
+| Fits 4.50" D?    | YES (2.06" clr)| YES (2.33" clr)| YES (3.63" clr) |
 
 H2606/9200 faceplate is round (∅104 mm). All driver recesses are routed as circles.
 
@@ -636,7 +638,7 @@ Two 1/2" MDF horizontal dividers create three sealed chambers:
     ┌──────────────────────────────┐
     │                              │
     │     UPPER WOOFER CHAMBER     │  14.71" tall
-    │     (sealed, polyfill)       │  13.6 L  (0.48 ft³)
+    │     (sealed, polyfill)       │  14.4 L  (0.51 ft³)
     │                              │
     │     [====WOOFER====]         │  ← SB17MFC35-8
     │                              │
@@ -645,7 +647,7 @@ Two 1/2" MDF horizontal dividers create three sealed chambers:
     │     [====MID====]            │  ← SB13PFCR25-08
     │                              │
     │     MID / TWEETER SECTION    │  16.08" tall
-    │     (shared sealed volume)   │  14.8 L  (0.52 ft³)
+    │     (shared sealed volume)   │  15.7 L  (0.55 ft³)
     │     (acoustic foam damping)  │
     │                              │
     │       [TWEETER]              │  ← H2606/9200
@@ -657,7 +659,7 @@ Two 1/2" MDF horizontal dividers create three sealed chambers:
     │     [====WOOFER====]         │  ← SB17MFC35-8
     │                              │
     │     LOWER WOOFER CHAMBER     │  14.71" tall
-    │     (sealed, polyfill)       │  13.6 L  (0.48 ft³)
+    │     (sealed, polyfill)       │  14.4 L  (0.51 ft³)
     │                              │
     └──────────────────────────────┘
 ```
@@ -666,24 +668,24 @@ Two 1/2" MDF horizontal dividers create three sealed chambers:
 
 | Chamber           | Height  | Volume     | Volume     | Damping         |
 |-------------------|---------|------------|------------|-----------------|
-| Lower woofer      | 14.71"  | 13.6 L     | 0.48 ft³   | Polyfill, medium|
-| Mid/tweeter       | 16.08"  | 14.8 L     | 0.52 ft³   | Acoustic foam   |
-| Upper woofer      | 14.71"  | 13.6 L     | 0.48 ft³   | Polyfill, medium|
-| **Total internal**| 46.50"  | **42.0 L** |**1.48 ft³**|                 |
+| Lower woofer      | 14.71"  | 14.4 L     | 0.51 ft³   | Polyfill, medium|
+| Mid/tweeter       | 16.08"  | 15.7 L     | 0.55 ft³   | Acoustic foam   |
+| Upper woofer      | 14.71"  | 14.4 L     | 0.51 ft³   | Polyfill, medium|
+| **Total internal**| 46.50"  | **44.5 L** |**1.57 ft³**|                 |
 
 **Woofer sealed alignment (each chamber independently):**
 
 Official SB Acoustics T/S for SB17MFC35-8: Fs = 33 Hz, Qts = 0.37, Vas = 39 L
 
-Without polyfill (13.6 L gross, ~13.1 L net after bracing/driver displacement):
-- Qtc = 0.37 × sqrt(1 + 39/13.1) = 0.37 × 2.00 = **0.74**
-- Fc = 33 × 2.00 = 65.9 Hz
+Without polyfill (14.4 L gross, ~13.9 L net after bracing/driver displacement):
+- Qtc = 0.37 × sqrt(1 + 39/13.9) = 0.37 × 1.95 = **0.72**
+- Fc = 33 × 1.95 = 64.4 Hz
 - F3 ≈ 62 Hz
-- Slightly above Butterworth — tight, well-controlled bass
+- Near-ideal Butterworth — tight, well-controlled bass
 
-With polyfill (effective +20% volume → ~15.7 L net):
-- Qtc = 0.37 × sqrt(1 + 39/15.7) = 0.37 × 1.87 = **0.69**
-- Fc = 33 × 1.87 = 61.6 Hz
+With polyfill (effective +20% volume → ~16.6 L net):
+- Qtc = 0.37 × sqrt(1 + 39/16.6) = 0.37 × 1.83 = **0.68**
+- Fc = 33 × 1.83 = 60.4 Hz
 - F3 ≈ 63 Hz
 - **Essentially ideal Butterworth (0.707) — maximally flat, clean transients**
 
@@ -704,18 +706,18 @@ Response at key frequencies (with polyfill, net volume):
 
 **Sealed alignment with MEASURED T/S parameters (DATS V3, post-break-in):**
 
-With polyfill (effective ~15.7 L net):
+With polyfill (effective ~16.6 L net):
 
 | Parameter      | Published | Woofer 1 (measured) | Woofer 2 (measured) |
 |----------------|-----------|---------------------|---------------------|
 | Qts            | 0.37      | 0.460               | 0.423               |
 | Vas            | 39 L      | 22.74 L             | 24.64 L             |
-| **Qtc**        | **0.69**  | **0.72**            | **0.68**            |
-| **Fc**         | 61.6 Hz   | 57.4 Hz             | 56.4 Hz             |
-| **F3**         | ~63 Hz    | ~54 Hz              | ~58 Hz              |
+| **Qtc**        | **0.68**  | **0.71**            | **0.67**            |
+| **Fc**         | 60.4 Hz   | 56.4 Hz             | 55.4 Hz             |
+| **F3**         | ~63 Hz    | ~56 Hz              | ~58 Hz              |
 | Character      | Ideal BW  | Just above BW       | Just below BW       |
 
-Average Qtc ≈ 0.70, average F3 ≈ 56 Hz — essentially ideal Butterworth.
+Average Qtc ≈ 0.69, average F3 ≈ 57 Hz — essentially ideal Butterworth.
 The higher Qts (vs published 0.37) is offset by the lower Vas, and the
 result lands right at the Butterworth target. F3 is actually *better*
 (lower) than the 63 Hz estimated from published specs.
@@ -730,7 +732,7 @@ deliver real bass impact down to the sub crossover point.
 
 The NRX2L35-8 was evaluated as a potential upgrade. It has a massively
 stronger motor (Bl = 7.84 Tm, magnet = 0.89 kg) giving Qts = 0.28 and
-89 dB sensitivity — impressive specs. However, in 13.6 L sealed:
+89 dB sensitivity — impressive specs. However, in 14.4 L sealed:
 
 | Parameter     | MFC35-8 (chosen) | NRX2L35-8 (rejected) | NRX2C35-8 (ref)  |
 |---------------|-------------------|----------------------|-------------------|
@@ -741,25 +743,25 @@ stronger motor (Bl = 7.84 Tm, magnet = 0.89 kg) giving Qts = 0.28 and
 | Sensitivity   | 88 dB             | 89 dB                | 87 dB             |
 | Bl            | 5.9 Tm            | 7.84 Tm              | 6.25 Tm           |
 | Xmax (1-way)  | 5.5 mm            | 4.8 mm               | 5.5 mm            |
-| **Qtc in 13.6L** | **0.73**      | **0.48**             | **0.73**          |
-| **Qtc net ~13.1L**| **0.74**     | **0.48**             | **0.74**          |
+| **Qtc in 14.4L** | **0.71**      | **0.47**             | **0.71**          |
+| **Qtc net ~13.9L**| **0.72**     | **0.47**             | **0.72**          |
 | **F3 (gross)**   | **~62 Hz**    | **~103 Hz**          | **~62 Hz**        |
 
-The NRX2L's Qts of 0.28 means it's severely overdamped in 13.6 L
+The NRX2L's Qts of 0.28 means it's severely overdamped in 14.4 L
 (Qtc = 0.48). It needs a ~5 L box for Butterworth alignment:
 - At 60 Hz: MFC is -3.5 dB, NRX2L is -7.1 dB (3.6 dB worse)
 - At 80 Hz: MFC is -1.4 dB, NRX2L is -4.7 dB (3.3 dB worse)
 The NRX2L is an excellent driver for small sealed monitors (5–8 L),
-but wrong for 13.6 L chambers and a 50–70 Hz crossover target.
+but wrong for 14.4 L chambers and a 50–70 Hz crossover target.
 
 In-wall loading does NOT change this: half-space loading adds ~6 dB
 across all frequencies equally — it raises the level but does not
 change the rolloff shape, Qtc, or F3. Both drivers benefit equally.
 
-**Midrange sealed alignment (pair sharing 14.8 L):**
+**Midrange sealed alignment (pair sharing 15.7 L):**
 Using approximate T/S: Fs ~65 Hz, Qts ~0.44, Vas ~4.5 L each
 - Effective Vas for parallel pair: 9.0 L
-- Qtc = 0.44 × sqrt(1 + 9.0/14.0) = 0.44 × 1.28 = **0.56**
+- Qtc = 0.44 × sqrt(1 + 9.0/14.9) = 0.44 × 1.27 = **0.56**
 - Sealed F3 ≈ 105 Hz (irrelevant — HPF crossover at 400 Hz dominates)
 - **Flat, well-controlled response through the 400–2500 Hz operating band**
 
@@ -782,7 +784,7 @@ A simpler 2-divider design (3 chambers) is recommended over 4 dividers (5 chambe
 
 ```
     Room side                              Back of wall
-    ←────────────── 5.50" ──────────────→
+    ←────────────── 5.75" ──────────────→
 
     ┌────┬─────────────────────────┬────┐
     │    │                         │    │
@@ -790,7 +792,7 @@ A simpler 2-divider design (3 chambers) is recommended over 4 dividers (5 chambe
     │ A  │     [══════D══════]     │ A  │
     │ F  │      ↑ 2.44" max        │ C  │
     │ F  │                         │ K  │
-    │ L  │     1.56" clearance     │    │
+    │ L  │     2.06" clearance     │    │
     │ E  │     (air + polyfill)    │ P  │
     │    │                         │ A  │
     │ 3  │                         │ N  │
@@ -802,13 +804,13 @@ A simpler 2-divider design (3 chambers) is recommended over 4 dividers (5 chambe
     │    │                         │ 4  │
     │    │                         │ "  │
     └────┴─────────────────────────┴────┘
-    0.75"         4.25"             0.50"
+    0.75"         4.50"             0.50"
 ```
 
 ### 9.10 Divider Construction Detail
 
 Each divider is a rectangular piece of 1/2" MDF cut to fit the full internal
-cross-section (13.25" × 4.25"). It seals against the front baffle, back panel,
+cross-section (13.25" × 4.50"). It seals against the front baffle, back panel,
 and both side panels.
 
 ```
@@ -818,7 +820,7 @@ and both side panels.
     │                                      │
     │  ┌────────────────────────────────┐  │
     │  │                                │  │
-    │  │   1/2" MDF DIVIDER             │  │  13.25" wide × 4.25" deep
+    │  │   1/2" MDF DIVIDER             │  │  13.25" wide × 4.50" deep
     │  │   glued + caulked to all       │  │
     │  │   four surrounding surfaces    │  │
     │  │                                │  │
@@ -848,7 +850,7 @@ still has unsupported back and side panel spans that need bracing.
     ┌──────────────────────────────────────┐  ← Front baffle (3/4")
     │                                      │
     │  ┌──┐                          ┌──┐  │
-    │  │  │  ← front-to-back tie →   │  │  │  2× MDF blocks (3/4" × 3/4" × 4.25")
+    │  │  │  ← front-to-back tie →   │  │  │  2× MDF blocks (3/4" × 3/4" × 4.50")
     │  │  │  glued to baffle + back   │  │  │  positioned left + right of driver
     │  └──┘                          └──┘  │  (must clear woofer cutout + magnet)
     │                                      │
@@ -864,7 +866,7 @@ still has unsupported back and side panel spans that need bracing.
     ┌──────────────────────────────────────┐  ← Front baffle (3/4")
     │                                      │
     │  ┌──┐                          ┌──┐  │
-    │  │  │  ← front-to-back tie →   │  │  │  2× MDF blocks (3/4" × 3/4" × 4.25")
+    │  │  │  ← front-to-back tie →   │  │  │  2× MDF blocks (3/4" × 3/4" × 4.50")
     │  │  │  between tweeter and      │  │  │  positioned between mid and tweeter
     │  └──┘  each mid cutout         └──┘  │  cutouts (there are 2 gaps to brace)
     │                                      │
@@ -880,7 +882,7 @@ still has unsupported back and side panel spans that need bracing.
 | Piece | Size | Qty | Location |
 |-------|------|-----|----------|
 | Back panel batten | 3/4" × 3/4" × 13.25" | 2 | Center of each woofer chamber back panel |
-| Front-to-back tie | 3/4" × 3/4" × 4.25" | 6 | 2 per chamber, flanking driver cutouts |
+| Front-to-back tie | 3/4" × 3/4" × 4.50" | 6 | 2 per chamber, flanking driver cutouts |
 
 **Placement rules:**
 - Back panel battens: center vertically in each woofer chamber (~7.35" from
@@ -912,8 +914,8 @@ Proper stuffing is critical for both sound quality and effective volume.
     Material:   Polyester polyfill (loose)
     Fill level: ~50% by volume (loosely stuffed, not packed)
     Effect:     Increases effective volume by ~15-20%
-                (~12.4 L net behaves like ~14.9 L with polyfill)
-                Lowers Qtc from ~0.75 to ~0.70 (ideal Butterworth)
+                (~13.9 L net behaves like ~16.6 L with polyfill)
+                Lowers Qtc from ~0.73 to ~0.69 (near-ideal Butterworth)
     Purpose:    Absorbs standing waves between back panel and baffle
                 Damps the sealed box impedance peak
                 Reduces internal reflections that color the sound
@@ -1005,7 +1007,7 @@ spacing. Only the woofer chamber heights flex with the measurement data.
 
 > **Back panel thickness as adjustment variable:** The back panel is currently
 > now 1/2" MDF (changed from 3/4" to gain internal depth). This increased
-> internal depth from 4.00" to 4.25", adding ~6% more volume per chamber,
+> internal depth from 4.00" to 4.50", adding ~12% more volume per chamber,
 > which compensated for the height reduction (49.50" baffle → 48.00" to fit
 > 4' MDF stock) and preserved the Butterworth sealed alignment.
 
@@ -1013,10 +1015,10 @@ spacing. Only the woofer chamber heights flex with the measurement data.
 
 | Enclosure | Woofer chamber | Qtc w/ fill | F3     | Character              |
 |-----------|---------------|-------------|--------|------------------------|
-| 48"       | 14.7"         | 0.70        | ~63 Hz | Ideal Butterworth      |
-| 46"       | 13.7"         | 0.72        | ~63 Hz | Very good              |
-| 44"       | 12.7"         | 0.74        | ~63 Hz | Acceptable, slight warmth |
-| 42"       | 11.7"         | 0.77        | ~64 Hz | Mild bass bump          |
+| 48"       | 14.7"         | 0.69        | ~63 Hz | Ideal Butterworth      |
+| 46"       | 13.7"         | 0.71        | ~63 Hz | Very good              |
+| 44"       | 12.7"         | 0.73        | ~63 Hz | Acceptable, slight warmth |
+| 42"       | 11.7"         | 0.76        | ~64 Hz | Mild bass bump          |
 | 40"       | 10.7"         | 0.80        | ~64 Hz | Getting boomy           |
 
 > F3 is remarkably stable (~63 Hz) because Fc and Qtc effects cancel
@@ -1358,18 +1360,18 @@ Step 3 ─── Order hardware: T-nuts (M4, qty 20+), foam gasket tape,
 ```
 Step 4 ─── Cut 3/4" MDF panels (baffle, top, bottom):
            • Front baffle:    16.00" × 48.00"  (×1)
-           • Top panel:       14.25" × 4.75"   (×1)
-           • Bottom panel:    14.25" × 4.75"   (×1)
+           • Top panel:       14.25" × 5.00"   (×1)
+           • Bottom panel:    14.25" × 5.00"   (×1)
 
 Step 5 ─── Cut 1/2" MDF panels:
            • Back panel:      14.25" × 48.00"  (×1)
-           • Side panels:      4.75" × 46.50"  (×2)  ← fits between top + bottom panels
-           • Divider 1:       13.25" × 4.25"   (×1)
-           • Divider 2:       13.25" × 4.25"   (×1)
+           • Side panels:      5.00" × 46.50"  (×2)  ← fits between top + bottom panels
+           • Divider 1:       13.25" × 4.50"   (×1)
+           • Divider 2:       13.25" × 4.50"   (×1)
 
 Step 5b ── Cut 3/4" MDF bracing pieces:
            • Back panel battens:   3/4" × 3/4" × 13.25"  (×2)
-           • Front-to-back ties:   3/4" × 3/4" × 4.25"   (×6)
+           • Front-to-back ties:   3/4" × 3/4" × 4.50"   (×6)
 
 Step 6 ─── Route baffle side rabbet (back face):
            1/4" deep × 1" wide on left and right edges only
@@ -1438,7 +1440,7 @@ Step 15 ── BEFORE assembling the box, glue back panel battens to the back
            • Apply PL Premium, press in place
            • Shoot 1" brads through the back panel FACE (outside) into each
              batten end-grain to lock position during cure
-           This is far easier than reaching into a 13.25" × 4.25" box.
+           This is far easier than reaching into a 13.25" × 4.50" box.
 
 Step 16 ── Apply PL Premium bead to joint, press back panel to bottom panel
            Shoot 1.5" 18ga brads every 4-6" to lock alignment

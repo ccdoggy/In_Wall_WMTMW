@@ -69,19 +69,20 @@ Mid matching: excellent (Fs gap 1.9%, Mms 0.9%).
 ## 4. Enclosure Dimensions
 
 ```
-BOX EXTERNAL:     14.25" W  ×  5.50" D  ×  48.00" H
+BOX EXTERNAL:     14.25" W  ×  5.75" D  ×  48.00" H  (baffle front to back outer)
 FRONT BAFFLE:     16.00" W  ×  48.00" H ×  0.75" thick (rabbeted to 1/2" at L/R edges)
-BOX INTERNAL:     13.25" W  ×  4.25" D  ×  46.50" H
+BOX INTERNAL:     13.25" W  ×  4.50" D  ×  46.50" H
 DRYWALL CUTOUT:   16.00" W  ×  48.00" H
 STUD OVERLAP:     0.875" per side (baffle flange, L/R only — no T/B overhang)
 BOX CLEARANCE:    0.125" per side in stud cavity
+STUD CAVITY:      5.25" measured from room-side stud face to back of cavity
 ```
 
 ### Panel Thicknesses
 
 | Panel | Material | Thickness |
 |-------|----------|-----------|
-| Front baffle | MDF | 3/4" (rabbeted to 1/2" at perimeter) |
+| Front baffle | MDF | 3/4" (rabbeted to 1/2" at L/R edges only) |
 | Top / Bottom | MDF | 3/4" |
 | Side panels | MDF | 1/2" |
 | Back panel | MDF | 1/2" |
@@ -90,7 +91,15 @@ BOX CLEARANCE:    0.125" per side in stud cavity
 ### Depth Stack
 
 ```
-Baffle 0.75" + Internal 4.25" + Back 0.50" = 5.50" (fills 2×6 cavity)
+From baffle front face:  Baffle 0.75" + Internal 4.50" + Back 0.50" = 5.75"
+
+From stud face (cavity reference):
+  Baffle protrusion into cavity:  0.25"  (center 0.75" − drywall-flush edge 0.50")
+  Sides / dividers / air space:   4.50"
+  Back panel:                      0.50"
+                                   ─────
+  Stud cavity used:                5.25"  (measured from room-side stud face)
+
 Box height matches baffle height (48.00") — no top/bottom overhang.
 ```
 
@@ -134,9 +143,9 @@ Two 1/2" MDF horizontal dividers create three sealed chambers.
 
 | Chamber | Height | Volume | Damping |
 |---------|--------|--------|---------|
-| Lower woofer | 14.71" | 13.6 L | Polyfill ~50% |
-| Mid / Tweeter (shared) | 16.08" | 14.8 L | 1" acoustic foam on walls |
-| Upper woofer | 14.71" | 13.6 L | Polyfill ~50% |
+| Lower woofer | 14.71" | 14.4 L | Polyfill ~50% |
+| Mid / Tweeter (shared) | 16.08" | 15.7 L | 1" acoustic foam on walls |
+| Upper woofer | 14.71" | 14.4 L | Polyfill ~50% |
 
 **Divider positions** (from inside bottom):
 - Divider 1: 14.96" (center) — lower woofer / mid-tweeter boundary
@@ -144,13 +153,13 @@ Two 1/2" MDF horizontal dividers create three sealed chambers.
 
 Height check: 14.71 + 0.50 + 16.08 + 0.50 + 14.71 = 46.50" ✓
 
-### Sealed Woofer Alignment (measured, with polyfill ~15.7 L effective)
+### Sealed Woofer Alignment (measured, with polyfill ~16.6 L effective)
 
 | | Woofer 1 | Woofer 2 | Average |
 |---|----------|----------|---------|
-| Qtc | 0.72 | 0.68 | **0.70** |
-| Fc | 57 Hz | 56 Hz | 57 Hz |
-| F3 | ~54 Hz | ~58 Hz | **~56 Hz** |
+| Qtc | 0.71 | 0.67 | **0.69** |
+| Fc | 56 Hz | 55 Hz | 56 Hz |
+| F3 | ~56 Hz | ~58 Hz | **~57 Hz** |
 
 Essentially ideal Butterworth (0.707). **Enclosure confirmed.**
 
@@ -161,7 +170,7 @@ Essentially ideal Butterworth (0.707). **Enclosure confirmed.**
 | Element | Qty | Size | Placement |
 |---------|-----|------|-----------|
 | Back panel battens | 2 | 3/4" × 3/4" × 13.25" | Flat on back panel, one per woofer chamber, centered vertically |
-| Front-to-back ties | 6 | 3/4" × 3/4" × 4.25" | 2 per chamber, flanking driver cutouts, bridging baffle to back |
+| Front-to-back ties | 6 | 3/4" × 3/4" × 4.50" | 2 per chamber, flanking driver cutouts, bridging baffle to back |
 
 ---
 
