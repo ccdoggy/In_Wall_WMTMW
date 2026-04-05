@@ -499,7 +499,7 @@ enclosure (24" from bottom), the bottom of the box should be at ~14" from floor.
 |------------------|----------|-----------|--------------------------------------------------|
 | Front baffle     | MDF      | 3/4"      | Rabbeted to 1/2" at L/R edges only; driver recesses on front |
 | Back panel       | MDF      | 1/2"      | Sealed, screwed + glued                          |
-| Side panels      | MDF      | 1/2"      | Line the stud cavity; short span (~5.00") = stiff at 1/2" |
+| Side panels      | MDF      | 1/2"      | Line the stud cavity; short span (~4.50") = stiff at 1/2" |
 | Top panel        | MDF      | 3/4"      | Sealed; flush with baffle top                    |
 | Bottom panel     | MDF      | 3/4"      | Sealed; flush with baffle bottom                 |
 | Internal dividers| MDF      | 1/2"      | Horizontal shelves separating chambers           |
@@ -1360,12 +1360,12 @@ Step 3 ─── Order hardware: T-nuts (M4, qty 20+), foam gasket tape,
 ```
 Step 4 ─── Cut 3/4" MDF panels (baffle, top, bottom):
            • Front baffle:    16.00" × 48.00"  (×1)
-           • Top panel:       14.25" × 5.00"   (×1)
-           • Bottom panel:    14.25" × 5.00"   (×1)
+           • Top panel:       14.25" × 4.50"   (×1)
+           • Bottom panel:    14.25" × 4.50"   (×1)
 
 Step 5 ─── Cut 1/2" MDF panels:
            • Back panel:      14.25" × 48.00"  (×1)
-           • Side panels:      5.00" × 46.50"  (×2)  ← fits between top + bottom panels
+           • Side panels:      4.50" × 46.50"  (×2)  ← fits between top + bottom panels
            • Divider 1:       13.25" × 4.50"   (×1)
            • Divider 2:       13.25" × 4.50"   (×1)
 
