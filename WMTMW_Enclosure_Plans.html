@@ -469,9 +469,15 @@ Baffle center = 8.000" from either side edge. Mark a vertical center line on the
     <line x1="22" y1="358" x2="250" y2="358" stroke="#666" stroke-width="0.5" stroke-dasharray="2,2"/>
     <text x="140" y="370" text-anchor="middle" fill="#666" font-size="7">2.06" clearance behind</text>
 
-    <!-- ── F-B TIE ── -->
-    <rect x="0" y="265" width="250" height="6" fill="#996633" fill-opacity="0.3" stroke="#996633" stroke-width="1"/>
-    <text x="260" y="272" fill="#996633" font-size="7">F-B tie</text>
+    <!-- ── BACK BATTENS (woofer chambers only — not visible in true center cut, shown at back panel) ── -->
+    <!-- Upper woofer chamber: ~7.35" from Div 2 = midpoint of that chamber -->
+    <rect x="212" y="97" width="38" height="8" fill="#cc7722" fill-opacity="0.7" stroke="#884400" stroke-width="1.5"/>
+    <text x="280" y="104" font-size="7" fill="#884400">back batten</text>
+    <!-- Lower woofer chamber: ~7.35" from Div 1 = midpoint of that chamber -->
+    <rect x="212" y="375" width="38" height="8" fill="#cc7722" fill-opacity="0.7" stroke="#884400" stroke-width="1.5"/>
+    <text x="280" y="382" font-size="7" fill="#884400">back batten</text>
+    <!-- F-B ties are offset left/right of each driver — not visible in center cut -->
+    <text x="125" y="548" text-anchor="middle" font-size="7" fill="#996633">F-B ties (2 per chamber) — see Bracing Layout section</text>
 
     <!-- ── DEPTH DIMENSIONS ── -->
     <!-- Total depth line -->
@@ -669,6 +675,108 @@ Baffle center = 8.000" from either side edge. Mark a vertical center line on the
     <text x="55" y="222" text-anchor="middle" font-size="8" font-weight="bold" fill="#c00">POINT OF NO RETURN</text>
   </g>
 </svg>
+
+<h2>Bracing Layout &mdash; F-B Ties &amp; Back Battens</h2>
+
+<div class="note-box" style="font-size:11px; margin-bottom:12px;">
+  <strong>F-B ties — 6 total, all three chambers:</strong> 3/4" &times; 3/4" &times; 4.50" MDF blocks bridging the baffle back face to the back panel front face. Two per chamber, one on each side of the driver(s). Use a cardboard template of the baffle cutouts to confirm placement clears every cutout by &ge;1" before gluing.<br><br>
+  <strong>Back battens — 2 total, woofer chambers only:</strong> 3/4" &times; 3/4" &times; 13.25" MDF strips glued flat against the inside face of the back panel at the vertical midpoint of each woofer chamber (~7.35" from each divider/end wall). They halve the unsupported back panel span. The mid/tweeter chamber gets no batten — lower bass pressure plus acoustic foam lining is sufficient. <strong style="color:#c00">Install battens before box assembly — you cannot reach in after the sides are on.</strong>
+</div>
+
+<div class="two-col">
+<div>
+<h3>Woofer Chamber — top view (looking down)</h3>
+<p style="font-size:10px; margin:4px 0 8px 0;">Baffle face at top; back panel at bottom. Both F-B ties AND back batten.</p>
+<svg viewBox="-50 -60 320 190" width="100%" style="max-width:320px;">
+  <defs>
+    <marker id="ba-up" viewBox="0 0 10 10" refX="5" refY="0" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,10 L5,0 L10,10" fill="none" stroke="#06a" stroke-width="1.5"/></marker>
+    <marker id="ba-dn" viewBox="0 0 10 10" refX="5" refY="10" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L5,10 L10,0" fill="none" stroke="#06a" stroke-width="1.5"/></marker>
+    <marker id="ba-lt" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M10,0 L0,5 L10,10" fill="none" stroke="#06a" stroke-width="1.5"/></marker>
+    <marker id="ba-rt" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10" fill="none" stroke="#06a" stroke-width="1.5"/></marker>
+    <clipPath id="woof-clip"><rect x="0" y="0" width="200" height="68"/></clipPath>
+  </defs>
+  <!-- Scale: 15px/in. Internal chamber: 200px wide (13.25") × 68px deep (4.50") -->
+  <!-- Baffle face label -->
+  <text x="100" y="-46" text-anchor="middle" font-size="9" font-weight="bold" fill="#4a90d9">&#8592; BAFFLE FACE (front) &#8594;</text>
+  <text x="100" y="-34" text-anchor="middle" font-size="8" fill="#666">driver cutout at this face</text>
+  <!-- Baffle strip -->
+  <rect x="-11" y="-11" width="222" height="11" fill="#4a90d9" fill-opacity="0.2" stroke="#4a90d9" stroke-width="1"/>
+  <text x="100" y="-3" text-anchor="middle" font-size="7" fill="#4a90d9">BAFFLE 3/4"</text>
+  <!-- Chamber interior -->
+  <rect x="0" y="0" width="200" height="68" fill="#fafafa" stroke="#444" stroke-width="1.5"/>
+  <!-- Woofer cutout footprint (r=44px = 2.93") clipped to chamber -->
+  <circle cx="100" cy="0" r="44" fill="#ddd" fill-opacity="0.6" stroke="#888" stroke-width="1" stroke-dasharray="4,2" clip-path="url(#woof-clip)"/>
+  <text x="100" y="28" text-anchor="middle" font-size="8" fill="#666">woofer body</text>
+  <text x="100" y="39" text-anchor="middle" font-size="7" fill="#888">5.87" dia cutout</text>
+  <!-- F-B Tie LEFT -->
+  <rect x="20" y="0" width="11" height="68" fill="#996633" fill-opacity="0.75" stroke="#774411" stroke-width="1.5"/>
+  <!-- F-B Tie RIGHT -->
+  <rect x="169" y="0" width="11" height="68" fill="#996633" fill-opacity="0.75" stroke="#774411" stroke-width="1.5"/>
+  <!-- Back batten (3/4"=11px thick, full width, against back panel face at y=68) -->
+  <rect x="0" y="57" width="200" height="11" fill="#cc7722" fill-opacity="0.8" stroke="#884400" stroke-width="1.5"/>
+  <!-- Back panel -->
+  <rect x="0" y="68" width="200" height="8" fill="#d4a44a" fill-opacity="0.4" stroke="#d4a44a" stroke-width="1"/>
+  <text x="100" y="84" text-anchor="middle" font-size="8" fill="#9a7a2a">back panel 1/2"</text>
+  <!-- F-B tie labels -->
+  <text x="25" y="-18" text-anchor="middle" font-size="8" fill="#774411" font-weight="bold">F-B tie</text>
+  <line x1="25" y1="-14" x2="25" y2="-2" stroke="#774411" stroke-width="0.8"/>
+  <text x="174" y="-18" text-anchor="middle" font-size="8" fill="#774411" font-weight="bold">F-B tie</text>
+  <line x1="174" y1="-14" x2="174" y2="-2" stroke="#774411" stroke-width="0.8"/>
+  <!-- Batten label -->
+  <text x="205" y="62" font-size="8" fill="#884400" font-weight="bold">&#8592; BACK BATTEN</text>
+  <text x="205" y="72" font-size="8" fill="#884400">3/4"&times;3/4"&times;13.25"</text>
+  <!-- Depth arrow -->
+  <line x1="-35" y1="0" x2="-35" y2="68" stroke="#06a" stroke-width="0.8" marker-start="url(#ba-up)" marker-end="url(#ba-dn)"/>
+  <text x="-40" y="38" text-anchor="middle" font-size="8" fill="#06a" transform="rotate(-90,-40,38)">4.50"</text>
+  <!-- Width arrow -->
+  <line x1="0" y1="-26" x2="200" y2="-26" stroke="#06a" stroke-width="0.8" marker-start="url(#ba-lt)" marker-end="url(#ba-rt)"/>
+  <text x="100" y="-15" text-anchor="middle" font-size="7" fill="#06a">13.25" internal</text>
+</svg>
+</div>
+<div>
+<h3>Mid/Tweeter Chamber — top view (looking down)</h3>
+<p style="font-size:10px; margin:4px 0 8px 0;">F-B ties only — no back batten. Three drivers are stacked vertically; combined footprint shown.</p>
+<svg viewBox="-50 -60 320 190" width="100%" style="max-width:320px;">
+  <defs>
+    <marker id="mt-up" viewBox="0 0 10 10" refX="5" refY="0" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,10 L5,0 L10,10" fill="none" stroke="#06a" stroke-width="1.5"/></marker>
+    <marker id="mt-dn" viewBox="0 0 10 10" refX="5" refY="10" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L5,10 L10,0" fill="none" stroke="#06a" stroke-width="1.5"/></marker>
+    <clipPath id="mt-clip"><rect x="0" y="0" width="200" height="68"/></clipPath>
+  </defs>
+  <!-- Baffle face label -->
+  <text x="100" y="-46" text-anchor="middle" font-size="9" font-weight="bold" fill="#4a90d9">&#8592; BAFFLE FACE (front) &#8594;</text>
+  <text x="100" y="-34" text-anchor="middle" font-size="8" fill="#666">tweeter + 2 mids stacked vertically</text>
+  <!-- Baffle strip -->
+  <rect x="-11" y="-11" width="222" height="11" fill="#4a90d9" fill-opacity="0.2" stroke="#4a90d9" stroke-width="1"/>
+  <text x="100" y="-3" text-anchor="middle" font-size="7" fill="#4a90d9">BAFFLE 3/4"</text>
+  <!-- Chamber interior -->
+  <rect x="0" y="0" width="200" height="68" fill="#fafafa" stroke="#444" stroke-width="1.5"/>
+  <!-- Mid cutout footprint (r=34px = 2.29") — sets the clearance zone -->
+  <circle cx="100" cy="0" r="34" fill="#ccc" fill-opacity="0.5" stroke="#999" stroke-width="1" stroke-dasharray="4,2" clip-path="url(#mt-clip)"/>
+  <!-- Tweeter cutout footprint (r=21px = 1.42") — inner -->
+  <circle cx="100" cy="0" r="21" fill="#bbb" fill-opacity="0.5" stroke="#aaa" stroke-width="0.8" clip-path="url(#mt-clip)"/>
+  <text x="100" y="21" text-anchor="middle" font-size="7" fill="#666">tweeter</text>
+  <text x="100" y="30" text-anchor="middle" font-size="7" fill="#666">2.83" dia</text>
+  <text x="100" y="42" text-anchor="middle" font-size="7" fill="#888">mid 4.57" dia</text>
+  <!-- F-B Tie LEFT -->
+  <rect x="15" y="0" width="11" height="68" fill="#996633" fill-opacity="0.75" stroke="#774411" stroke-width="1.5"/>
+  <!-- F-B Tie RIGHT -->
+  <rect x="174" y="0" width="11" height="68" fill="#996633" fill-opacity="0.75" stroke="#774411" stroke-width="1.5"/>
+  <!-- No batten note -->
+  <text x="100" y="61" text-anchor="middle" font-size="8" fill="#888" font-style="italic">no back batten in this chamber</text>
+  <!-- Back panel -->
+  <rect x="0" y="68" width="200" height="8" fill="#d4a44a" fill-opacity="0.4" stroke="#d4a44a" stroke-width="1"/>
+  <text x="100" y="84" text-anchor="middle" font-size="8" fill="#9a7a2a">back panel 1/2"</text>
+  <!-- F-B tie labels -->
+  <text x="20" y="-18" text-anchor="middle" font-size="8" fill="#774411" font-weight="bold">F-B tie</text>
+  <line x1="20" y1="-14" x2="20" y2="-2" stroke="#774411" stroke-width="0.8"/>
+  <text x="179" y="-18" text-anchor="middle" font-size="8" fill="#774411" font-weight="bold">F-B tie</text>
+  <line x1="179" y1="-14" x2="179" y2="-2" stroke="#774411" stroke-width="0.8"/>
+  <!-- Depth arrow -->
+  <line x1="-35" y1="0" x2="-35" y2="68" stroke="#06a" stroke-width="0.8" marker-start="url(#mt-up)" marker-end="url(#mt-dn)"/>
+  <text x="-40" y="38" text-anchor="middle" font-size="8" fill="#06a" transform="rotate(-90,-40,38)">4.50"</text>
+</svg>
+</div>
+</div><!-- end two-col -->
 
 <h2>Assembly Notes</h2>
 
