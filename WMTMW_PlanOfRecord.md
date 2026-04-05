@@ -69,7 +69,7 @@ Mid matching: excellent (Fs gap 1.9%, Mms 0.9%).
 ## 4. Enclosure Dimensions
 
 ```
-BOX EXTERNAL:     14.25" W  ×  5.75" D  ×  48.00" H  (baffle front to back outer)
+BOX EXTERNAL:     14.25" W  ×  5.25" D (in stud cavity)  ×  48.00" H  [5.75" from wall surface incl. drywall zone]
 FRONT BAFFLE:     16.00" W  ×  48.00" H ×  0.75" thick (rabbeted to 1/2" at L/R edges)
 BOX INTERNAL:     13.25" W  ×  4.50" D  ×  46.50" H
 DRYWALL CUTOUT:   16.00" W  ×  48.00" H
@@ -91,14 +91,14 @@ STUD CAVITY:      5.25" measured from room-side stud face to back of cavity
 ### Depth Stack
 
 ```
-From baffle front face:  Baffle 0.75" + Internal 4.50" + Back 0.50" = 5.75"
+From wall surface:  Baffle 0.75" + Internal 4.50" + Back 0.50" = 5.75" (incl. drywall zone)
 
-From stud face (cavity reference):
+From stud face (cavity depth — the critical constraint):
   Baffle protrusion into cavity:  0.25"  (center 0.75" − drywall-flush edge 0.50")
   Sides / dividers / air space:   4.50"
   Back panel:                      0.50"
                                    ─────
-  Stud cavity used:                5.25"  (measured from room-side stud face)
+  Stud cavity used:                5.25"  ← MAX DEPTH IN WALL
 
 Box height matches baffle height (48.00") — no top/bottom overhang.
 ```

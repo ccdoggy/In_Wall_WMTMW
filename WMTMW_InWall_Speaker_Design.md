@@ -72,8 +72,8 @@ Sensitivity:    ~87–88 dB (2.83V / 1m, in-wall half-space)
     Internal depth:           │  4.50"   ← Driver + air space + polyfill
     Back panel (1/2" MDF):    │  0.50"
                               │
-    Stud cavity (measured):   │  5.25"   (from room-side stud face to back of cavity)
-    Total (baffle front to back): 5.75"
+    Stud cavity (measured):   │  5.25"   ← MAX DEPTH IN WALL (stud face to back)
+    From wall surface:            5.75"   (incl. 0.50" drywall zone)
                               └─── Back of wall
 
     Deepest driver (6.5" woofer):  2.44" mounting depth
@@ -459,12 +459,13 @@ preserving sensitivity.
 ```
     ┌──────────────────────────────────────────────────────────┐
     │                                                          │
-    │   Box External:    14.25" W  ×  5.75" D  ×  48.00" H    │
-    │   Front Baffle:    16.00" W  ×  48.00" H  ×  0.75" D    │
-    │                                                          │
-    │   Box Width:   14.25"  (fits between studs)              │
-    │   Baffle Width:16.00"  (0.875" overlap onto each stud)   │
-    │   Depth:        5.75"  (baffle front to back outer)      │
+    │   Box External:    14.25" W  ×  5.25" D (in cavity)  ×  48.00" H    │
+    │   Front Baffle:    16.00" W  ×  48.00" H  ×  0.75" D         │
+    │                                                               │
+    │   Box Width:    14.25"  (fits between studs)                  │
+    │   Baffle Width: 16.00"  (0.875" overlap onto each stud)       │
+    │   Depth in stud cavity: 5.25"  ← MAX DEPTH IN WALL            │
+    │   Depth from wall surface: 5.75" (incl. drywall zone)         │
     │   Box Height:  48.00"  (flush with baffle, no T/B overhang) │
     │   Baffle Height:  48.00"                                   │
     │                                                          │
@@ -560,7 +561,7 @@ The 3/4" baffle has two types of routed features:
     Internal:  13.25" W  ×  4.50" D  ×  46.50" H
 
     Width:   14.25" - 2(0.50") = 13.25"
-    Depth:    5.75" - 0.75" - 0.50" =  4.50"  (3/4" baffle + 1/2" back)
+    Depth:    5.25" - 0.25" - 0.50" =  4.50"  (0.25" baffle protrusion + 1/2" back; 5.25" stud cavity)
     Height:  48.00" - 2(0.75") = 46.50"
 
     Cross-section area:  13.25" × 4.50" = 59.63 sq in
@@ -784,7 +785,8 @@ A simpler 2-divider design (3 chambers) is recommended over 4 dividers (5 chambe
 
 ```
     Room side                              Back of wall
-    ←────────────── 5.75" ──────────────→
+    ←──────────── 5.75" (from wall surface) ────────────→
+    ←── drywall ──→←────── 5.25" in stud cavity ────────→
 
     ┌────┬─────────────────────────┬────┐
     │    │                         │    │
