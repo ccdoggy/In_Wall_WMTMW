@@ -127,7 +127,8 @@
 <tr><td>5</td><td><strong>Side panels</strong></td><td>1/2" MDF</td><td>4.50" (depth)</td><td>46.50" (vertical)</td><td>2</td><td>Fit between top &amp; bottom; 4.50" runs front-to-back</td></tr>
 <tr><td>6</td><td><strong>Dividers</strong></td><td>1/2" MDF</td><td>13.25"</td><td>4.50" (depth)</td><td>2</td><td>Chamber boundaries; 4.50" spans internal depth only</td></tr>
 <tr><td>7</td><td>Back battens</td><td>3/4" MDF</td><td>3/4" sq</td><td>13.25"</td><td>2</td><td>Glue &amp; brad to back panel <em>before</em> sides go on</td></tr>
-<tr><td>8</td><td>F-B ties</td><td>3/4" MDF</td><td>3/4" sq</td><td>4.50"</td><td>6</td><td>Bridge baffle to back; brad through back panel from outside</td></tr>
+<tr><td>8a</td><td>F-B ties — woofer chambers</td><td>3/4" MDF</td><td>3/4" sq</td><td><strong>3.75"</strong></td><td>4</td><td>Butt against back batten face (not back panel); 2 per woofer chamber</td></tr>
+<tr><td>8b</td><td>F-B ties — mid/tweeter chamber</td><td>3/4" MDF</td><td>3/4" sq</td><td>4.50"</td><td>2</td><td>Full depth to back panel face; no batten in this chamber</td></tr>
 </table>
 <div class="note-box" style="font-size:10px;">
 <strong>† Width:</strong> always the horizontal dimension (side-to-side in the assembled box).<br>
@@ -699,8 +700,10 @@ Baffle center = 8.000" from either side edge. Mark a vertical center line on the
 <h2>Bracing Layout &mdash; F-B Ties &amp; Back Battens</h2>
 
 <div class="note-box" style="font-size:11px; margin-bottom:12px;">
-  <strong>F-B ties — 6 total, all three chambers:</strong> 3/4" &times; 3/4" &times; 4.50" MDF blocks bridging the baffle back face to the back panel front face. Two per chamber, one on each side of the driver(s). Use a cardboard template of the baffle cutouts to confirm placement clears every cutout by &ge;1" before gluing.<br><br>
-  <strong>Back battens — 2 total, woofer chambers only:</strong> 3/4" &times; 3/4" &times; 13.25" MDF strips glued flat against the inside face of the back panel at the vertical midpoint of each woofer chamber (~7.35" from each divider/end wall). They halve the unsupported back panel span. The mid/tweeter chamber gets no batten — lower bass pressure plus acoustic foam lining is sufficient. <strong style="color:#c00">Install battens before box assembly — you cannot reach in after the sides are on.</strong>
+  <strong>F-B ties — purpose:</strong> Pure compression members that prevent the baffle and back panel from flexing toward or away from each other under woofer excitation (the box "breathes" with every bass transient). By bridging those two panels, the ties lock them together so both panels act as a single rigid unit. Placing them near the side walls maximises the braced span and keeps them well clear of the driver cutouts.<br><br>
+  <strong>F-B tie placement — approximate positions:</strong> One tie on each side of the driver(s), as close to the side wall as practical. Target ~1.3" from each side wall in the woofer chambers and ~1.0" from each wall in the mid/tweeter chamber. These positions give roughly 1.5" clearance from the nearest driver cutout edge. Cut a cardboard template of the baffle hole pattern and hold it against the open box to verify &ge;1" clearance from every cutout before gluing any tie.<br><br>
+  <strong>Woofer-chamber ties butt against back batten — cut to 3.75":</strong> Each woofer chamber already has a back batten (3/4" sq) glued to the back panel face. That batten occupies the last 3/4" of interior depth, so a full-length 4.50" tie would collide with it. Cut the 4 woofer-chamber ties to <strong>3.75"</strong> instead — they press squarely against the back batten face. Load path: baffle &rarr; F-B tie &rarr; back batten &rarr; back panel. This T-joint is stronger than going directly to the back panel. The 2 mid/tweeter ties have no batten to contend with and stay at 4.50".<br><br>
+  <strong>Back battens — 2 total, woofer chambers only:</strong> 3/4" &times; 3/4" &times; 13.25" MDF strips glued flat against the inside face of the back panel at the vertical midpoint of each woofer chamber (~7.35" from each divider/end wall). They halve the unsupported back panel span and serve as the landing surface for the woofer-chamber F-B ties. The mid/tweeter chamber gets no batten — lower bass pressure plus acoustic foam lining is sufficient. <strong style="color:#c00">Install battens before box assembly — you cannot reach in after the sides are on.</strong>
 </div>
 
 <div class="two-col">
@@ -742,6 +745,15 @@ Baffle center = 8.000" from either side edge. Mark a vertical center line on the
   <line x1="25" y1="-14" x2="25" y2="-2" stroke="#774411" stroke-width="0.8"/>
   <text x="174" y="-18" text-anchor="middle" font-size="8" fill="#774411" font-weight="bold">F-B tie</text>
   <line x1="174" y1="-14" x2="174" y2="-2" stroke="#774411" stroke-width="0.8"/>
+  <!-- Tie-to-wall dimension callouts -->
+  <line x1="0" y1="34" x2="20" y2="34" stroke="#774411" stroke-width="0.8" marker-start="url(#ba-lt)" marker-end="url(#ba-rt)"/>
+  <line x1="0" y1="29" x2="0" y2="39" stroke="#774411" stroke-width="0.8"/>
+  <line x1="20" y1="29" x2="20" y2="39" stroke="#774411" stroke-width="0.8"/>
+  <text x="10" y="47" text-anchor="middle" font-size="7" fill="#774411">~1.3"</text>
+  <line x1="180" y1="34" x2="200" y2="34" stroke="#774411" stroke-width="0.8" marker-start="url(#ba-lt)" marker-end="url(#ba-rt)"/>
+  <line x1="180" y1="29" x2="180" y2="39" stroke="#774411" stroke-width="0.8"/>
+  <line x1="200" y1="29" x2="200" y2="39" stroke="#774411" stroke-width="0.8"/>
+  <text x="190" y="47" text-anchor="middle" font-size="7" fill="#774411">~1.3"</text>
   <!-- Batten label -->
   <text x="205" y="62" font-size="8" fill="#884400" font-weight="bold">&#8592; BACK BATTEN</text>
   <text x="205" y="72" font-size="8" fill="#884400">3/4"&times;3/4"&times;13.25"</text>
@@ -760,6 +772,8 @@ Baffle center = 8.000" from either side edge. Mark a vertical center line on the
   <defs>
     <marker id="mt-up" viewBox="0 0 10 10" refX="5" refY="0" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,10 L5,0 L10,10" fill="none" stroke="#06a" stroke-width="1.5"/></marker>
     <marker id="mt-dn" viewBox="0 0 10 10" refX="5" refY="10" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L5,10 L10,0" fill="none" stroke="#06a" stroke-width="1.5"/></marker>
+    <marker id="mt-lt" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M10,0 L0,5 L10,10" fill="none" stroke="#774411" stroke-width="1.5"/></marker>
+    <marker id="mt-rt" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10" fill="none" stroke="#774411" stroke-width="1.5"/></marker>
     <clipPath id="mt-clip"><rect x="0" y="0" width="200" height="68"/></clipPath>
   </defs>
   <!-- Baffle face label -->
@@ -791,6 +805,15 @@ Baffle center = 8.000" from either side edge. Mark a vertical center line on the
   <line x1="20" y1="-14" x2="20" y2="-2" stroke="#774411" stroke-width="0.8"/>
   <text x="179" y="-18" text-anchor="middle" font-size="8" fill="#774411" font-weight="bold">F-B tie</text>
   <line x1="179" y1="-14" x2="179" y2="-2" stroke="#774411" stroke-width="0.8"/>
+  <!-- Tie-to-wall dimension callouts -->
+  <line x1="0" y1="34" x2="15" y2="34" stroke="#774411" stroke-width="0.8" marker-start="url(#mt-lt)" marker-end="url(#mt-rt)"/>
+  <line x1="0" y1="29" x2="0" y2="39" stroke="#774411" stroke-width="0.8"/>
+  <line x1="15" y1="29" x2="15" y2="39" stroke="#774411" stroke-width="0.8"/>
+  <text x="7" y="47" text-anchor="middle" font-size="7" fill="#774411">~1.0"</text>
+  <line x1="185" y1="34" x2="200" y2="34" stroke="#774411" stroke-width="0.8" marker-start="url(#mt-lt)" marker-end="url(#mt-rt)"/>
+  <line x1="185" y1="29" x2="185" y2="39" stroke="#774411" stroke-width="0.8"/>
+  <line x1="200" y1="29" x2="200" y2="39" stroke="#774411" stroke-width="0.8"/>
+  <text x="192" y="47" text-anchor="middle" font-size="7" fill="#774411">~1.0"</text>
   <!-- Depth arrow -->
   <line x1="-35" y1="0" x2="-35" y2="68" stroke="#06a" stroke-width="0.8" marker-start="url(#mt-up)" marker-end="url(#mt-dn)"/>
   <text x="-40" y="38" text-anchor="middle" font-size="8" fill="#06a" transform="rotate(-90,-40,38)">4.50"</text>
