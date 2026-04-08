@@ -127,7 +127,7 @@
 <tr><td>5</td><td><strong>Side panels</strong></td><td>1/2" MDF</td><td>4.50" (depth)</td><td>46.50" (vertical)</td><td>2</td><td>Fit between top &amp; bottom; 4.50" runs front-to-back</td></tr>
 <tr><td>6</td><td><strong>Dividers</strong></td><td>1/2" MDF</td><td>13.25"</td><td>4.50" (depth)</td><td>2</td><td>Chamber boundaries; 4.50" spans internal depth only</td></tr>
 <tr><td>7</td><td>Back battens</td><td>3/4" MDF</td><td>3/4" sq</td><td>13.25"</td><td>2</td><td>Glue &amp; brad to back panel <em>before</em> sides go on; F-B ties rest against batten face at the back</td></tr>
-<tr><td>8</td><td>F-B ties</td><td>3/4" MDF</td><td>3/4" sq</td><td>4.50"</td><td>6</td><td>Full depth baffle to back panel; float ~1.3" from side walls; glue to baffle, back panel, and batten face (woofer chambers)</td></tr>
+<tr><td>8</td><td>F-B ties</td><td>3/4" MDF</td><td>3/4" sq</td><td>4.50"</td><td>8</td><td>4 in woofer chambers (2/chamber, ~1.85" from walls); 4 in mid/tweeter chamber (2/side at tweeter–mid gap heights)</td></tr>
 </table>
 <div class="note-box" style="font-size:10px;">
 <strong>† Width:</strong> always the horizontal dimension (side-to-side in the assembled box).<br>
@@ -700,7 +700,7 @@ Baffle center = 8.000" from either side edge. Mark a vertical center line on the
 
 <div class="note-box" style="font-size:11px; margin-bottom:12px;">
   <strong>F-B ties — purpose:</strong> Couple the baffle and back panel together so they resist flexing as a unit under acoustic pressure. The primary benefit is reducing back panel resonance (1/2" MDF, the most flexible panel). A tie near a side wall adds support close to where the panel is already constrained by the side panels — low value. A tie near the <em>midpoint</em> of the unsupported width span (between the side wall and the driver cutout edge) targets the zone of maximum panel deflection — highest value. The side panels themselves don't need F-B ties; they're already constrained on all four edges.<br><br>
-  <strong>F-B tie placement — optimal position is the midpoint of each unsupported width span:</strong> all 6 ties are 4.50" (full depth). In woofer chambers: driver cutout edge is 3.69" from each wall, so target ~1.85" from each wall (midpoint of that 3.69" span), giving ~1.1" clearance from the cutout edge. In mid/tweeter chamber: largest cutout (mid, 4.57" dia) edge is 4.34" from each wall, so target ~2.2" from each wall, giving ~1.4" clearance. In woofer chambers, position the tie's horizontal face against the back batten face (T-joint: glue to baffle, back panel, and batten). In mid/tweeter chamber glue to baffle and back panel only. Confirm clearance with a cardboard template before gluing.<br><br>
+  <strong>F-B tie placement — 8 ties total, positioned at the midpoint of each unsupported width span:</strong> all ties are 4.50" (full depth). In each woofer chamber: 1 tie per side, ~1.85" from each wall (~1.1" clearance from woofer cutout edge). In the mid/tweeter chamber: 2 ties per side (4 total), one pair at each tweeter–mid gap height — upper gap midpoint ~26.2" from baffle bottom, lower gap midpoint ~21.8" from baffle bottom — both ~2.2" from each wall (~1.4" clearance from mid cutout). The mid/tweeter chamber has no back batten; 4 ties there break its 16.6" unsupported back-panel height into three sections (~6.9" max span). In woofer chambers, position the tie's horizontal face against the back batten face (T-joint: glue to baffle, back panel, and batten). In mid/tweeter chamber glue to baffle and back panel only. The gaps between tweeter and mid cutouts are only ~1.55" tall — confirm the 3/4" tie fits with a cardboard template before gluing.<br><br>
   <strong>Back battens — 2 total, woofer chambers only:</strong> 3/4" &times; 3/4" &times; 13.25" MDF strips glued flat against the inside face of the back panel at the vertical midpoint of each woofer chamber (~7.35" from each divider/end wall). They halve the unsupported back panel span, and their exposed face is the third glue surface for each F-B tie's back corner. The mid/tweeter chamber gets no batten — lower bass pressure plus acoustic foam lining is sufficient. <strong style="color:#c00">Install battens before box assembly — you cannot reach in after the sides are on.</strong>
 </div>
 
@@ -761,8 +761,8 @@ Baffle center = 8.000" from either side edge. Mark a vertical center line on the
 </div>
 <div>
 <h3>Mid/Tweeter Chamber — top view (looking down)</h3>
-<p style="font-size:10px; margin:4px 0 8px 0;">F-B ties only — no back batten. Three drivers are stacked vertically; combined footprint shown.</p>
-<svg viewBox="-50 -60 320 190" width="100%" style="max-width:320px;">
+<p style="font-size:10px; margin:4px 0 8px 0;">4 F-B ties — no back batten. 2 per side, each pair at a tweeter–mid gap height (top-down view collapses both heights onto one position per side).</p>
+<svg viewBox="-50 -70 320 200" width="100%" style="max-width:320px;">
   <defs>
     <marker id="mt-up" viewBox="0 0 10 10" refX="5" refY="0" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,10 L5,0 L10,10" fill="none" stroke="#06a" stroke-width="1.5"/></marker>
     <marker id="mt-dn" viewBox="0 0 10 10" refX="5" refY="10" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L5,10 L10,0" fill="none" stroke="#06a" stroke-width="1.5"/></marker>
@@ -794,11 +794,15 @@ Baffle center = 8.000" from either side edge. Mark a vertical center line on the
   <!-- Back panel -->
   <rect x="0" y="68" width="200" height="8" fill="#d4a44a" fill-opacity="0.4" stroke="#d4a44a" stroke-width="1"/>
   <text x="100" y="84" text-anchor="middle" font-size="8" fill="#9a7a2a">back panel 1/2"</text>
-  <!-- F-B tie labels -->
-  <text x="38" y="-18" text-anchor="middle" font-size="8" fill="#774411" font-weight="bold">F-B tie</text>
-  <line x1="38" y1="-14" x2="38" y2="-2" stroke="#774411" stroke-width="0.8"/>
-  <text x="161" y="-18" text-anchor="middle" font-size="8" fill="#774411" font-weight="bold">F-B tie</text>
-  <line x1="161" y1="-14" x2="161" y2="-2" stroke="#774411" stroke-width="0.8"/>
+  <!-- F-B tie labels — each position represents 2 ties at different heights -->
+  <text x="38" y="-30" text-anchor="middle" font-size="8" fill="#774411" font-weight="bold">2&times; F-B tie</text>
+  <text x="38" y="-20" text-anchor="middle" font-size="7" fill="#774411">21.8" &amp; 26.2"</text>
+  <text x="38" y="-11" text-anchor="middle" font-size="6" fill="#996633">from btm</text>
+  <line x1="38" y1="-7" x2="38" y2="-2" stroke="#774411" stroke-width="0.8"/>
+  <text x="161" y="-30" text-anchor="middle" font-size="8" fill="#774411" font-weight="bold">2&times; F-B tie</text>
+  <text x="161" y="-20" text-anchor="middle" font-size="7" fill="#774411">21.8" &amp; 26.2"</text>
+  <text x="161" y="-11" text-anchor="middle" font-size="6" fill="#996633">from btm</text>
+  <line x1="161" y1="-7" x2="161" y2="-2" stroke="#774411" stroke-width="0.8"/>
   <!-- Depth arrow -->
   <line x1="-35" y1="0" x2="-35" y2="68" stroke="#06a" stroke-width="0.8" marker-start="url(#mt-up)" marker-end="url(#mt-dn)"/>
   <text x="-40" y="38" text-anchor="middle" font-size="8" fill="#06a" transform="rotate(-90,-40,38)">4.50"</text>
@@ -828,7 +832,10 @@ Baffle center = 8.000" from either side edge. Mark a vertical center line on the
   <li>Cure 24 hours minimum.</li>
   <li>Seal all internal joints — PL Premium fillet on glue lines, silicone bead on any gaps.</li>
   <li><strong>Before installing F-B ties:</strong> cut a cardboard template of the baffle hole pattern and hold it against the open box to confirm &ge;1" clearance from every driver cutout. Ties float ~1.3" from each side wall; the mid/tweeter chamber gap between cutouts is tight — verify each position visually before gluing.</li>
-  <li>Install 6&times; F-B ties (3/4" &times; 3/4" &times; 4.50"). Front end face flush with box opening (baffle back face); back end face against back panel. Target ~1.85" from each side wall in woofer chambers, ~2.2" in mid/tweeter (midpoint of each unsupported width span). In woofer chambers, position the tie's face adjacent to the back batten face (tie rests against batten in the height direction) — glue tie to baffle, back panel, and batten face (three surfaces). <strong>Brad through back panel from outside</strong> (1" brads through 1/2" back panel into tie end grain) to lock alignment during cure.</li>
+  <li>Install 8&times; F-B ties (3/4" &times; 3/4" &times; 4.50"). Front face flush with box opening; back face against back panel.<br>
+    &bull; <em>Woofer chambers (4 ties, 2/chamber):</em> ~1.85" from each wall. Tie rests against back batten face — glue to baffle, back panel, and batten (three surfaces).<br>
+    &bull; <em>Mid/tweeter chamber (4 ties, 2/side):</em> ~2.2" from each wall. Place one tie at each tweeter–mid gap height: upper gap ~26.2" from baffle bottom, lower gap ~21.8". Glue to baffle and back panel only (no batten in this chamber).<br>
+    <strong>Brad through back panel from outside</strong> (1" brads through 1/2" back panel into each tie end grain).</li>
   <li>Stuff woofer chambers with polyfill (~50%).</li>
   <li>Line mid/tweeter chamber with 1" acoustic foam.</li>
   <li>Route all driver cables.</li>

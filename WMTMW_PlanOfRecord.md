@@ -170,7 +170,7 @@ Essentially ideal Butterworth (0.707). **Enclosure confirmed.**
 | Element | Qty | Size | Placement |
 |---------|-----|------|-----------|
 | Back panel battens | 2 | 3/4" × 3/4" × 13.25" | Flat on back panel, one per woofer chamber, centered vertically |
-| Front-to-back ties | 6 | 3/4" × 3/4" × 4.50" | 2 per chamber, flanking driver cutouts, bridging baffle to back |
+| Front-to-back ties | 8 | 3/4" × 3/4" × 4.50" | Woofer chambers: 2/chamber at ~1.85" from walls; mid/tweeter: 4 total (2/side at tweeter–mid gap heights ~21.8" and ~26.2" from baffle bottom) |
 
 ---
 

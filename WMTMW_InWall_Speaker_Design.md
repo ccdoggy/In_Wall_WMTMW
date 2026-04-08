@@ -884,19 +884,24 @@ still has unsupported back and side panel spans that need bracing.
 | Piece | Size | Qty | Location |
 |-------|------|-----|----------|
 | Back panel batten | 3/4" × 3/4" × 13.25" | 2 | Center of each woofer chamber back panel |
-| Front-to-back tie | 3/4" × 3/4" × 4.50" | 6 | 2 per chamber, flanking driver cutouts |
+| Front-to-back tie | 3/4" × 3/4" × 4.50" | 8 | 4 in woofer chambers (2/chamber); 4 in mid/tweeter chamber (2/side) |
 
 **Placement rules:**
 - Back panel battens: center vertically in each woofer chamber (~7.35" from
   divider/panel edge). Glue flat against the inside of the back panel. This
   breaks the back panel's longest unsupported span in half.
-- Front-to-back ties: glue between the front baffle and back panel, positioned
-  to avoid driver cutouts and magnets. Minimum 1" clearance from any cutout
-  edge. These tie the 3/4" baffle to the 1/2" back panel.
-- In the woofer chambers: place ties at roughly 3" and 10" from the left edge
-  (symmetrically flanking the woofer cutout, which is centered at 6.375").
-- In the mid/tweeter chamber: place ties in the gaps between the tweeter and
-  each mid cutout, offset to clear the driver magnets.
+- Front-to-back ties: glue between the front baffle and back panel at the
+  midpoint of each unsupported width span (between side wall and driver cutout
+  edge). Minimum 1" clearance from any cutout edge.
+- In the woofer chambers (2 ties/chamber): ~1.85" from each wall (~1.1"
+  clearance from woofer cutout). Tie rests against back batten face; glue to
+  baffle, back panel, and batten (three surfaces).
+- In the mid/tweeter chamber (4 ties total, 2/side): ~2.2" from each wall.
+  Place one tie at each tweeter–mid gap height: upper gap midpoint ~26.2" from
+  baffle bottom, lower gap midpoint ~21.8" from baffle bottom. The 4 ties break
+  the chamber's 16.6" unsupported back-panel height into three sections (~6.9"
+  max span). Gaps between tweeter and mid cutouts are ~1.55" tall — confirm fit
+  with a cardboard template. Glue to baffle and back panel only (no batten).
 
 **Why this works:**
 - The dividers are the primary bracing — they break all four long panels
@@ -1373,7 +1378,7 @@ Step 5 ─── Cut 1/2" MDF panels:
 
 Step 5b ── Cut 3/4" MDF bracing pieces:
            • Back panel battens:   3/4" × 3/4" × 13.25"  (×2)
-           • Front-to-back ties:   3/4" × 3/4" × 4.50"   (×6)
+           • Front-to-back ties:   3/4" × 3/4" × 4.50"   (×8)  ← 4 woofer + 4 mid/tweeter
 
 Step 6 ─── Route baffle side rabbet (back face):
            1/4" deep × 1" wide on left and right edges only
