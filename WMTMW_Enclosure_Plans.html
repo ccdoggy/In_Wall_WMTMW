@@ -126,8 +126,8 @@
 <tr><td>4</td><td><strong>Back panel</strong></td><td>1/2" MDF</td><td>14.25"</td><td>48.00" (vertical)</td><td>1</td><td>Structural backbone, full height</td></tr>
 <tr><td>5</td><td><strong>Side panels</strong></td><td>1/2" MDF</td><td>4.50" (depth)</td><td>46.50" (vertical)</td><td>2</td><td>Fit between top &amp; bottom; 4.50" runs front-to-back</td></tr>
 <tr><td>6</td><td><strong>Dividers</strong></td><td>1/2" MDF</td><td>13.25"</td><td>4.50" (depth)</td><td>2</td><td>Chamber boundaries; 4.50" spans internal depth only</td></tr>
-<tr><td>7</td><td>Back battens</td><td>3/4" MDF</td><td>3/4" sq</td><td><strong>11.75"</strong></td><td>2</td><td>Fits between the two F-B ties; glue &amp; brad to back panel <em>before</em> sides go on</td></tr>
-<tr><td>8</td><td>F-B ties</td><td>3/4" MDF</td><td>3/4" sq</td><td>4.50"</td><td>6</td><td>Hard against side walls; glued to baffle, back panel, side wall &amp; batten end (woofer chambers)</td></tr>
+<tr><td>7</td><td>Back battens</td><td>3/4" MDF</td><td>3/4" sq</td><td>13.25"</td><td>2</td><td>Glue &amp; brad to back panel <em>before</em> sides go on; F-B ties rest against batten face at the back</td></tr>
+<tr><td>8</td><td>F-B ties</td><td>3/4" MDF</td><td>3/4" sq</td><td>4.50"</td><td>6</td><td>Full depth baffle to back panel; float ~1.3" from side walls; glue to baffle, back panel, and batten face (woofer chambers)</td></tr>
 </table>
 <div class="note-box" style="font-size:10px;">
 <strong>† Width:</strong> always the horizontal dimension (side-to-side in the assembled box).<br>
@@ -699,9 +699,9 @@ Baffle center = 8.000" from either side edge. Mark a vertical center line on the
 <h2>Bracing Layout &mdash; F-B Ties &amp; Back Battens</h2>
 
 <div class="note-box" style="font-size:11px; margin-bottom:12px;">
-  <strong>F-B ties — purpose:</strong> Pure compression members preventing the baffle and back panel from flexing toward or away from each other under woofer excitation (the box "breathes" with every bass transient). Placing them hard against the side walls maximises the braced span and keeps them well clear of driver cutouts.<br><br>
-  <strong>F-B tie placement — all 6 ties are 4.50" (full depth), hard against each side wall.</strong> Press the tie's outer face flush with the side wall's inner face. In woofer chambers the tie's inner face meets the end of the back batten — glue all four surfaces: baffle back face, back panel front face, side wall inner face, and batten end face. This gives a clean right-angle corner joint with no stacking or clamping conflicts. In the mid/tweeter chamber, glue to baffle back face, back panel front face, and side wall inner face (no batten). Verify &ge;1" clearance from every driver cutout with a cardboard template before committing any glue.<br><br>
-  <strong>Back battens — 2 total, woofer chambers only:</strong> 3/4" &times; 3/4" &times; <strong>11.75"</strong> MDF strips (= 13.25" interior &minus; two 3/4" tie widths) glued flat against the inside face of the back panel at the vertical midpoint of each woofer chamber (~7.35" from each divider/end wall). The batten runs between the two F-B ties; its end faces are the glue surface for the tie corners. They halve the unsupported back panel span. The mid/tweeter chamber gets no batten — lower bass pressure plus acoustic foam lining is sufficient. <strong style="color:#c00">Install battens before box assembly — you cannot reach in after the sides are on.</strong>
+  <strong>F-B ties — purpose:</strong> Pure compression members preventing the baffle and back panel from flexing toward or away from each other under woofer excitation (the box "breathes" with every bass transient). Ties float ~1.3" from each side wall, one on each side of the driver, maximising the braced span while staying clear of driver cutouts.<br><br>
+  <strong>F-B tie placement — all 6 ties are 4.50" (full depth baffle to back panel), floating ~1.3" from side walls.</strong> In woofer chambers, position the tie's horizontal face (top or bottom) directly against the back batten's face — they sit side-by-side in the height direction at the back corner. This avoids any depth-direction stacking and gives a clean T-joint: glue tie to baffle back face, back panel front face, and back batten face (three glue surfaces). In the mid/tweeter chamber no batten is present; glue to baffle and back panel only. Verify &ge;1" clearance from every driver cutout with a cardboard template before committing any glue.<br><br>
+  <strong>Back battens — 2 total, woofer chambers only:</strong> 3/4" &times; 3/4" &times; 13.25" MDF strips glued flat against the inside face of the back panel at the vertical midpoint of each woofer chamber (~7.35" from each divider/end wall). They halve the unsupported back panel span, and their exposed face is the third glue surface for each F-B tie's back corner. The mid/tweeter chamber gets no batten — lower bass pressure plus acoustic foam lining is sufficient. <strong style="color:#c00">Install battens before box assembly — you cannot reach in after the sides are on.</strong>
 </div>
 
 <div class="two-col">
@@ -729,28 +729,28 @@ Baffle center = 8.000" from either side edge. Mark a vertical center line on the
   <circle cx="100" cy="0" r="44" fill="#ddd" fill-opacity="0.6" stroke="#888" stroke-width="1" stroke-dasharray="4,2" clip-path="url(#woof-clip)"/>
   <text x="100" y="28" text-anchor="middle" font-size="8" fill="#666">woofer body</text>
   <text x="100" y="39" text-anchor="middle" font-size="7" fill="#888">5.87" dia cutout</text>
-  <!-- F-B Tie LEFT — hard against left side wall (outer face at x=0) -->
-  <rect x="0" y="0" width="11" height="68" fill="#996633" fill-opacity="0.75" stroke="#774411" stroke-width="1.5"/>
-  <!-- F-B Tie RIGHT — hard against right side wall (outer face at x=200) -->
-  <rect x="189" y="0" width="11" height="68" fill="#996633" fill-opacity="0.75" stroke="#774411" stroke-width="1.5"/>
-  <!-- Back batten — runs BETWEEN the two ties, x=11 to x=189 (11.75") -->
-  <rect x="11" y="57" width="178" height="11" fill="#cc7722" fill-opacity="0.8" stroke="#884400" stroke-width="1.5"/>
+  <!-- Back batten — full width, drawn first so ties render on top -->
+  <rect x="0" y="57" width="200" height="11" fill="#cc7722" fill-opacity="0.8" stroke="#884400" stroke-width="1.5"/>
+  <!-- F-B Tie LEFT — floating ~1.3" from left wall -->
+  <rect x="20" y="0" width="11" height="68" fill="#996633" fill-opacity="0.75" stroke="#774411" stroke-width="1.5"/>
+  <!-- F-B Tie RIGHT — floating ~1.3" from right wall -->
+  <rect x="169" y="0" width="11" height="68" fill="#996633" fill-opacity="0.75" stroke="#774411" stroke-width="1.5"/>
   <!-- Back panel -->
   <rect x="0" y="68" width="200" height="8" fill="#d4a44a" fill-opacity="0.4" stroke="#d4a44a" stroke-width="1"/>
   <text x="100" y="84" text-anchor="middle" font-size="8" fill="#9a7a2a">back panel 1/2"</text>
   <!-- F-B tie labels -->
-  <text x="5" y="-18" text-anchor="middle" font-size="8" fill="#774411" font-weight="bold">F-B tie</text>
-  <line x1="5" y1="-14" x2="5" y2="-2" stroke="#774411" stroke-width="0.8"/>
-  <text x="194" y="-18" text-anchor="middle" font-size="8" fill="#774411" font-weight="bold">F-B tie</text>
-  <line x1="194" y1="-14" x2="194" y2="-2" stroke="#774411" stroke-width="0.8"/>
-  <!-- Glue-to-wall indicators -->
-  <text x="-3" y="20" text-anchor="end" font-size="6" fill="#774411" font-style="italic">side</text>
-  <text x="-3" y="28" text-anchor="end" font-size="6" fill="#774411" font-style="italic">wall</text>
-  <text x="203" y="20" font-size="6" fill="#774411" font-style="italic">side</text>
-  <text x="203" y="28" font-size="6" fill="#774411" font-style="italic">wall</text>
+  <text x="25" y="-18" text-anchor="middle" font-size="8" fill="#774411" font-weight="bold">F-B tie</text>
+  <line x1="25" y1="-14" x2="25" y2="-2" stroke="#774411" stroke-width="0.8"/>
+  <text x="174" y="-18" text-anchor="middle" font-size="8" fill="#774411" font-weight="bold">F-B tie</text>
+  <line x1="174" y1="-14" x2="174" y2="-2" stroke="#774411" stroke-width="0.8"/>
+  <!-- Tie-to-batten note at overlap zone -->
+  <text x="25" y="52" text-anchor="middle" font-size="6" fill="#774411" font-style="italic">rests on</text>
+  <text x="25" y="59" text-anchor="middle" font-size="6" fill="#774411" font-style="italic">batten</text>
+  <text x="174" y="52" text-anchor="middle" font-size="6" fill="#774411" font-style="italic">rests on</text>
+  <text x="174" y="59" text-anchor="middle" font-size="6" fill="#774411" font-style="italic">batten</text>
   <!-- Batten label -->
   <text x="205" y="62" font-size="8" fill="#884400" font-weight="bold">&#8592; BACK BATTEN</text>
-  <text x="205" y="72" font-size="8" fill="#884400">3/4"&times;3/4"&times;11.75"</text>
+  <text x="205" y="72" font-size="8" fill="#884400">3/4"&times;3/4"&times;13.25"</text>
   <!-- Depth arrow -->
   <line x1="-35" y1="0" x2="-35" y2="68" stroke="#06a" stroke-width="0.8" marker-start="url(#ba-up)" marker-end="url(#ba-dn)"/>
   <text x="-40" y="38" text-anchor="middle" font-size="8" fill="#06a" transform="rotate(-90,-40,38)">4.50"</text>
@@ -785,25 +785,20 @@ Baffle center = 8.000" from either side edge. Mark a vertical center line on the
   <text x="100" y="21" text-anchor="middle" font-size="7" fill="#666">tweeter</text>
   <text x="100" y="30" text-anchor="middle" font-size="7" fill="#666">2.83" dia</text>
   <text x="100" y="42" text-anchor="middle" font-size="7" fill="#888">mid 4.57" dia</text>
-  <!-- F-B Tie LEFT — hard against left side wall -->
-  <rect x="0" y="0" width="11" height="68" fill="#996633" fill-opacity="0.75" stroke="#774411" stroke-width="1.5"/>
-  <!-- F-B Tie RIGHT — hard against right side wall -->
-  <rect x="189" y="0" width="11" height="68" fill="#996633" fill-opacity="0.75" stroke="#774411" stroke-width="1.5"/>
+  <!-- F-B Tie LEFT — floating ~1.0" from left wall -->
+  <rect x="15" y="0" width="11" height="68" fill="#996633" fill-opacity="0.75" stroke="#774411" stroke-width="1.5"/>
+  <!-- F-B Tie RIGHT — floating ~1.0" from right wall -->
+  <rect x="174" y="0" width="11" height="68" fill="#996633" fill-opacity="0.75" stroke="#774411" stroke-width="1.5"/>
   <!-- No batten note -->
   <text x="100" y="61" text-anchor="middle" font-size="8" fill="#888" font-style="italic">no back batten in this chamber</text>
   <!-- Back panel -->
   <rect x="0" y="68" width="200" height="8" fill="#d4a44a" fill-opacity="0.4" stroke="#d4a44a" stroke-width="1"/>
   <text x="100" y="84" text-anchor="middle" font-size="8" fill="#9a7a2a">back panel 1/2"</text>
   <!-- F-B tie labels -->
-  <text x="5" y="-18" text-anchor="middle" font-size="8" fill="#774411" font-weight="bold">F-B tie</text>
-  <line x1="5" y1="-14" x2="5" y2="-2" stroke="#774411" stroke-width="0.8"/>
-  <text x="194" y="-18" text-anchor="middle" font-size="8" fill="#774411" font-weight="bold">F-B tie</text>
-  <line x1="194" y1="-14" x2="194" y2="-2" stroke="#774411" stroke-width="0.8"/>
-  <!-- Glue-to-wall indicators -->
-  <text x="-3" y="20" text-anchor="end" font-size="6" fill="#774411" font-style="italic">side</text>
-  <text x="-3" y="28" text-anchor="end" font-size="6" fill="#774411" font-style="italic">wall</text>
-  <text x="203" y="20" font-size="6" fill="#774411" font-style="italic">side</text>
-  <text x="203" y="28" font-size="6" fill="#774411" font-style="italic">wall</text>
+  <text x="20" y="-18" text-anchor="middle" font-size="8" fill="#774411" font-weight="bold">F-B tie</text>
+  <line x1="20" y1="-14" x2="20" y2="-2" stroke="#774411" stroke-width="0.8"/>
+  <text x="179" y="-18" text-anchor="middle" font-size="8" fill="#774411" font-weight="bold">F-B tie</text>
+  <line x1="179" y1="-14" x2="179" y2="-2" stroke="#774411" stroke-width="0.8"/>
   <!-- Depth arrow -->
   <line x1="-35" y1="0" x2="-35" y2="68" stroke="#06a" stroke-width="0.8" marker-start="url(#mt-up)" marker-end="url(#mt-dn)"/>
   <text x="-40" y="38" text-anchor="middle" font-size="8" fill="#06a" transform="rotate(-90,-40,38)">4.50"</text>
@@ -833,7 +828,7 @@ Baffle center = 8.000" from either side edge. Mark a vertical center line on the
   <li>Cure 24 hours minimum.</li>
   <li>Seal all internal joints — PL Premium fillet on glue lines, silicone bead on any gaps.</li>
   <li><strong>Before installing F-B ties:</strong> cut a cardboard template of the baffle hole pattern and hold it against the open box to confirm &ge;1" clearance from every driver cutout. (Ties sit hard against the side walls, so verify the mid/tweeter cutouts don't crowd the 3/4" tie width.)</li>
-  <li>Install 6&times; F-B ties (3/4" &times; 3/4" &times; 4.50"). Press outer face flush against side wall inner face; front face flush with box opening (baffle back face). In woofer chambers, inner face butts against end of back batten — glue all four contact surfaces. <strong>Brad through back panel from outside</strong> (1" brads through 1/2" back panel into tie end grain) to lock alignment during cure.</li>
+  <li>Install 6&times; F-B ties (3/4" &times; 3/4" &times; 4.50"). Front end face flush with box opening (baffle back face); back end face against back panel. Float ~1.3" from each side wall, one on each side of the driver(s). In woofer chambers, position the tie's face adjacent to the back batten face (tie rests against batten in the height direction) — glue tie to baffle, back panel, and batten face (three surfaces). <strong>Brad through back panel from outside</strong> (1" brads through 1/2" back panel into tie end grain) to lock alignment during cure.</li>
   <li>Stuff woofer chambers with polyfill (~50%).</li>
   <li>Line mid/tweeter chamber with 1" acoustic foam.</li>
   <li>Route all driver cables.</li>
