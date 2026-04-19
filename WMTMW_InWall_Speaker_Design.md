@@ -970,8 +970,8 @@ is needed for the tweeter beyond what's already in the chamber.
 | Internal dividers| MDF            | 1/2"      | 2× horizontal shelves, glued + caulked |
 | Back battens     | MDF            | 3/4"×3/4" | 2× horizontal, one per woofer chamber  |
 | Front-to-back ties| MDF           | 3/4"×3/4" | 6× blocks tying baffle to back panel   |
-| Damping (woofer) | Polyfill       | —         | ~50% fill, ~12 oz per chamber          |
-| Damping (mids)   | Acoustic foam  | 1"        | Back + sides + floor + ceiling of chamber |
+| Damping (woofer) | Polyfill       | —         | ~50% fill, 256 g per chamber (measured on prototype) |
+| Damping (mids)   | Acousta-Blue denim | —     | Walls of chamber |
 | Sealing          | PL Premium + caulk | —     | All joints PL Premium + silicone bead  |
 | Driver mounting  | T-nuts         | —         | Pressed into baffle back at all holes  |
 
@@ -1491,7 +1491,7 @@ Step 24 ── Install front-to-back ties:
              end-grain to lock alignment during cure
            — the baffle will glue to the front faces when applied
            
-Step 25 ── Woofer chambers: stuff with polyfill (~50% fill, ~12 oz each)
+Step 25 ── Woofer chambers: stuff with polyfill (~50% fill, 256 g per chamber — measured on prototype)
            Pull apart into fluffy clouds, distribute evenly, don't pack
 
 Step 26 ── Mid/tweeter chamber: glue 1" acoustic foam to:

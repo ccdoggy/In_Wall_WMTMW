@@ -143,9 +143,9 @@ Two 1/2" MDF horizontal dividers create three sealed chambers.
 
 | Chamber | Height | Volume | Damping |
 |---------|--------|--------|---------|
-| Lower woofer | 14.71" | 14.4 L | Polyfill ~50% |
-| Mid / Tweeter (shared) | 16.08" | 15.7 L | 1" acoustic foam on walls |
-| Upper woofer | 14.71" | 14.4 L | Polyfill ~50% |
+| Lower woofer | 14.71" | 14.4 L | Polyfill ~50% — **256 g measured (prototype)** |
+| Mid / Tweeter (shared) | 16.08" | 15.7 L | Acousta-Blue denim on walls |
+| Upper woofer | 14.71" | 14.4 L | Polyfill ~50% — **256 g target (match lower)** |
 
 **Divider positions** (from inside bottom):
 - Divider 1: 14.96" (center) — lower woofer / mid-tweeter boundary
