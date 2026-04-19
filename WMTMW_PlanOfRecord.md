@@ -124,11 +124,14 @@ Pre-drill 7/64" through flange into stud. ~9–10 screws per side stud (6" spaci
 
 | Driver | Center | Frame Extent | Cutout | Recess (frame OD) |
 |--------|--------|-------------|--------|-------------------|
-| Lower woofer | 12.00" | 7.88"–14.62" | ∅149mm / 5.87" | ∅171mm / 6.73" |
-| Lower mid | 18.75" | 15.30"–20.70" | ∅116mm / 4.57" | ∅137mm / 5.39" |
-| Tweeter | 24.00" | 21.95"–26.05" | ∅72mm / 2.83" | ∅104mm / 4.09" |
-| Upper mid | 29.25" | 25.80"–31.20" | ∅116mm / 4.57" | ∅137mm / 5.39" |
-| Upper woofer | 36.00" | 31.88"–38.62" | ∅149mm / 5.87" | ∅171mm / 6.73" |
+| Lower woofer | 12.00" | 7.88"–14.62" | ∅149mm / 5.87" | ∅171mm / 6.73" | **Woofer 2** |
+| Lower mid | 18.75" | 15.30"–20.70" | ∅116mm / 4.57" | ∅137mm / 5.39" | **Mid 4** |
+| Tweeter | 24.00" | 21.95"–26.05" | ∅72mm / 2.83" | ∅104mm / 4.09" | **Tweeter** |
+| Upper mid | 29.25" | 25.80"–31.20" | ∅116mm / 4.57" | ∅137mm / 5.39" | **Mid 3** |
+| Upper woofer | 36.00" | 31.88"–38.62" | ∅149mm / 5.87" | ∅171mm / 6.73" | **Woofer 1** |
+
+**Prototype driver assignment (top→bottom): Woofer 1 · Mid 3 · Tweeter · Mid 4 · Woofer 2.**
+Correlate in-box impedance sweeps to the correct free-air T/S baseline (Woofer 1 vs 2 differ in Fs/Qts).
 
 All drivers centered horizontally at 8.00" from baffle edges.
 Tweeter faceplate is round (∅104mm). All recesses are circular.
