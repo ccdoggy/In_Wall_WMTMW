@@ -2,7 +2,15 @@
 
 Session runbook for in-box acoustic and electrical characterization of the prototype WMTMW in-wall speaker. Data targets both **LoudspeakerLab** (primary) and **VituixCAD** (secondary) for crossover design.
 
-**Companion file:** `Measurement_Runbook.html` — printable version with SVG diagrams for arc geometry, mic placement, and signal chain. Print that one for use in the basement.
+## Companion tools
+
+| File | Purpose |
+|------|---------|
+| `Measurement_Runbook.html` | Printable version with SVG diagrams for arc geometry, mic placement, signal chain. Print this for basement use. |
+| `sweep_wizard.py` | Python wizard that drives the acoustic-sweep sequence on Windows. Attempts to auto-trigger REW via its HTTP API; falls back to guided-prompt mode if the API is unavailable. Enforces tweeter safety (300 Hz sweep start, 256 k length) and the naming convention below. Logs progress to `sweep_log.csv` for resume after interruption. |
+| `measurement_matrix.py`, `rew_api.py`, `prompts.py` | Wizard internals. |
+
+This .md remains the ground-truth reference — every filename, sweep range, and safety rule in the wizard matches what's documented here. If the wizard fails or you prefer fully manual, execute this document top-to-bottom.
 
 **Estimated session time:** 4.5–6 hours including setup and verification.
 
@@ -17,7 +25,7 @@ The Scan-Speak H2606/9200 voice coil can burn out in **seconds** if driven with 
 | 1 | During 2.83 V calibration (Step 5), the **tweeter must be physically disconnected** at the wall. Only the calibration woofer is connected. | 60 Hz sine at 2.83 V into a tweeter destroys it instantly. |
 | 2 | For every tweeter sweep, set REW **sweep start frequency to 300 Hz**. Tweeter Fs is ~650 Hz; 300 Hz gives margin but stays well below the intended ~2.5 kHz crossover. | The default 20 Hz sweep start applies full voltage below Fs where excursion peaks. |
 | 3 | Use **256 k sweep length** for tweeter, not 512 k. Shorter exposure. | Limits thermal dose. |
-| 4 | Tweeter distortion sweeps run at **1 V**, not 2.83 V. Label files `T_THD_1V.txt`. | 2.83 V extended stepped sine is thermally punishing. |
+| 4 | Tweeter distortion sweeps run at **1 V**, not 2.83 V. Label files `T-Tweeter-Distortion-1V.txt`. | 2.83 V extended stepped sine is thermally punishing. |
 | 5 | Before the first tweeter sweep, with the tweeter **disconnected**, run a dry sweep and view REW's generator spectrum. Confirm no content below 300 Hz. Then connect the tweeter. | Catches misconfigured sweep range before it reaches the driver. |
 | 6 | **Wear hearing protection** during tweeter sweeps. At 95 dB/2.83 V sensitivity, on-axis SPL is ~95 dB at 1 m for the full sweep duration. | Hearing damage threshold. |
 | 7 | If you hear any tick, buzz, or stress during a tweeter sweep, **STOP immediately** and investigate. | Thermal or excursion damage is silent until it isn't. |
@@ -72,6 +80,23 @@ Arcam source selection: **7.1 Multichannel Input / Direct** (no DSP, no decoder,
 - Laptop L channel = sweep → DUT (calibrated to 2.83 V)
 - Laptop R channel = REW timing-reference pilot → desk speaker (REW-attenuated, typically −20 dB)
 - Arcam volume is **locked** for the entire session after Step 5. Do not touch.
+
+**File-naming convention.** Every saved file uses the pattern `<DriverTag>-<DriverName>-<AngleOrKind>.<ext>`. Angles are zero-padded to 3 digits so files sort numerically. The wizard enforces this automatically; if you save manually in REW, use the same pattern.
+
+| Driver tag | Driver name | Example filename |
+|---|---|---|
+| `W1` | UpperWoofer | `W1-UpperWoofer-H000deg.frd` |
+| `W2` | LowerWoofer | `W2-LowerWoofer-H090deg.frd` |
+| `M3` | UpperMid    | `M3-UpperMid-V015deg.frd` |
+| `M4` | LowerMid    | `M4-LowerMid-NearField.frd` |
+| `T`  | Tweeter     | `T-Tweeter-H000deg.frd` |
+| `Pair` | Woofers / Mids (parallel) | `Pair-Woofers-InBox.zma`, `Pair-Mids-InBox.zma` |
+
+Kind suffixes: `H###deg` horizontal, `V###deg` vertical, `NearField`, `InBox` (impedance), `Distortion`, `Distortion-1V` (tweeter).
+
+**Formats saved per acoustic measurement** (REW): `.frd` (3-col: freq, SPL, phase — for LoudspeakerLab + VituixCAD), `.txt` (REW export with header metadata — backup), `.wav` (impulse response — for reanalysis in other tools). One master `.mdat` session file is saved at the end, preserving everything recoverable.
+
+**Formats saved per impedance measurement** (DATS): `.zma` (3-col: freq, |Z|, phase — primary), `.tzz` (DATS session — backup), `.txt` (tertiary backup).
 
 ---
 
@@ -139,17 +164,17 @@ Mic not needed for this section. Disconnect laptop from Arcam if you like.
 
 Per-driver, all other drivers disconnected at the wall (open terminals):
 
-| File | Driver | Notes |
+| File (.zma primary, also save .tzz + .txt) | Driver | Notes |
 |------|--------|-------|
-| `W1_inbox.zma` | Upper woofer | Confirm Fc/Qtc vs Plan of Record (Qtc ~0.69, Fc ~56 Hz) |
-| `W2_inbox.zma` | Lower woofer | Same check |
-| `M3_inbox.zma` | Upper mid | |
-| `M4_inbox.zma` | Lower mid | |
-| `T_inbox.zma`  | Tweeter | Expect Fs ~650 Hz |
-| `Wpair_inbox.zma` | W1 ∥ W2 | Wire both to DATS terminals in parallel |
-| `Mpair_inbox.zma` | M3 ∥ M4 | Wire both in parallel |
+| `W1-UpperWoofer-InBox.zma` | Upper woofer | Confirm Fc/Qtc vs Plan of Record (Qtc ~0.69, Fc ~56 Hz) |
+| `W2-LowerWoofer-InBox.zma` | Lower woofer | Same check |
+| `M3-UpperMid-InBox.zma` | Upper mid | |
+| `M4-LowerMid-InBox.zma` | Lower mid | |
+| `T-Tweeter-InBox.zma`  | Tweeter | Expect Fs ~650 Hz |
+| `Pair-Woofers-InBox.zma` | W1 ∥ W2 | Wire both to DATS terminals in parallel |
+| `Pair-Mids-InBox.zma` | M3 ∥ M4 | Wire both in parallel |
 
-Save all to `InBoxMeasurements/`.
+Save all to `InBoxMeasurements/zma/`. From DATS, also "Save Project" as `.tzz` alongside (captures the full DATS session for later re-export).
 
 ---
 
@@ -157,20 +182,20 @@ Save all to `InBoxMeasurements/`.
 
 **Outer loop = mic angle (minimizes mic moves). Inner loop = driver (fast cable swap at wall).**
 
-For each angle in `[0, 10, 20, 30, 40, 50, 60, 70, 80, 90]` degrees horizontal:
+For each angle in `[000, 010, 020, 030, 040, 050, 060, 070, 080, 090]` degrees horizontal (zero-padded in filenames):
 
 1. Move tripod so mic tip sits directly over the tape X for that angle. Mic pointed at tweeter. Verify 1 m with string from tweeter to mic tip.
-2. Sweep each driver in order (each time: disconnect previous driver, connect next driver, all others stay disconnected):
+2. Sweep each driver in order (each time: disconnect previous driver, connect next driver, all others stay disconnected). Each row saves .frd + .txt + .wav:
 
-| Driver | File | Sweep range | Notes |
-|--------|------|------------|-------|
-| W1 upper woofer | `W1_H{angle}.frd` | 20 Hz – 20 kHz | Full range |
-| W2 lower woofer | `W2_H{angle}.frd` | 20 Hz – 20 kHz | |
-| M3 upper mid    | `M3_H{angle}.frd` | 20 Hz – 20 kHz | |
-| M4 lower mid    | `M4_H{angle}.frd` | 20 Hz – 20 kHz | |
-| T  tweeter      | `T_H{angle}.frd`  | **300 Hz – 20 kHz**, 256 k length | See Section 0 |
+| Driver | Filename stem (→ .frd, .txt, .wav) | Sweep range | Notes |
+|--------|-----------|------------|-------|
+| W1 upper woofer | `W1-UpperWoofer-H{ddd}deg` | 20 Hz – 20 kHz, 512 k | Full range |
+| W2 lower woofer | `W2-LowerWoofer-H{ddd}deg` | 20 Hz – 20 kHz, 512 k | |
+| M3 upper mid    | `M3-UpperMid-H{ddd}deg`    | 20 Hz – 20 kHz, 512 k | |
+| M4 lower mid    | `M4-LowerMid-H{ddd}deg`    | 20 Hz – 20 kHz, 512 k | |
+| T  tweeter      | `T-Tweeter-H{ddd}deg`      | **300 Hz – 20 kHz, 256 k** | See Section 0 |
 
-**Total: 50 sweeps.** Each sweep ~5–10 s measure time + filename entry.
+**Total: 50 sweeps × 3 output formats = 150 files.** Each sweep ~5–10 s measure time; wizard auto-names and auto-exports.
 
 Keep the timing-reference desk speaker in place the entire time.
 
@@ -186,15 +211,15 @@ At **1 m radius from tweeter**:
 
 Measure these offsets from the 0° on-axis point: raise the tripod by the height delta and pull it in toward the baffle by the distance delta. Verify with the 1 m string from tweeter to mic tip.
 
-Sweeps:
+Sweeps (each saves .frd + .txt + .wav):
 
-| Driver | File | Notes |
+| Driver | Filename stems | Notes |
 |--------|------|-------|
-| T  | `T_V15.frd`, `T_V30.frd` | 300 Hz – 20 kHz, 256 k |
-| M3 | `M3_V15.frd`, `M3_V30.frd` | Full range |
-| M4 | `M4_V15.frd`, `M4_V30.frd` | Full range |
+| T  | `T-Tweeter-V015deg`, `T-Tweeter-V030deg` | 300 Hz – 20 kHz, 256 k |
+| M3 | `M3-UpperMid-V015deg`, `M3-UpperMid-V030deg` | Full range |
+| M4 | `M4-LowerMid-V015deg`, `M4-LowerMid-V030deg` | Full range |
 
-**Total: 6 sweeps.**
+**Total: 6 sweeps × 3 formats = 18 files.**
 
 ---
 
@@ -202,16 +227,16 @@ Sweeps:
 
 Mic tip **<5 mm from dust cap center**, pointed axially into the driver. No gate applied. Timing reference remains on (harmless; REW just can't gate nearfield responses tightly).
 
-| Driver | File |
+| Driver | Filename stem (→ .frd, .txt, .wav) |
 |--------|------|
-| W1 | `W1_NF.frd` |
-| W2 | `W2_NF.frd` |
-| M3 | `M3_NF.frd` |
-| M4 | `M4_NF.frd` |
+| W1 | `W1-UpperWoofer-NearField` |
+| W2 | `W2-LowerWoofer-NearField` |
+| M3 | `M3-UpperMid-NearField`    |
+| M4 | `M4-LowerMid-NearField`    |
 
 **Tweeter: skip.** LoudspeakerLab auto-splices based on driver diameter for woofers and mids only; tweeter nearfield is meaningless.
 
-**Total: 4 sweeps.**
+**Total: 4 sweeps × 3 formats = 12 files.**
 
 ---
 
@@ -221,26 +246,30 @@ Mic back at 0° H, 1 m on-axis (tape X). Same Arcam volume.
 
 REW Distortion measurement → stepped sine or long log sweep. Export as text ("Export All as Text" from distortion window).
 
-| Driver | File | Level | Sweep range |
+| Driver | Filename | Level | Sweep range |
 |--------|------|-------|-------------|
-| W1 | `W1_THD.txt` | 2.83 V | 20 Hz – 20 kHz |
-| W2 | `W2_THD.txt` | 2.83 V | 20 Hz – 20 kHz |
-| M3 | `M3_THD.txt` | 2.83 V | 20 Hz – 20 kHz |
-| M4 | `M4_THD.txt` | 2.83 V | 20 Hz – 20 kHz |
-| T  | `T_THD_1V.txt` | **1 V** | **300 Hz – 20 kHz** |
+| W1 | `W1-UpperWoofer-Distortion.txt` | 2.83 V | 20 Hz – 20 kHz |
+| W2 | `W2-LowerWoofer-Distortion.txt` | 2.83 V | 20 Hz – 20 kHz |
+| M3 | `M3-UpperMid-Distortion.txt`    | 2.83 V | 20 Hz – 20 kHz |
+| M4 | `M4-LowerMid-Distortion.txt`    | 2.83 V | 20 Hz – 20 kHz |
+| T  | `T-Tweeter-Distortion-1V.txt`   | **1 V** | **300 Hz – 20 kHz** |
 
-**Tweeter distortion at 1 V:** in REW, reduce the sweep output level by 9 dB (2.83 V → 1.00 V is a 9.02 dB reduction). Note the level change in the filename. LoudspeakerLab expects files at the calibrated level, but distortion data is used as a relative penalty — you can annotate the actual measurement level at upload.
+**Tweeter distortion at 1 V:** in REW, reduce the sweep output level by 9 dB (2.83 V → 1.00 V is a 9.02 dB reduction). Filename suffix `-1V` records the level. LoudspeakerLab expects files at the calibrated level, but distortion data is used as a relative penalty — annotate the actual measurement level at upload.
+
+**Total: 5 distortion files** (plus REW also auto-saves its internal `.mdat` entry).
 
 ---
 
 ## 12. Export & Sanity Checks (20 min)
 
-Before tearing down the rig:
+Before tearing down the rig. If the wizard ran, most of this is already done; this checklist covers manual-mode and final backup.
 
-1. **Export all REW sweeps as .frd** (3-column: freq, SPL, phase). REW → File → Export → Export measurement as FRD. Save to `InBoxMeasurements/frd/`.
-2. **Export distortion as text.** Save to `InBoxMeasurements/distortion/`.
-3. **Save REW session file (.mdat)** as `InBoxMeasurements/REW_session.mdat` — preserves everything, recoverable if exports are wrong.
-4. **DATS .zma files** are already in `InBoxMeasurements/`.
+1. **Export all REW sweeps as .frd** (3-column: freq, SPL, phase) → `InBoxMeasurements/frd/`.
+2. **Export all REW sweeps as .txt** (REW native, preserves header metadata) → `InBoxMeasurements/txt/`.
+3. **Export impulse responses as .wav** for each sweep (REW → File → Export → Export measurement impulse response as WAV) → `InBoxMeasurements/wav/`.
+4. **Export distortion as text** (REW → File → Export → Export All as Text from each distortion measurement) → `InBoxMeasurements/distortion/`.
+5. **Save REW session** as `InBoxMeasurements/REW_session.mdat` — master recovery file.
+6. **DATS files**: `.zma` primary files in `InBoxMeasurements/zma/`, DATS project file `.tzz` alongside, optional `.txt` as tertiary backup.
 
 **Sanity checks (do before you touch the rig):**
 
@@ -257,28 +286,52 @@ If any sweep looks wrong, **re-run it now** while the rig is still set up. Re-ri
 
 ```
 InBoxMeasurements/
-├── Measurement_Runbook.md
-├── Measurement_Runbook.html
-├── REW_session.mdat
-├── W1_inbox.zma
-├── W2_inbox.zma
-├── M3_inbox.zma
-├── M4_inbox.zma
-├── T_inbox.zma
-├── Wpair_inbox.zma
-├── Mpair_inbox.zma
-├── frd/
-│   ├── W1_H00.frd … W1_H90.frd, W1_NF.frd
-│   ├── W2_H00.frd … W2_H90.frd, W2_NF.frd
-│   ├── M3_H00.frd … M3_H90.frd, M3_V15.frd, M3_V30.frd, M3_NF.frd
-│   ├── M4_H00.frd … M4_H90.frd, M4_V15.frd, M4_V30.frd, M4_NF.frd
-│   └── T_H00.frd  … T_H90.frd,  T_V15.frd, T_V30.frd
-└── distortion/
-    ├── W1_THD.txt, W2_THD.txt, M3_THD.txt, M4_THD.txt
-    └── T_THD_1V.txt
+├── Measurement_Runbook.md           ← this document
+├── Measurement_Runbook.html         ← printable version
+├── README.md                        ← wizard usage
+├── sweep_wizard.py                  ← wizard entry point
+├── measurement_matrix.py            ← sweep/DATS definitions
+├── rew_api.py                       ← REW HTTP API adapter
+├── prompts.py                       ← UI + logging helpers
+├── sweep_log.csv                    ← wizard progress log (auto-created)
+├── REW_session.mdat                 ← REW master session (save at end)
+│
+├── zma/                             ← DATS impedance files
+│   ├── W1-UpperWoofer-InBox.zma  (+ .tzz, .txt)
+│   ├── W2-LowerWoofer-InBox.zma  (+ .tzz, .txt)
+│   ├── M3-UpperMid-InBox.zma     (+ .tzz, .txt)
+│   ├── M4-LowerMid-InBox.zma     (+ .tzz, .txt)
+│   ├── T-Tweeter-InBox.zma       (+ .tzz, .txt)
+│   ├── Pair-Woofers-InBox.zma    (+ .tzz, .txt)
+│   └── Pair-Mids-InBox.zma       (+ .tzz, .txt)
+│
+├── frd/                             ← REW 3-col FRD (freq, SPL, phase)
+│   ├── W1-UpperWoofer-H000deg.frd … H090deg.frd, NearField.frd
+│   ├── W2-LowerWoofer-H000deg.frd … H090deg.frd, NearField.frd
+│   ├── M3-UpperMid-H000deg.frd    … H090deg.frd, V015deg.frd, V030deg.frd, NearField.frd
+│   ├── M4-LowerMid-H000deg.frd    … H090deg.frd, V015deg.frd, V030deg.frd, NearField.frd
+│   └── T-Tweeter-H000deg.frd      … H090deg.frd, V015deg.frd, V030deg.frd
+│
+├── txt/                             ← REW native text export (same stems as frd/)
+│   └── … (mirrors frd/ file names with .txt extension)
+│
+├── wav/                             ← impulse response WAV (same stems)
+│   └── … (mirrors frd/ file names with .wav extension)
+│
+└── distortion/                      ← REW distortion export as text
+    ├── W1-UpperWoofer-Distortion.txt
+    ├── W2-LowerWoofer-Distortion.txt
+    ├── M3-UpperMid-Distortion.txt
+    ├── M4-LowerMid-Distortion.txt
+    └── T-Tweeter-Distortion-1V.txt
 ```
 
-**Total acoustic sweep count:** 50 H + 6 V + 4 NF + 5 THD = **65 acoustic sweeps**, plus 7 impedance sweeps.
+**Counts.**
+- Acoustic sweeps: 50 H + 6 V + 4 NF + 5 THD = **65 sweeps**.
+- Impedance sweeps: **7** (5 individual + 2 pairs).
+- File outputs per acoustic sweep: 3 (.frd, .txt, .wav).
+- File outputs per impedance sweep: 3 (.zma, .tzz, .txt).
+- Grand total: **65 × 3 + 7 × 3 + 5 distortion + 1 REW session = 222 files**.
 
 ---
 
