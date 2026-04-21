@@ -300,10 +300,129 @@ UMIK-1 ─USB─▶ Laptop  (REW input)
 DATS V3 ─USB─▶ Laptop  (separate sessions, not simultaneous with REW)
 </code></pre>
 
-<p class="subtle">
-  (An SVG version of this chain follows in the next step so the printed copy
-  has a diagram alongside the ASCII reference.)
-</p>
+<figure>
+  <svg viewBox="0 0 760 420" xmlns="http://www.w3.org/2000/svg"
+       role="img" aria-label="WMTMW session signal chain diagram">
+    <defs>
+      <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5"
+              markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M0,0 L10,5 L0,10 z" fill="#333"/>
+      </marker>
+      <style>
+        .box  { fill:#fff; stroke:#333; stroke-width:1.4; }
+        .amp  { fill:#eef5ff; stroke:#2471a3; stroke-width:1.4; }
+        .dut  { fill:#fdecea; stroke:#c0392b; stroke-width:1.4; }
+        .ref  { fill:#e6f6ec; stroke:#229954; stroke-width:1.4; }
+        .mic  { fill:#fdf2e1; stroke:#d68910; stroke-width:1.4; }
+        .lab  { font: 10.5pt "Helvetica Neue", Arial, sans-serif; fill:#111; }
+        .lab-sm { font: 9pt "Helvetica Neue", Arial, sans-serif; fill:#333; }
+        .lab-b  { font: bold 10.5pt "Helvetica Neue", Arial, sans-serif; fill:#111; }
+        .wire-L { stroke:#2e86c1; stroke-width:2; fill:none; marker-end:url(#arrow); }
+        .wire-R { stroke:#c0392b; stroke-width:2; fill:none; marker-end:url(#arrow); }
+        .wire-U { stroke:#7d3c98; stroke-width:2; fill:none; marker-end:url(#arrow);
+                  stroke-dasharray:6 4; }
+        .wire-S { stroke:#555; stroke-width:2; fill:none; marker-end:url(#arrow); }
+      </style>
+    </defs>
+
+    <!-- Laptop -->
+    <rect class="box" x="20"  y="60"  width="130" height="90" rx="6"/>
+    <text class="lab-b" x="85"  y="92"  text-anchor="middle">Laptop</text>
+    <text class="lab-sm" x="85" y="110" text-anchor="middle">REW + sweep_wizard</text>
+    <text class="lab-sm" x="85" y="126" text-anchor="middle">3.5 mm stereo out</text>
+
+    <!-- Splitter -->
+    <rect class="box" x="185" y="85" width="90" height="40" rx="4"/>
+    <text class="lab-sm" x="230" y="110" text-anchor="middle">TRS → 2× RCA</text>
+
+    <!-- Arcam -->
+    <rect class="amp" x="310" y="40" width="220" height="210" rx="6"/>
+    <text class="lab-b" x="420" y="64" text-anchor="middle">Arcam AVR350</text>
+    <text class="lab-sm" x="420" y="80" text-anchor="middle">7.1 Multichannel / Direct</text>
+
+    <rect class="box" x="330" y="96"  width="90" height="36" rx="3"/>
+    <text class="lab-sm" x="375" y="118" text-anchor="middle">7.1-in FL</text>
+
+    <rect class="box" x="330" y="148" width="90" height="36" rx="3"/>
+    <text class="lab-sm" x="375" y="170" text-anchor="middle">7.1-in Center</text>
+
+    <rect class="amp" x="440" y="96"  width="80" height="36" rx="3"/>
+    <text class="lab-sm" x="480" y="118" text-anchor="middle">FL amp</text>
+
+    <rect class="amp" x="440" y="148" width="80" height="36" rx="3"/>
+    <text class="lab-sm" x="480" y="170" text-anchor="middle">Center amp</text>
+
+    <text class="lab-sm" x="420" y="218" text-anchor="middle">Volume locked after Step 5</text>
+
+    <!-- DUT -->
+    <rect class="dut" x="590" y="70"  width="150" height="90" rx="6"/>
+    <text class="lab-b" x="665" y="96"  text-anchor="middle">DUT @ wall</text>
+    <text class="lab-sm" x="665" y="114" text-anchor="middle">one driver at a time</text>
+    <text class="lab-sm" x="665" y="130" text-anchor="middle">(W1/W2/M3/M4/T)</text>
+    <text class="lab-sm" x="665" y="146" text-anchor="middle">all others disconnected</text>
+
+    <!-- Desk speaker -->
+    <rect class="ref" x="590" y="190" width="150" height="60" rx="6"/>
+    <text class="lab-b" x="665" y="214" text-anchor="middle">Desk speaker</text>
+    <text class="lab-sm" x="665" y="232" text-anchor="middle">acoustic timing ref</text>
+    <text class="lab-sm" x="665" y="246" text-anchor="middle">(fixed position)</text>
+
+    <!-- UMIK-1 -->
+    <rect class="mic" x="20"  y="280" width="130" height="60" rx="6"/>
+    <text class="lab-b"  x="85" y="304" text-anchor="middle">UMIK-1</text>
+    <text class="lab-sm" x="85" y="322" text-anchor="middle">USB mic (0° cal)</text>
+
+    <!-- DATS V3 -->
+    <rect class="mic" x="20"  y="358" width="130" height="46" rx="6"/>
+    <text class="lab-b"  x="85" y="380" text-anchor="middle">DATS V3</text>
+    <text class="lab-sm" x="85" y="396" text-anchor="middle">impedance, separate</text>
+
+    <!-- Wires -->
+    <!-- Laptop -> splitter (combined) -->
+    <path class="wire-S" d="M150 105 H185"/>
+    <text class="lab-sm" x="168" y="98" text-anchor="middle">3.5 mm</text>
+
+    <!-- Splitter L -> Arcam FL -->
+    <path class="wire-L" d="M275 100 C 295 100 310 114 330 114"/>
+    <text class="lab-sm" x="296" y="94" text-anchor="middle" fill="#2e86c1">L (sweep)</text>
+
+    <!-- Splitter R -> Arcam Center -->
+    <path class="wire-R" d="M275 115 C 295 130 310 166 330 166"/>
+    <text class="lab-sm" x="296" y="148" text-anchor="middle" fill="#c0392b">R (pilot)</text>
+
+    <!-- Arcam FL amp -> DUT -->
+    <path class="wire-L" d="M520 114 C 555 114 565 114 590 114"/>
+    <text class="lab-sm" x="555" y="108" text-anchor="middle" fill="#2e86c1">FL speaker out</text>
+
+    <!-- Arcam Center amp -> Desk speaker -->
+    <path class="wire-R" d="M520 166 C 555 180 565 214 590 214"/>
+    <text class="lab-sm" x="555" y="196" text-anchor="middle" fill="#c0392b">Center speaker out</text>
+
+    <!-- UMIK-1 -> Laptop USB (back up to laptop) -->
+    <path class="wire-U" d="M85 280 V 170 H 135 V 150"/>
+    <text class="lab-sm" x="110" y="225" fill="#7d3c98">USB in</text>
+
+    <!-- Legend -->
+    <g transform="translate(310,280)">
+      <rect class="box" x="0" y="0" width="260" height="128" rx="6"/>
+      <text class="lab-b" x="10" y="20">Legend</text>
+      <line class="wire-L" x1="15" y1="40" x2="55" y2="40"/>
+      <text class="lab-sm" x="65" y="44">L channel: sweep to DUT (2.83 V calibrated)</text>
+      <line class="wire-R" x1="15" y1="62" x2="55" y2="62"/>
+      <text class="lab-sm" x="65" y="66">R channel: REW pilot tone (timing ref)</text>
+      <line class="wire-U" x1="15" y1="84" x2="55" y2="84"/>
+      <text class="lab-sm" x="65" y="88">USB (mic / DATS)</text>
+      <line class="wire-S" x1="15" y1="106" x2="55" y2="106"/>
+      <text class="lab-sm" x="65" y="110">Combined analog stereo</text>
+    </g>
+  </svg>
+  <figcaption>
+    Session signal chain. Laptop stereo out splits into two RCA lines —
+    left drives the DUT via Arcam FL; right drives the timing-reference
+    desk speaker via Arcam Center. UMIK-1 returns over USB. DATS runs
+    in its own session and does not share the chain.
+  </figcaption>
+</figure>
 
 <div class="callout info">
   <span class="tag">Arcam source</span>
