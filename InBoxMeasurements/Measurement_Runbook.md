@@ -53,9 +53,11 @@ The Scan-Speak H2606/9200 voice coil can burn out in **seconds** if driven with 
 
 **Signal chain**
 
+> **Terminology.** **DUT** = **driver under test** — the single driver currently being measured at the wall plate. Every other driver is physically disconnected. Diagrams use `DUT` as a short label; prose uses "driver under test".
+
 ```
 Laptop 3.5mm stereo out
-   ├── L channel ─RCA─► Arcam 7.1-in "Front Left"  ─► Arcam FL amp ─► DUT wires at wall
+   ├── L channel ─RCA─► Arcam 7.1-in "Front Left"  ─► Arcam FL amp ─► driver under test (DUT) at wall
    └── R channel ─RCA─► Arcam 7.1-in "Center"      ─► Arcam Center amp ─► Desk speaker (fixed position)
 
 UMIK-1 ─USB─► Laptop (REW input)
@@ -77,7 +79,7 @@ Arcam source selection: **7.1 Multichannel Input / Direct** (no DSP, no decoder,
 **One mic position, all drivers.** At each angle, all five drivers are measured from the same mic position (centered on the tweeter arc). This is close enough for crossover design — LoudspeakerLab and VituixCAD both reconstruct the full system from per-driver data plus the baffle layout.
 
 **Channel levels.**
-- Laptop L channel = sweep → DUT (calibrated to 2.83 V)
+- Laptop L channel = sweep → driver under test (DUT), calibrated to 2.83 V
 - Laptop R channel = REW timing-reference pilot → desk speaker (REW-attenuated, typically −20 dB)
 - Arcam volume is **locked** for the entire session after Step 6. Do not touch.
 
