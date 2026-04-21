@@ -1447,7 +1447,210 @@ DATS V3 ─USB─▶ Laptop  (separate sessions, not simultaneous with REW)
 <p><strong>Total: 5 distortion files</strong> (plus REW also auto-saves
 its internal <code>.mdat</code> entry).</p>
 
-<!-- Sections 12-14 populated in later steps -->
+<!-- ======================================================= -->
+<!-- Section 12 -->
+<!-- ======================================================= -->
+
+<h2 id="sec-12">12. Export &amp; Sanity Checks</h2>
+
+<p class="subtle">Budget 20 minutes. Do this before tearing down the rig.</p>
+
+<p>
+  If the wizard ran, most of this is already done; this checklist covers
+  manual-mode and the final backup pass.
+</p>
+
+<ol>
+  <li>
+    <strong>Export all REW sweeps as <code>.frd</code></strong> (3-column:
+    freq, SPL, phase) → <code>InBoxMeasurements/frd/</code>.
+  </li>
+  <li>
+    <strong>Export all REW sweeps as <code>.txt</code></strong> (REW native,
+    preserves header metadata) → <code>InBoxMeasurements/txt/</code>.
+  </li>
+  <li>
+    <strong>Export impulse responses as <code>.wav</code></strong> for each
+    sweep (REW → File → Export → Export measurement impulse response as
+    WAV) → <code>InBoxMeasurements/wav/</code>.
+  </li>
+  <li>
+    <strong>Export distortion as text</strong> (REW → File → Export →
+    Export All as Text from each distortion measurement) →
+    <code>InBoxMeasurements/distortion/</code>.
+  </li>
+  <li>
+    <strong>Save REW session</strong> as
+    <code>InBoxMeasurements/REW_session.mdat</code> — master recovery file.
+  </li>
+  <li>
+    <strong>DATS files:</strong> <code>.zma</code> primary files in
+    <code>InBoxMeasurements/zma/</code>, DATS project file
+    <code>.tzz</code> alongside, optional <code>.txt</code> as tertiary
+    backup.
+  </li>
+</ol>
+
+<h3>Sanity checks — do these before you touch the rig</h3>
+<ul>
+  <li>
+    Overlay all 10 <code>W1-UpperWoofer-H{ddd}deg.frd</code> sweeps.
+    On-axis should be highest SPL in the forward lobe; off-axis should
+    drop cleanly in the treble (woofer beams above ~2 kHz). No weird
+    notches or level discontinuities.
+  </li>
+  <li>
+    Tweeter on-axis should be flat-ish from 2 kHz to 10 kHz, around
+    95 dB, with no sub-300 Hz content (you set the sweep start there —
+    confirm).
+  </li>
+  <li>
+    Impedance sweeps: woofer peak near 56 Hz (sealed Fc), tweeter peak
+    near 650 Hz. Mids peak near their in-box Fc (expect ~120 – 150 Hz
+    given the mid/tweeter shared chamber).
+  </li>
+  <li>
+    No clipping in any IR — check REW's overload indicator retroactively.
+  </li>
+</ul>
+
+<div class="callout warn">
+  <span class="tag">Re-run now, not later</span>
+  If any sweep looks wrong, re-run it <strong>now</strong> while the rig
+  is still set up. Re-rigging next weekend costs you an afternoon.
+</div>
+
+<!-- ======================================================= -->
+<!-- Section 13 -->
+<!-- ======================================================= -->
+
+<h2 id="sec-13">13. Final File Layout</h2>
+
+<pre><code>InBoxMeasurements/
+├── Measurement_Runbook.md           ← markdown source of truth
+├── Measurement_Runbook.html         ← this printable version
+├── README.md                        ← wizard usage
+├── sweep_wizard.py                  ← wizard entry point
+├── measurement_matrix.py            ← sweep/DATS definitions
+├── rew_api.py                       ← REW HTTP API adapter
+├── prompts.py                       ← UI + logging helpers
+├── sweep_log.csv                    ← wizard progress log (auto-created)
+├── REW_session.mdat                 ← REW master session (save at end)
+│
+├── zma/                             ← DATS impedance files
+│   ├── W1-UpperWoofer-InBox.zma  (+ .tzz, .txt)
+│   ├── W2-LowerWoofer-InBox.zma  (+ .tzz, .txt)
+│   ├── M3-UpperMid-InBox.zma     (+ .tzz, .txt)
+│   ├── M4-LowerMid-InBox.zma     (+ .tzz, .txt)
+│   ├── T-Tweeter-InBox.zma       (+ .tzz, .txt)
+│   ├── Pair-Woofers-InBox.zma    (+ .tzz, .txt)
+│   └── Pair-Mids-InBox.zma       (+ .tzz, .txt)
+│
+├── frd/                             ← REW 3-col FRD (freq, SPL, phase)
+│   ├── W1-UpperWoofer-H000deg.frd … H090deg.frd, NearField.frd
+│   ├── W2-LowerWoofer-H000deg.frd … H090deg.frd, NearField.frd
+│   ├── M3-UpperMid-H000deg.frd    … H090deg.frd, V015deg.frd, V030deg.frd, NearField.frd
+│   ├── M4-LowerMid-H000deg.frd    … H090deg.frd, V015deg.frd, V030deg.frd, NearField.frd
+│   └── T-Tweeter-H000deg.frd      … H090deg.frd, V015deg.frd, V030deg.frd
+│
+├── txt/                             ← REW native text export (mirrors frd/)
+├── wav/                             ← impulse response WAV (mirrors frd/)
+│
+└── distortion/                      ← REW distortion export as text
+    ├── W1-UpperWoofer-Distortion.txt
+    ├── W2-LowerWoofer-Distortion.txt
+    ├── M3-UpperMid-Distortion.txt
+    ├── M4-LowerMid-Distortion.txt
+    └── T-Tweeter-Distortion-1V.txt
+</code></pre>
+
+<h3>Counts</h3>
+<ul>
+  <li>Acoustic sweeps: 50 H + 6 V + 4 NF + 5 THD = <strong>65 sweeps</strong>.</li>
+  <li>Impedance sweeps: <strong>7</strong> (5 individual + 2 pairs).</li>
+  <li>File outputs per acoustic sweep: 3 (<code>.frd</code>, <code>.txt</code>, <code>.wav</code>).</li>
+  <li>File outputs per impedance sweep: 3 (<code>.zma</code>, <code>.tzz</code>, <code>.txt</code>).</li>
+  <li>
+    Grand total: <strong>65 × 3 + 7 × 3 + 5 distortion + 1 REW session =
+    222 files</strong>.
+  </li>
+</ul>
+
+<!-- ======================================================= -->
+<!-- Section 14 -->
+<!-- ======================================================= -->
+
+<h2 id="sec-14">14. Troubleshooting</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width:30%">Symptom</th>
+      <th style="width:30%">Likely cause</th>
+      <th>Fix</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>REW says "Timing reference not found"</td>
+      <td>Desk speaker not producing audible pilot at mic</td>
+      <td>Raise R-channel level in REW, or reposition desk speaker closer to mic.</td>
+    </tr>
+    <tr>
+      <td>IR shows ragged / multiple leading edges</td>
+      <td>Desk speaker moved, or room picked up a new reflection</td>
+      <td>Re-verify desk speaker position; re-run last sweep.</td>
+    </tr>
+    <tr>
+      <td>On-axis SPL much lower than expected</td>
+      <td>Wrong driver connected, or phase cancellation from another driver still wired in parallel</td>
+      <td>Verify only one driver is connected at a time; check polarity.</td>
+    </tr>
+    <tr>
+      <td>Sweep clipping</td>
+      <td>Arcam volume crept up, or laptop output raised</td>
+      <td>Re-check 2.83 V on the calibration woofer; don't trust the knob.</td>
+    </tr>
+    <tr>
+      <td>Tweeter sweep shows low-frequency noise</td>
+      <td>REW sweep range not restricted to 300 Hz+</td>
+      <td>
+        Check Measure dialog range. Disconnect tweeter and verify generator
+        range first.
+      </td>
+    </tr>
+    <tr>
+      <td>Nearfield shows cone-breakup artifacts</td>
+      <td>Mic too close to cone (coupling) or off-center</td>
+      <td>Move mic to &lt;5 mm but not touching; center over dust cap.</td>
+    </tr>
+    <tr>
+      <td>Wizard can't reach REW API</td>
+      <td>REW API not enabled, port busy, version mismatch</td>
+      <td>
+        In REW: Preferences → API → Enable, or launch with <code>-api</code>.
+        Check the debug log printed by the wizard. Force manual mode with
+        <code>python sweep_wizard.py --manual</code>.
+      </td>
+    </tr>
+    <tr>
+      <td>Wizard exits mid-session</td>
+      <td>Ctrl-C, crash, or laptop sleep</td>
+      <td>
+        Restart: <code>python sweep_wizard.py</code>. It resumes from
+        <code>sweep_log.csv</code> and skips anything already 'done'.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<hr>
+
+<p class="subtle">
+  This runbook is the execution-time companion to
+  <code>WMTMW_PlanOfRecord.md</code>. Update the Plan of Record with final
+  crossover values once the LoudspeakerLab / VituixCAD design is complete.
+</p>
 
 </body>
 </html>
