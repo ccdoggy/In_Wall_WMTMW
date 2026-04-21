@@ -683,14 +683,15 @@ DATS V3 ─USB─▶ Laptop  (separate sessions, not simultaneous with REW)
 </div>
 
 <figure>
-  <svg viewBox="0 0 760 500" xmlns="http://www.w3.org/2000/svg"
-       role="img" aria-label="Top-down floor arc with 10 degree tape marks">
+  <svg viewBox="0 0 760 480" xmlns="http://www.w3.org/2000/svg"
+       role="img" aria-label="Top-down floor arc with 10 degree tape marks from 0 to 90 degrees">
     <defs>
       <style>
         .wall   { fill:#d0d0d0; stroke:#333; stroke-width:1.4; }
         .baff   { fill:#b5b5b5; stroke:#333; stroke-width:1.2; }
         .arc    { fill:none; stroke:#196f3d; stroke-width:1.8; stroke-dasharray:6 5; }
         .radius { stroke:#196f3d; stroke-width:1.2; fill:none; }
+        .chord  { stroke:#196f3d; stroke-width:1; fill:none; stroke-dasharray:3 3; }
         .tape   { fill:#c0392b; }
         .orig   { fill:#333; }
         .lab    { font: 10pt "Helvetica Neue", Arial, sans-serif; fill:#111; }
@@ -701,92 +702,92 @@ DATS V3 ─USB─▶ Laptop  (separate sessions, not simultaneous with REW)
       </style>
     </defs>
 
-    <!-- Wall and baffle (top-down) -->
-    <rect class="wall" x="20" y="40" width="50" height="420"/>
-    <rect class="baff" x="70" y="170" width="24" height="160" rx="2"/>
-    <text class="lab-sm" x="45"  y="32"  text-anchor="middle">wall</text>
-    <text class="lab-sm" x="82"  y="348" text-anchor="middle">baffle</text>
+    <!-- Wall (left) and baffle (protruding into the room).
+         Top-down view: wall runs vertically, room is to the right. -->
+    <rect class="wall" x="20" y="20" width="50" height="440"/>
+    <rect class="baff" x="70" y="60"  width="40" height="140" rx="2"/>
+    <text class="lab-sm" x="45"  y="16"  text-anchor="middle">wall</text>
+    <text class="lab-sm" x="90"  y="52"  text-anchor="middle">baffle (top-down)</text>
 
-    <!-- Origin (plumb point from tweeter acoustic center) -->
-    <circle class="orig" cx="94" cy="250" r="5"/>
-    <text class="lab-b" x="100" y="266">origin (tweeter plumb point)</text>
-    <text class="lab-sm" x="100" y="280">arc center — tape X on floor</text>
+    <!-- Origin: plumb point on floor, directly in front of the tweeter.
+         Positioned at the front face of the baffle, at tweeter's vertical
+         position. Origin = (110, 90). -->
+    <circle class="orig" cx="110" cy="90" r="5"/>
+    <text class="lab-b"  x="118" y="88">origin (tweeter plumb point)</text>
+    <text class="lab-sm" x="118" y="102">arc center — tape X on floor</text>
 
-    <!-- 1 m arc: radius in SVG units. 1 m maps to ~450 px.
-         Arc centered at (94,250), drawn from angle 0 (east) down to 90 (south),
-         but we want "up" for simple top-down visual. We'll go 0 at east and
-         sweep clockwise to 90 at south (below origin) so 0 is to the right
-         and 90 is below, matching a top-down floor plan where the baffle is
-         along the vertical axis. -->
-    <!-- Arc path: from (94+450, 250) sweeping through 0..90 deg below axis -->
-    <path class="arc" d="M 544 250 A 450 450 0 0 1 94 700"
-          transform="translate(0,-450)" />
-    <!-- The trick above doesn't quite draw what we want; use a direct arc: -->
-    <!-- Replace with: from 0deg at (544,250) to 90deg at (94,700) — out of view.
-         Instead draw incremental arc from (544,250) to (94 + 450*cos(90), 250 + 450*sin(90)) -->
-    <!-- Simpler: just draw explicit arc with sweep-flag for clockwise below the axis -->
-    <path class="arc"
-          d="M 544 250
-             A 450 450 0 0 1 94 700"
-          fill="none"/>
+    <!-- 1.00 m arc. Radius = 320 px. Origin (110, 90).
+         Sweeps from 0 degrees (east, +x) clockwise to 90 degrees (south, +y).
+         Endpoints: 0 deg = (430, 90), 90 deg = (110, 410). -->
+    <path class="arc" d="M 430 90 A 320 320 0 0 1 110 410"/>
 
-    <!-- Tape-X marks at 0, 10, 20, 30, 40, 50, 60, 70, 80, 90 degrees
-         Origin (94,250), radius 450 units, angle measured from +x axis
-         toward +y (downward = larger angle on floor plan).
-         Position = (94 + 450*cos(a), 250 + 450*sin(a))
-    -->
+    <!-- All 10 tape Xs, positions pre-computed as
+         (110 + 320*cos(a), 90 + 320*sin(a)) for a in 0..90 step 10. -->
     <g class="tape">
-      <!-- pre-computed: -->
-      <circle cx="544" cy="250"  r="5"/> <!-- 0 -->
-      <circle cx="537" cy="328"  r="5"/> <!-- 10 -->
-      <circle cx="517" cy="404"  r="5"/> <!-- 20 -->
-      <circle cx="484" cy="475"  r="5"/> <!-- 30 (near bottom) -->
-      <!-- 40..90 partially off the viewport; we'll stop at 30 and indicate the rest textually -->
+      <circle cx="430.00" cy=" 90.00" r="5"/> <!-- 0 deg -->
+      <circle cx="425.14" cy="145.56" r="5"/> <!-- 10 deg -->
+      <circle cx="410.75" cy="199.45" r="5"/> <!-- 20 deg -->
+      <circle cx="387.13" cy="250.00" r="5"/> <!-- 30 deg -->
+      <circle cx="355.15" cy="295.69" r="5"/> <!-- 40 deg -->
+      <circle cx="315.69" cy="335.15" r="5"/> <!-- 50 deg -->
+      <circle cx="270.00" cy="367.13" r="5"/> <!-- 60 deg -->
+      <circle cx="219.45" cy="390.75" r="5"/> <!-- 70 deg -->
+      <circle cx="165.56" cy="405.14" r="5"/> <!-- 80 deg -->
+      <circle cx="110.00" cy="410.00" r="5"/> <!-- 90 deg -->
     </g>
     <g>
-      <text class="lab-r" x="556" y="254">0°</text>
-      <text class="lab-r" x="550" y="330">10°</text>
-      <text class="lab-r" x="530" y="406">20°</text>
-      <text class="lab-r" x="496" y="478">30°</text>
+      <text class="lab-r" x="440" y=" 94"> 0°</text>
+      <text class="lab-r" x="440" y="150">10°</text>
+      <text class="lab-r" x="425" y="204">20°</text>
+      <text class="lab-r" x="400" y="254">30°</text>
+      <text class="lab-r" x="368" y="300">40°</text>
+      <text class="lab-r" x="328" y="340">50°</text>
+      <text class="lab-r" x="282" y="372">60°</text>
+      <text class="lab-r" x="232" y="396">70°</text>
+      <text class="lab-r" x="172" y="418">80°</text>
+      <text class="lab-r" x="112" y="428">90°</text>
     </g>
 
-    <!-- Radius line from origin to 0 degree mark -->
-    <line class="radius" x1="94" y1="250" x2="544" y2="250"/>
-    <text class="lab-g" x="319" y="244" text-anchor="middle">1.00 m radius</text>
+    <!-- Radius line from origin to 0 deg mark, labeled '1.00 m' -->
+    <line class="radius" x1="110" y1="90" x2="430" y2="90"/>
+    <text class="lab-g" x="270" y="82" text-anchor="middle">1.00 m radius</text>
 
-    <!-- Chord annotation between 0 and 10 -->
-    <line class="radius" x1="544" y1="250" x2="537" y2="328"
-          stroke-dasharray="3 3"/>
-    <text class="lab-sm" x="574" y="290">~17.4 cm chord</text>
-    <text class="lab-sm" x="574" y="304">(adjacent marks)</text>
+    <!-- Chord annotation between 0 deg and 10 deg marks -->
+    <line class="chord" x1="430" y1="90" x2="425.14" y2="145.56"/>
+    <text class="lab-sm" x="472" y="118">~17.4 cm chord</text>
+    <text class="lab-sm" x="472" y="132">(between adjacent</text>
+    <text class="lab-sm" x="472" y="146">tape marks)</text>
 
-    <!-- Note box for off-diagram angles 40-90 -->
-    <g transform="translate(330,360)">
-      <rect x="0" y="0" width="400" height="122" rx="6" fill="#fdf2e1" stroke="#d68910"/>
-      <text class="lab-b" x="12" y="22">Arc marks — continue the pattern</text>
-      <text class="lab-sm" x="12" y="42">All 10 tape Xs sit on the 1.00 m arc:</text>
-      <text class="lab-sm" x="12" y="58">0°, 10°, 20°, 30°, 40°, 50°, 60°, 70°, 80°, 90°.</text>
-      <text class="lab-sm" x="12" y="80">Chord lengths from 0°: 17.4, 34.7, 51.8, 68.4, 84.5,</text>
-      <text class="lab-sm" x="12" y="96">100.0, 114.7, 128.6, 141.4 cm at 10°…90° respectively.</text>
-      <text class="lab-sm" x="12" y="114">90° mark is directly alongside the baffle (0 m from wall).</text>
+    <!-- Info panel: chord lengths for every 10 deg step.
+         Sited well clear of every tape X and every label. -->
+    <g transform="translate(500,180)">
+      <rect x="0" y="0" width="240" height="152" rx="6"
+            fill="#fdf2e1" stroke="#d68910"/>
+      <text class="lab-b" x="12" y="22">Chord length from 0°</text>
+      <text class="lab-sm" x="12" y="42">(straight-line distance from</text>
+      <text class="lab-sm" x="12" y="56">0° tape X to angle N tape X)</text>
+      <text class="lab-sm" x="12" y="78">10°:  17.4 cm    60°: 100.0 cm</text>
+      <text class="lab-sm" x="12" y="92">20°:  34.7 cm    70°: 114.7 cm</text>
+      <text class="lab-sm" x="12" y="106">30°:  51.8 cm    80°: 128.6 cm</text>
+      <text class="lab-sm" x="12" y="120">40°:  68.4 cm    90°: 141.4 cm</text>
+      <text class="lab-sm" x="12" y="134">50°:  84.5 cm</text>
     </g>
 
-    <!-- Mic height note -->
-    <g transform="translate(330,40)">
-      <rect x="0" y="0" width="400" height="82" rx="6" fill="#e8f1fb" stroke="#2471a3"/>
-      <text class="lab-b" x="12" y="22">Mic height (elevation view not shown)</text>
-      <text class="lab-sm" x="12" y="42">Mic tip height = tweeter height, for all horizontal sweeps.</text>
-      <text class="lab-sm" x="12" y="58">Verify with tape from floor to tweeter center on baffle,</text>
-      <text class="lab-sm" x="12" y="74">then transfer to the tripod. Boom arm recommended at 0°.</text>
+    <!-- 90 deg callout: noting it's right next to the baffle plane. -->
+    <g transform="translate(140,430)">
+      <rect x="0" y="0" width="340" height="40" rx="6"
+            fill="#fdecea" stroke="#c0392b"/>
+      <text class="lab-r" x="12" y="25">
+        90° sits alongside the baffle plane (see Section 3).
+      </text>
     </g>
   </svg>
   <figcaption>
-    Floor arc (top-down, one side). Wall at left, baffle protruding into
-    the room. Origin is the plumb point directly below the tweeter's
-    acoustic center. Tape Xs sit on the 1.00 m arc at 0°, 10°, …, 90°;
-    only 0 – 30° are drawn to scale; the rest follow the same radius
-    (chord lengths listed in the yellow panel). Horizontal symmetry
-    means one side covers the whole polar.
+    Top-down floor arc. Wall on the left, baffle protruding into the
+    room. Origin is the plumb point directly below the tweeter's
+    acoustic center. All 10 tape Xs lie on the 1.00 m arc at 0°, 10°,
+    …, 90° — this time drawn to scale. Horizontal symmetry means one
+    side covers the whole polar.
   </figcaption>
 </figure>
 
