@@ -72,7 +72,7 @@ from rew_api import RewApi
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 DEFAULT_LOG_PATH = SCRIPT_DIR / "sweep_log.csv"
-DEFAULT_OUT_DIR = SCRIPT_DIR / "export"
+DEFAULT_OUT_DIR = SCRIPT_DIR / "rew"
 
 PHASES = ("pre", "dats", "cal", "ref", "acoustic", "export", "sanity", "all")
 
@@ -126,7 +126,7 @@ def phase_pre_check(api: RewApi, log: ProgressLog, manual: bool) -> bool:
 def phase_dats(log: ProgressLog) -> None:
     section("Phase 1: DATS impedance (7 sweeps)")
     info("DATS V3 sweeps are low-level and safe for all drivers, tweeter included.")
-    info("Output: save each as <name>.zma and <name>.tzz (DATS 'Save Project').")
+    info("Output: save each as <name>.zma and <name>.tzz (DATS 'Save Project') -> dats/ subfolder.")
 
     done = log.done_names()
     total = len(DATS_SWEEPS)
