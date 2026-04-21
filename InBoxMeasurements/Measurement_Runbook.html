@@ -1004,28 +1004,33 @@ DATS V3 ─USB─▶ Laptop  (separate sessions, not simultaneous with REW)
 <p class="subtle">Budget 90 – 120 minutes.</p>
 
 <div class="callout info">
-  <span class="tag">Loop order</span>
-  <strong>Outer loop = mic angle</strong> (minimizes mic moves).
-  <strong>Inner loop = driver</strong> (fast cable swap at wall).
+  <span class="tag">Why this order</span>
+  The mic is on a tripod 1 m away — moving it means re-measuring the string
+  and re-aiming at the tweeter. Wire swaps at the wall plate take seconds.
+  So we <strong>park the mic at one angle and sweep all five drivers
+  before moving the mic</strong>. Five driver swaps per mic position,
+  ten mic positions total = 50 sweeps.
 </div>
 
 <p>
-  For each angle in
-  <code>[000, 010, 020, 030, 040, 050, 060, 070, 080, 090]</code> degrees
-  horizontal (zero-padded in filenames):
+  Concretely, for each of the ten angles
+  <code>[000, 010, 020, 030, 040, 050, 060, 070, 080, 090]</code>
+  (the zero-padded number also goes into the filename):
 </p>
 
 <ol>
   <li>
-    Move the tripod so the mic tip sits directly over the tape X for that
-    angle. Mic pointed at the tweeter. Verify 1 m with the string from
-    tweeter to mic tip.
+    Move the tripod so the mic tip sits directly over that angle's tape X.
+    Aim the mic at the tweeter. Verify 1 m with the string from tweeter
+    to mic tip.
   </li>
   <li>
-    Sweep each driver in order. Each time: disconnect the previous driver,
-    connect the next, all others stay disconnected. Each row saves
+    Sweep all five drivers without moving the mic. For each driver:
+    disconnect the previous one at the wall plate, connect this one, leave
+    all others disconnected, run the sweep. Each sweep saves
     <code>.frd</code> + <code>.txt</code> + <code>.wav</code>.
   </li>
+  <li>Move the mic to the next angle's tape X and repeat.</li>
 </ol>
 
 <table>
