@@ -292,8 +292,16 @@
 
 <h3>Signal chain</h3>
 
+<div class="callout info">
+  <span class="tag">Terminology</span>
+  <strong>DUT = driver under test</strong> — the single driver currently
+  being measured at the wall plate. Every other driver is physically
+  disconnected. The diagrams use <code>DUT</code> as a short label; the
+  prose calls it the driver under test.
+</div>
+
 <pre><code>Laptop 3.5 mm stereo out
-   ├── L channel ─RCA─▶ Arcam 7.1-in "Front Left"  ─▶ Arcam FL amp     ─▶ DUT wires at wall
+   ├── L channel ─RCA─▶ Arcam 7.1-in "Front Left"  ─▶ Arcam FL amp     ─▶ driver under test (DUT) at wall
    └── R channel ─RCA─▶ Arcam 7.1-in "Center"      ─▶ Arcam Center amp ─▶ Desk speaker (fixed)
 
 UMIK-1 ─USB─▶ Laptop  (REW input)
@@ -352,7 +360,7 @@ DATS V3 ─USB─▶ Laptop  (separate sessions, not simultaneous with REW)
     <rect class="amp" x="440" y="148" width="80" height="36" rx="3"/>
     <text class="lab-sm" x="480" y="170" text-anchor="middle">Center amp</text>
 
-    <text class="lab-sm" x="420" y="218" text-anchor="middle">Volume locked after Step 5</text>
+    <text class="lab-sm" x="420" y="218" text-anchor="middle">Volume locked after Step 6</text>
 
     <!-- DUT -->
     <rect class="dut" x="590" y="70"  width="150" height="90" rx="6"/>
@@ -418,9 +426,9 @@ DATS V3 ─USB─▶ Laptop  (separate sessions, not simultaneous with REW)
   </svg>
   <figcaption>
     Session signal chain. Laptop stereo out splits into two RCA lines —
-    left drives the DUT via Arcam FL; right drives the timing-reference
-    desk speaker via Arcam Center. UMIK-1 returns over USB. DATS runs
-    in its own session and does not share the chain.
+    left drives the driver under test via Arcam FL; right drives the
+    timing-reference desk speaker via Arcam Center. UMIK-1 returns over
+    USB. DATS runs in its own session and does not share the chain.
   </figcaption>
 </figure>
 
@@ -567,7 +575,7 @@ DATS V3 ─USB─▶ Laptop  (separate sessions, not simultaneous with REW)
 <ul>
   <li>Laptop L channel = sweep → DUT (calibrated to 2.83 V)</li>
   <li>Laptop R channel = REW timing-reference pilot → desk speaker (REW-attenuated, typically −20 dB)</li>
-  <li>Arcam volume is <strong>locked</strong> for the entire session after Step 5. Do not touch.</li>
+  <li>Arcam volume is <strong>locked</strong> for the entire session after Step 6. Do not touch.</li>
 </ul>
 
 <h3>File-naming convention</h3>
