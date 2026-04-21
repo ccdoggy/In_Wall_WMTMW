@@ -118,7 +118,7 @@ Per-driver, all other drivers disconnected at the wall (open terminals):
 | `Pair-Woofers-InBox.zma` | W1 ∥ W2 | Wire both to DATS terminals in parallel |
 | `Pair-Mids-InBox.zma` | M3 ∥ M4 | Wire both in parallel |
 
-Save all to `InBoxMeasurements/zma/`. From DATS, also "Save Project" as `.tzz` alongside (captures the full DATS session for later re-export).
+Save all to `InBoxMeasurements/dats/`. From DATS, also "Save Project" as `.tzz` alongside (captures the full DATS session for later re-export).
 
 ---
 
@@ -274,7 +274,7 @@ Before tearing down the rig. If the wizard ran, most of this is already done; th
 3. **Export impulse responses as .wav** for each sweep (REW → File → Export → Export measurement impulse response as WAV) → `InBoxMeasurements/wav/`.
 4. **Export distortion as text** (REW → File → Export → Export All as Text from each distortion measurement) → `InBoxMeasurements/distortion/`.
 5. **Save REW session** as `InBoxMeasurements/REW_session.mdat` — master recovery file.
-6. **DATS files**: `.zma` primary files in `InBoxMeasurements/zma/`, DATS project file `.tzz` alongside, optional `.txt` as tertiary backup.
+6. **DATS files**: `.zma` primary files in `InBoxMeasurements/dats/`, DATS project file `.tzz` alongside, optional `.txt` as tertiary backup.
 
 **Sanity checks (do before you touch the rig):**
 
@@ -299,36 +299,32 @@ InBoxMeasurements/
 ├── rew_api.py                       ← REW HTTP API adapter
 ├── prompts.py                       ← UI + logging helpers
 ├── sweep_log.csv                    ← wizard progress log (auto-created)
-├── REW_session.mdat                 ← REW master session (save at end)
 │
-├── zma/                             ← DATS impedance files
-│   ├── W1-UpperWoofer-InBox.zma  (+ .tzz, .txt)
-│   ├── W2-LowerWoofer-InBox.zma  (+ .tzz, .txt)
-│   ├── M3-UpperMid-InBox.zma     (+ .tzz, .txt)
-│   ├── M4-LowerMid-InBox.zma     (+ .tzz, .txt)
-│   ├── T-Tweeter-InBox.zma       (+ .tzz, .txt)
-│   ├── Pair-Woofers-InBox.zma    (+ .tzz, .txt)
-│   └── Pair-Mids-InBox.zma       (+ .tzz, .txt)
+├── rew/                             ← REW acoustic measurement data
+│   ├── WMTMW_session.mdat           ← REW master session (save at end)
+│   ├── frd/                         ← 3-col FRD (freq, SPL, phase) for VituixCAD / loudspeakerlab
+│   │   ├── W1-UpperWoofer-H000deg.frd … H090deg.frd, NearField.frd
+│   │   ├── W2-LowerWoofer-H000deg.frd … H090deg.frd, NearField.frd
+│   │   ├── M3-UpperMid-H000deg.frd    … H090deg.frd, V015deg.frd, V030deg.frd, NearField.frd
+│   │   ├── M4-LowerMid-H000deg.frd    … H090deg.frd, V015deg.frd, V030deg.frd, NearField.frd
+│   │   └── T-Tweeter-H000deg.frd      … H090deg.frd, V015deg.frd, V030deg.frd
+│   ├── txt/                         ← REW native text export (mirrors frd/)
+│   ├── wav/                         ← impulse response WAV (re-gate later if needed)
+│   └── distortion/                  ← REW distortion text exports
+│       ├── W1-UpperWoofer-Distortion.txt
+│       ├── W2-LowerWoofer-Distortion.txt
+│       ├── M3-UpperMid-Distortion.txt
+│       ├── M4-LowerMid-Distortion.txt
+│       └── T-Tweeter-Distortion-1V.txt
 │
-├── frd/                             ← REW 3-col FRD (freq, SPL, phase)
-│   ├── W1-UpperWoofer-H000deg.frd … H090deg.frd, NearField.frd
-│   ├── W2-LowerWoofer-H000deg.frd … H090deg.frd, NearField.frd
-│   ├── M3-UpperMid-H000deg.frd    … H090deg.frd, V015deg.frd, V030deg.frd, NearField.frd
-│   ├── M4-LowerMid-H000deg.frd    … H090deg.frd, V015deg.frd, V030deg.frd, NearField.frd
-│   └── T-Tweeter-H000deg.frd      … H090deg.frd, V015deg.frd, V030deg.frd
-│
-├── txt/                             ← REW native text export (same stems as frd/)
-│   └── … (mirrors frd/ file names with .txt extension)
-│
-├── wav/                             ← impulse response WAV (same stems)
-│   └── … (mirrors frd/ file names with .wav extension)
-│
-└── distortion/                      ← REW distortion export as text
-    ├── W1-UpperWoofer-Distortion.txt
-    ├── W2-LowerWoofer-Distortion.txt
-    ├── M3-UpperMid-Distortion.txt
-    ├── M4-LowerMid-Distortion.txt
-    └── T-Tweeter-Distortion-1V.txt
+└── dats/                            ← DATS V3 impedance measurement data
+    ├── W1-UpperWoofer-InBox.zma  (+ .tzz, .txt)
+    ├── W2-LowerWoofer-InBox.zma  (+ .tzz, .txt)
+    ├── M3-UpperMid-InBox.zma     (+ .tzz, .txt)
+    ├── M4-LowerMid-InBox.zma     (+ .tzz, .txt)
+    ├── T-Tweeter-InBox.zma       (+ .tzz, .txt)
+    ├── Pair-Woofers-InBox.zma    (+ .tzz, .txt)
+    └── Pair-Mids-InBox.zma       (+ .tzz, .txt)
 ```
 
 **Counts.**

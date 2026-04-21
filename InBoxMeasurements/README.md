@@ -131,12 +131,14 @@ top of `rew_api.py` and rerun.
 ```
 InBoxMeasurements/
 ├── sweep_log.csv                   # one row per measurement attempt
-└── export/
-    ├── WMTMW_session.mdat          # REW master session
-    ├── frd/   *.frd                # freq, SPL, phase — for VituixCAD / loudspeakerlab.io
-    ├── txt/   *.txt                # REW text export fallback
-    ├── wav/   *.wav                # impulse responses (re-gate later if needed)
-    └── zma/   *.zma                # DATS impedance (saved from DATS, not REW)
+├── rew/                            # REW acoustic measurements
+│   ├── WMTMW_session.mdat          # REW master session
+│   ├── frd/   *.frd                # freq, SPL, phase — for VituixCAD / loudspeakerlab.io
+│   ├── txt/   *.txt                # REW text export fallback
+│   └── wav/   *.wav                # impulse responses (re-gate later if needed)
+└── dats/                           # DATS impedance measurements
+    ├── *.zma                       # primary impedance file (3-col: freq, |Z|, phase)
+    └── *.tzz                       # DATS project file (re-export without re-sweeping)
 ```
 
 Files are named by driver-role + angle/kind, e.g. `W1-UpperWoofer-H000deg.frd`,
