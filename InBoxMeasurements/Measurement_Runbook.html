@@ -108,15 +108,167 @@
 <body>
 
 <h1>WMTMW In-Wall Measurement Runbook</h1>
-<p class="subtle">Printable companion to <code>Measurement_Runbook.md</code>. For basement use.</p>
+<p>
+  Session runbook for in-box acoustic and electrical characterization of the
+  prototype WMTMW in-wall speaker. Data targets both
+  <strong>LoudspeakerLab</strong> (primary) and <strong>VituixCAD</strong>
+  (secondary) for crossover design.
+</p>
 
-<!-- TOC goes in step 2 -->
-<div class="toc" id="toc">
-  <strong>Contents</strong>
-  <p class="subtle" style="margin:0.3em 0 0">(populated in a later step)</p>
+<h3 style="margin-top:0.8em">Companion tools</h3>
+<table>
+  <thead><tr><th style="width:30%">File</th><th>Purpose</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>Measurement_Runbook.md</code></td>
+      <td>Markdown source of truth. Same content, plain text.</td>
+    </tr>
+    <tr>
+      <td><code>sweep_wizard.py</code></td>
+      <td>
+        Python wizard that drives the acoustic-sweep sequence on Windows.
+        Tries REW's HTTP API; falls back to guided prompts. Enforces tweeter
+        safety (300 Hz start, 256 k length) and the naming convention in
+        Section 2. Resume-friendly via <code>sweep_log.csv</code>.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>measurement_matrix.py</code>,
+        <code>rew_api.py</code>,
+        <code>prompts.py</code>
+      </td>
+      <td>Wizard internals. See <code>README.md</code> for usage.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>
+  This document remains the ground-truth reference. Every filename, sweep
+  range, and safety rule in the wizard matches what is documented here. If
+  the wizard fails or you prefer fully manual, execute this document
+  top-to-bottom.
+</p>
+
+<div class="callout info">
+  <span class="tag">Session time</span>
+  Budget <strong>4.5 – 6 hours</strong> including setup, calibration, and
+  verification. The acoustic polar grid alone is 90 – 120 minutes.
 </div>
 
-<!-- Section 0 + all other sections populated in later steps -->
+<div class="toc" id="toc">
+  <strong>Contents</strong>
+  <ol>
+    <li><a href="#sec-0">Tweeter Protection — read first</a></li>
+    <li><a href="#sec-1">Equipment &amp; Signal Chain</a></li>
+    <li><a href="#sec-2">Measurement Conventions</a></li>
+    <li><a href="#sec-3">Floor Arc Setup</a></li>
+    <li><a href="#sec-4">Pre-Session Setup</a></li>
+    <li><a href="#sec-5">2.83 V Calibration</a></li>
+    <li><a href="#sec-6">Timing Reference Verification</a></li>
+    <li><a href="#sec-7">Impedance Sweeps — DATS V3</a></li>
+    <li><a href="#sec-8">Horizontal Polar Sweeps</a></li>
+    <li><a href="#sec-9">Vertical Off-Axis</a></li>
+    <li><a href="#sec-10">Nearfield Sweeps</a></li>
+    <li><a href="#sec-11">Distortion Sweeps</a></li>
+    <li><a href="#sec-12">Export &amp; Sanity Checks</a></li>
+    <li><a href="#sec-13">Final File Layout</a></li>
+    <li><a href="#sec-14">Troubleshooting</a></li>
+  </ol>
+</div>
+
+<!-- ======================================================= -->
+<!-- Section 0 -->
+<!-- ======================================================= -->
+
+<h2 id="sec-0">0. Tweeter Protection — read first</h2>
+
+<div class="callout safety">
+  <span class="tag">Safety</span>
+  The Scan-Speak H2606/9200 voice coil can burn out in <strong>seconds</strong>
+  if driven with low-frequency content at 2.83 V. Every tweeter-related step
+  below exists to prevent that. Do not skip any of them.
+</div>
+
+<table>
+  <thead>
+    <tr><th style="width:3%">#</th><th style="width:47%">Rule</th><th>Why</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>
+        During 2.83 V calibration (Section 5), the
+        <strong>tweeter must be physically disconnected</strong> at the wall.
+        Only the calibration woofer is connected.
+      </td>
+      <td>60 Hz sine at 2.83 V into a tweeter destroys it instantly.</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>
+        For every tweeter sweep, set REW sweep start frequency to
+        <strong>300 Hz</strong>. Tweeter Fs is ~650 Hz; 300 Hz gives margin
+        but stays well below the intended ~2.5 kHz crossover.
+      </td>
+      <td>
+        The default 20 Hz sweep start applies full voltage below Fs where
+        excursion peaks.
+      </td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>
+        Use <strong>256 k sweep length</strong> for tweeter, not 512 k.
+      </td>
+      <td>Shorter exposure limits thermal dose.</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>
+        Tweeter distortion sweeps run at <strong>1 V</strong>, not 2.83 V.
+        Label files <code>T-Tweeter-Distortion-1V.txt</code>.
+      </td>
+      <td>2.83 V extended stepped sine is thermally punishing.</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>
+        Before the first tweeter sweep, with the tweeter
+        <strong>disconnected</strong>, run a dry sweep and view REW's
+        generator spectrum. Confirm no content below 300 Hz. Then connect
+        the tweeter.
+      </td>
+      <td>Catches misconfigured sweep range before it reaches the driver.</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>
+        <strong>Wear hearing protection</strong> during tweeter sweeps. At
+        95 dB/2.83 V sensitivity, on-axis SPL is ~95 dB at 1 m for the full
+        sweep duration.
+      </td>
+      <td>Hearing damage threshold.</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>
+        If you hear any tick, buzz, or stress during a tweeter sweep,
+        <strong>STOP immediately</strong> and investigate.
+      </td>
+      <td>Thermal or excursion damage is silent until it isn't.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="callout warn">
+  <span class="tag">Calibration-woofer convention</span>
+  Use <strong>W2 (lower woofer)</strong> as the 2.83 V calibration load.
+  Keep it connected throughout. All other drivers — including the tweeter —
+  are disconnected at the wall during calibration.
+</div>
+
+<!-- Sections 1-14 populated in later steps -->
 
 </body>
 </html>
