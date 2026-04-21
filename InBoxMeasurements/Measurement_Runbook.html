@@ -268,7 +268,50 @@
   are disconnected at the wall during calibration.
 </div>
 
-<!-- Sections 1-14 populated in later steps -->
+<!-- ======================================================= -->
+<!-- Section 1 -->
+<!-- ======================================================= -->
+
+<h2 id="sec-1">1. Equipment &amp; Signal Chain</h2>
+
+<h3>Hardware</h3>
+<ul>
+  <li>Laptop running REW (latest)</li>
+  <li>UMIK-1 USB mic + its 0° calibration file (downloaded from miniDSP for your serial)</li>
+  <li>DATS V3 + laptop USB</li>
+  <li>Arcam AVR350 (dedicated to this session)</li>
+  <li>Small passive desk speaker (3 – 4" single driver) — used <strong>only</strong> as acoustic timing reference</li>
+  <li>Tripod with boom arm (for 0° clearance) or standard tripod + plan for 0° workaround</li>
+  <li>Digital multimeter (AC V mode)</li>
+  <li>Plumb bob (nut on a string)</li>
+  <li>Masking tape, sharpie, tape measure, protractor</li>
+  <li>3.5 mm TRS → 2× RCA Y-splitter cable</li>
+  <li>Speaker wire for the desk-speaker tap to the Arcam Center terminal</li>
+  <li>Earplugs</li>
+</ul>
+
+<h3>Signal chain</h3>
+
+<pre><code>Laptop 3.5 mm stereo out
+   ├── L channel ─RCA─▶ Arcam 7.1-in "Front Left"  ─▶ Arcam FL amp     ─▶ DUT wires at wall
+   └── R channel ─RCA─▶ Arcam 7.1-in "Center"      ─▶ Arcam Center amp ─▶ Desk speaker (fixed)
+
+UMIK-1 ─USB─▶ Laptop  (REW input)
+DATS V3 ─USB─▶ Laptop  (separate sessions, not simultaneous with REW)
+</code></pre>
+
+<p class="subtle">
+  (An SVG version of this chain follows in the next step so the printed copy
+  has a diagram alongside the ASCII reference.)
+</p>
+
+<div class="callout info">
+  <span class="tag">Arcam source</span>
+  Select <strong>7.1 Multichannel Input / Direct</strong> on the Arcam.
+  No DSP, no decoder, no bass management.
+</div>
+
+<!-- Sections 2-14 populated in later steps -->
 
 </body>
 </html>
