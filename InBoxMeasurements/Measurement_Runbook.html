@@ -1262,7 +1262,192 @@ DATS V3 ─USB─▶ Laptop  (separate sessions, not simultaneous with REW)
 
 <p><strong>Total: 6 sweeps × 3 formats = 18 files.</strong></p>
 
-<!-- Sections 10-14 populated in later steps -->
+<!-- ======================================================= -->
+<!-- Section 10 -->
+<!-- ======================================================= -->
+
+<h2 id="sec-10">10. Nearfield Sweeps</h2>
+
+<p class="subtle">Budget 15 minutes.</p>
+
+<p>
+  Mic tip <strong>&lt;5 mm from dust-cap center</strong>, pointed axially
+  into the driver. No gate applied. Timing reference remains on (harmless;
+  REW just can't gate nearfield responses tightly).
+</p>
+
+<figure>
+  <svg viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg"
+       role="img" aria-label="Nearfield mic placement: tip less than 5 mm from dust cap">
+    <defs>
+      <style>
+        .baff   { fill:#b5b5b5; stroke:#333; stroke-width:1.2; }
+        .cone   { fill:#c9c9c9; stroke:#333; stroke-width:1.2; }
+        .dust   { fill:#333; }
+        .mic    { fill:#fdf2e1; stroke:#d68910; stroke-width:1.4; }
+        .tip    { fill:#c0392b; stroke:#922b21; stroke-width:1; }
+        .axis   { stroke:#2e86c1; stroke-width:1.6; fill:none; stroke-dasharray:5 4; }
+        .dim    { stroke:#196f3d; stroke-width:1.4; fill:none; }
+        .lab    { font: 10pt "Helvetica Neue", Arial, sans-serif; fill:#111; }
+        .lab-b  { font: bold 10.5pt "Helvetica Neue", Arial, sans-serif; fill:#111; }
+        .lab-g  { font: 10pt "Helvetica Neue", Arial, sans-serif; fill:#196f3d; }
+        .lab-sm { font: 9pt "Helvetica Neue", Arial, sans-serif; fill:#333; }
+        .lab-r  { font: 10pt "Helvetica Neue", Arial, sans-serif; fill:#c0392b; }
+      </style>
+      <marker id="nf-tick" viewBox="0 0 6 10" refX="3" refY="5"
+              markerWidth="4" markerHeight="7" orient="auto">
+        <path d="M3,0 V10" stroke="#196f3d" stroke-width="1.4"/>
+      </marker>
+    </defs>
+
+    <!-- Baffle -->
+    <rect class="baff" x="40" y="40" width="60" height="220" rx="3"/>
+    <text class="lab-sm" x="70" y="34" text-anchor="middle">baffle</text>
+
+    <!-- Cone (side profile): triangle with dust cap in the middle -->
+    <path class="cone"
+          d="M100 80 L230 150 L230 152 L100 222 Z"/>
+    <!-- Dust cap at cone apex -->
+    <circle class="dust" cx="230" cy="151" r="10"/>
+    <text class="lab-sm" x="252" y="142">dust-cap center</text>
+    <text class="lab-sm" x="252" y="156">(acoustic reference)</text>
+
+    <!-- Mic body with tip almost touching dust cap -->
+    <rect class="mic" x="320" y="134" width="300" height="34" rx="6"/>
+    <text class="lab-b" x="470" y="158" text-anchor="middle">UMIK-1 (axial)</text>
+    <rect class="tip" x="300" y="142" width="20" height="18" rx="2"/>
+    <text class="lab-r" x="300" y="134" text-anchor="end">tip</text>
+
+    <!-- Axis from cone center out through mic -->
+    <line class="axis" x1="230" y1="151" x2="640" y2="151"/>
+    <text class="lab" x="540" y="142" text-anchor="middle" fill="#2e86c1">
+      mic axis = driver axis (0° incidence)
+    </text>
+
+    <!-- Distance callout: less than 5 mm from dust cap to tip -->
+    <line class="dim" x1="241" y1="200" x2="298" y2="200"
+          marker-start="url(#nf-tick)" marker-end="url(#nf-tick)"/>
+    <text class="lab-g" x="269" y="218" text-anchor="middle">&lt; 5 mm</text>
+    <text class="lab-sm" x="269" y="232" text-anchor="middle">(close but NOT touching)</text>
+
+    <!-- Rules panel -->
+    <g transform="translate(340,40)">
+      <rect x="0" y="0" width="360" height="86" rx="6" fill="#e8f1fb" stroke="#2471a3"/>
+      <text class="lab-b" x="10" y="22">Nearfield rules</text>
+      <text class="lab-sm" x="10" y="42">• Tip within 5 mm of dust-cap center (do not contact cone).</text>
+      <text class="lab-sm" x="10" y="58">• Aim mic straight into the driver (axial, 0° incidence).</text>
+      <text class="lab-sm" x="10" y="74">• No gating. Leave timing reference on.</text>
+    </g>
+
+    <!-- Skip note for tweeter -->
+    <g transform="translate(340,252)">
+      <rect x="0" y="0" width="360" height="38" rx="6" fill="#fdecea" stroke="#c0392b"/>
+      <text class="lab-r" x="10" y="24">Tweeter: SKIP nearfield (directivity makes it meaningless).</text>
+    </g>
+  </svg>
+  <figcaption>
+    Nearfield placement. Mic tip sits within 5 mm of the dust-cap center,
+    pointing axially into the cone. Close enough to dominate room
+    reflections, not close enough to touch. Tweeter is skipped —
+    nearfield is not useful for dome tweeters.
+  </figcaption>
+</figure>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width:18%">Driver</th>
+      <th>Filename stem (→ .frd, .txt, .wav)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>W1</td><td><code>W1-UpperWoofer-NearField</code></td></tr>
+    <tr><td>W2</td><td><code>W2-LowerWoofer-NearField</code></td></tr>
+    <tr><td>M3</td><td><code>M3-UpperMid-NearField</code></td></tr>
+    <tr><td>M4</td><td><code>M4-LowerMid-NearField</code></td></tr>
+  </tbody>
+</table>
+
+<div class="callout info">
+  <span class="tag">Tweeter: skip</span>
+  LoudspeakerLab auto-splices based on driver diameter for woofers and
+  mids only; tweeter nearfield is meaningless.
+</div>
+
+<p><strong>Total: 4 sweeps × 3 formats = 12 files.</strong></p>
+
+<!-- ======================================================= -->
+<!-- Section 11 -->
+<!-- ======================================================= -->
+
+<h2 id="sec-11">11. Distortion Sweeps</h2>
+
+<p class="subtle">Budget 20 minutes.</p>
+
+<p>
+  Mic back at <strong>0° H, 1 m on-axis</strong> (tape X). Same Arcam volume
+  as the rest of the session. REW Distortion measurement → stepped sine
+  or long log sweep. Export as text ("Export All as Text" from the
+  distortion window).
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width:12%">Driver</th>
+      <th style="width:38%">Filename</th>
+      <th style="width:14%">Level</th>
+      <th>Sweep range</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>W1</td>
+      <td><code>W1-UpperWoofer-Distortion.txt</code></td>
+      <td>2.83 V</td>
+      <td>20 Hz – 20 kHz</td>
+    </tr>
+    <tr>
+      <td>W2</td>
+      <td><code>W2-LowerWoofer-Distortion.txt</code></td>
+      <td>2.83 V</td>
+      <td>20 Hz – 20 kHz</td>
+    </tr>
+    <tr>
+      <td>M3</td>
+      <td><code>M3-UpperMid-Distortion.txt</code></td>
+      <td>2.83 V</td>
+      <td>20 Hz – 20 kHz</td>
+    </tr>
+    <tr>
+      <td>M4</td>
+      <td><code>M4-LowerMid-Distortion.txt</code></td>
+      <td>2.83 V</td>
+      <td>20 Hz – 20 kHz</td>
+    </tr>
+    <tr>
+      <td>T</td>
+      <td><code>T-Tweeter-Distortion-1V.txt</code></td>
+      <td><strong>1 V</strong></td>
+      <td><strong>300 Hz – 20 kHz</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="callout safety">
+  <span class="tag">Tweeter at 1 V</span>
+  In REW, reduce the sweep output level by <strong>9 dB</strong>
+  (2.83 V → 1.00 V is a 9.02 dB reduction: −12 dBFS → −21 dBFS). The
+  filename suffix <code>-1V</code> records the level. LoudspeakerLab
+  expects files at the calibrated level, but distortion data is used
+  as a relative penalty — annotate the actual measurement level at
+  upload.
+</div>
+
+<p><strong>Total: 5 distortion files</strong> (plus REW also auto-saves
+its internal <code>.mdat</code> entry).</p>
+
+<!-- Sections 12-14 populated in later steps -->
 
 </body>
 </html>
