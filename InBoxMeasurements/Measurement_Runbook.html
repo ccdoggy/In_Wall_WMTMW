@@ -1282,17 +1282,19 @@ DATS V3 ─USB─▶ Laptop  (separate sessions, not simultaneous with REW)
 </p>
 
 <figure>
-  <svg viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg"
-       role="img" aria-label="Nearfield mic placement: tip less than 5 mm from dust cap">
+  <svg viewBox="0 0 760 360" xmlns="http://www.w3.org/2000/svg"
+       role="img" aria-label="Side view of a cone driver with UMIK-1 mic tip within 5 mm of the dust cap">
     <defs>
       <style>
         .baff   { fill:#b5b5b5; stroke:#333; stroke-width:1.2; }
-        .cone   { fill:#c9c9c9; stroke:#333; stroke-width:1.2; }
-        .dust   { fill:#333; }
+        .cone   { fill:#d5d5d5; stroke:#444; stroke-width:1.3; }
+        .frame  { stroke:#333; stroke-width:2; fill:none; }
+        .dust   { fill:#333; stroke:#000; stroke-width:1; }
         .mic    { fill:#fdf2e1; stroke:#d68910; stroke-width:1.4; }
         .tip    { fill:#c0392b; stroke:#922b21; stroke-width:1; }
-        .axis   { stroke:#2e86c1; stroke-width:1.6; fill:none; stroke-dasharray:5 4; }
+        .axis   { stroke:#2e86c1; stroke-width:1.4; fill:none; stroke-dasharray:6 4; }
         .dim    { stroke:#196f3d; stroke-width:1.4; fill:none; }
+        .lead   { stroke:#555; stroke-width:0.9; fill:none; }
         .lab    { font: 10pt "Helvetica Neue", Arial, sans-serif; fill:#111; }
         .lab-b  { font: bold 10.5pt "Helvetica Neue", Arial, sans-serif; fill:#111; }
         .lab-g  { font: 10pt "Helvetica Neue", Arial, sans-serif; fill:#196f3d; }
@@ -1305,56 +1307,93 @@ DATS V3 ─USB─▶ Laptop  (separate sessions, not simultaneous with REW)
       </marker>
     </defs>
 
-    <!-- Baffle -->
-    <rect class="baff" x="40" y="40" width="60" height="220" rx="3"/>
-    <text class="lab-sm" x="70" y="34" text-anchor="middle">baffle</text>
+    <!-- Layout zones (no overlap):
+           Baffle + driver:   x =  40 .. 210,  y =  60 .. 270
+           Mic + gap + axis:  x = 210 .. 520,  y = 140 .. 200
+           Right info panel:  x = 540 .. 740,  y =  60 .. 300
+         Scale: 1 mm approx 3 px. A 5 mm gap reads as 15 px, which is
+         clearly distinct from the 220 px (~75 mm) mic body length. -->
 
-    <!-- Cone (side profile): triangle with dust cap in the middle -->
-    <path class="cone"
-          d="M100 80 L230 150 L230 152 L100 222 Z"/>
-    <!-- Dust cap at cone apex -->
-    <circle class="dust" cx="230" cy="151" r="10"/>
-    <text class="lab-sm" x="252" y="142">dust-cap center</text>
-    <text class="lab-sm" x="252" y="156">(acoustic reference)</text>
+    <!-- Baffle: front face of the in-wall cabinet, vertical slab.
+         The driver is mounted to it. -->
+    <rect class="baff" x="50" y="50" width="40" height="240" rx="2"/>
+    <text class="lab-sm" x="70" y="44" text-anchor="middle">baffle (side)</text>
 
-    <!-- Mic body with tip almost touching dust cap -->
-    <rect class="mic" x="320" y="134" width="300" height="34" rx="6"/>
-    <text class="lab-b" x="470" y="158" text-anchor="middle">UMIK-1 (axial)</text>
-    <rect class="tip" x="300" y="142" width="20" height="18" rx="2"/>
-    <text class="lab-r" x="300" y="134" text-anchor="end">tip</text>
+    <!-- Driver frame: basket sits behind the baffle and extends slightly
+         forward to form the mounting flange. In side view it's an
+         outline extending from the baffle into the enclosure. -->
+    <path class="frame"
+          d="M 90 110
+             L 78 110
+             C 60 110 60 150 90 170
+             L 90 190
+             C 60 210 60 250 78 250
+             L 90 250"/>
+    <text class="lab-sm" x="70" y="180" text-anchor="middle" fill="#444">basket</text>
 
-    <!-- Axis from cone center out through mic -->
-    <line class="axis" x1="230" y1="151" x2="640" y2="151"/>
-    <text class="lab" x="540" y="142" text-anchor="middle" fill="#2e86c1">
-      mic axis = driver axis (0° incidence)
+    <!-- Cone (side profile, outward-facing).
+         The cone is a shallow funnel opening toward the room.
+         Top rim at (90, 100), bottom rim at (90, 260), apex near the
+         dust cap at (170, 180). The apex points OUTWARD (right). -->
+    <polygon class="cone" points="90,100 170,175 170,185 90,260"/>
+    <text class="lab-sm" x="112" y="88">cone (side profile)</text>
+
+    <!-- Dust cap: small dark cap at the cone apex, sitting on the
+         driver's central axis. This is the nearfield reference. -->
+    <circle class="dust" cx="170" cy="180" r="8"/>
+    <line class="lead" x1="178" y1="180" x2="228" y2="115"/>
+    <text class="lab-b" x="232" y="112">dust-cap center</text>
+    <text class="lab-sm" x="232" y="126">(acoustic reference point)</text>
+
+    <!-- Driver axis: horizontal dashed line through the dust cap -->
+    <line class="axis" x1="170" y1="180" x2="520" y2="180"/>
+    <text class="lab-sm" x="410" y="172" text-anchor="middle" fill="#2e86c1">
+      driver axis = mic axis (0° incidence)
     </text>
 
-    <!-- Distance callout: less than 5 mm from dust cap to tip -->
-    <line class="dim" x1="241" y1="200" x2="298" y2="200"
-          marker-start="url(#nf-tick)" marker-end="url(#nf-tick)"/>
-    <text class="lab-g" x="269" y="218" text-anchor="middle">&lt; 5 mm</text>
-    <text class="lab-sm" x="269" y="232" text-anchor="middle">(close but NOT touching)</text>
+    <!-- Gap between dust cap and mic tip (< 5 mm, drawn to scale).
+         Dust cap right edge is at x = 178. Mic tip left edge at x = 193. -->
+    <rect class="tip" x="193" y="170" width="10" height="20" rx="2"/>
+    <text class="lab-r" x="198" y="162" text-anchor="middle">tip</text>
 
-    <!-- Rules panel -->
-    <g transform="translate(340,40)">
-      <rect x="0" y="0" width="360" height="86" rx="6" fill="#e8f1fb" stroke="#2471a3"/>
-      <text class="lab-b" x="10" y="22">Nearfield rules</text>
-      <text class="lab-sm" x="10" y="42">• Tip within 5 mm of dust-cap center (do not contact cone).</text>
-      <text class="lab-sm" x="10" y="58">• Aim mic straight into the driver (axial, 0° incidence).</text>
-      <text class="lab-sm" x="10" y="74">• No gating. Leave timing reference on.</text>
+    <!-- UMIK-1 body: rectangular, tip on the left, aimed at the driver.
+         Positioned so its tip is within 5 mm of the dust cap. -->
+    <rect class="mic" x="203" y="164" width="220" height="32" rx="6"/>
+    <text class="lab-b" x="313" y="184" text-anchor="middle">UMIK-1 (aim into the driver)</text>
+
+    <!-- Distance annotation below the gap -->
+    <line class="dim" x1="180" y1="222" x2="193" y2="222"
+          marker-start="url(#nf-tick)" marker-end="url(#nf-tick)"/>
+    <text class="lab-g"  x="186" y="242" text-anchor="middle">&lt; 5 mm</text>
+    <text class="lab-sm" x="186" y="256" text-anchor="middle">(close, not touching)</text>
+
+    <!-- Right-side info panel: rules + tweeter-skip callout,
+         well clear of the geometry. -->
+    <g transform="translate(540,60)">
+      <rect x="0" y="0" width="200" height="118" rx="6"
+            fill="#e8f1fb" stroke="#2471a3"/>
+      <text class="lab-b"  x="12" y="22">Nearfield rules</text>
+      <text class="lab-sm" x="12" y="44">• Tip within 5 mm of the</text>
+      <text class="lab-sm" x="12" y="58">   dust-cap center.</text>
+      <text class="lab-sm" x="12" y="76">• Do not touch the cone.</text>
+      <text class="lab-sm" x="12" y="94">• Aim axially (0° incidence).</text>
+      <text class="lab-sm" x="12" y="110">• No gating. Timing ref stays on.</text>
     </g>
 
-    <!-- Skip note for tweeter -->
-    <g transform="translate(340,252)">
-      <rect x="0" y="0" width="360" height="38" rx="6" fill="#fdecea" stroke="#c0392b"/>
-      <text class="lab-r" x="10" y="24">Tweeter: SKIP nearfield (directivity makes it meaningless).</text>
+    <g transform="translate(540,196)">
+      <rect x="0" y="0" width="200" height="56" rx="6"
+            fill="#fdecea" stroke="#c0392b"/>
+      <text class="lab-r"  x="12" y="22">Tweeter: SKIP nearfield</text>
+      <text class="lab-sm" x="12" y="40">(dome directivity makes it</text>
+      <text class="lab-sm" x="12" y="52">meaningless at 5 mm).</text>
     </g>
   </svg>
   <figcaption>
-    Nearfield placement. Mic tip sits within 5 mm of the dust-cap center,
-    pointing axially into the cone. Close enough to dominate room
-    reflections, not close enough to touch. Tweeter is skipped —
-    nearfield is not useful for dome tweeters.
+    Side view of a cone driver. The baffle is on the left; the cone opens
+    outward into the room with the dust cap at its center. The UMIK-1 tip
+    sits within 5 mm of the dust cap — close enough to dominate room
+    reflections, not close enough to touch the moving cone. Tweeter is
+    skipped for the same reason nearfield always is on tweeters.
   </figcaption>
 </figure>
 
