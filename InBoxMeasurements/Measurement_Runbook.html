@@ -430,7 +430,112 @@ DATS V3 ─USB─▶ Laptop  (separate sessions, not simultaneous with REW)
   No DSP, no decoder, no bass management.
 </div>
 
-<!-- Sections 2-14 populated in later steps -->
+<!-- ======================================================= -->
+<!-- Section 2 -->
+<!-- ======================================================= -->
+
+<h2 id="sec-2">2. Measurement Conventions</h2>
+
+<h3>Where distance is measured from</h3>
+<p>
+  The UMIK-1 acoustic reference point is the <strong>tip of the mic
+  capsule</strong> (the end closest to the source). The distance "1 m" is
+  measured from the <strong>driver's acoustic center</strong> to that
+  <strong>mic tip</strong>. For a cone driver, acoustic center is roughly
+  the center of the cone at the dust-cap plane. For the tweeter, it is
+  the center of the dome.
+</p>
+<p class="subtle">
+  (A mic-reference SVG showing both the dust-cap and tweeter-dome origins
+  follows in the next step.)
+</p>
+
+<h3>Mic orientation</h3>
+<p>
+  Mic axis points <strong>directly at the driver under test</strong>
+  (0° incidence). Always. Load the <strong>0° calibration file</strong>
+  in REW, not the 90°.
+</p>
+
+<h3>On-axis reference</h3>
+<p>
+  The single design-axis point is <strong>1 m from the tweeter,
+  perpendicular to the baffle, at tweeter height</strong>. This is the
+  origin for every arc.
+</p>
+
+<h3>One mic position, all drivers</h3>
+<p>
+  At each angle, all five drivers are measured from the same mic position
+  (centered on the tweeter arc). This is close enough for crossover design —
+  LoudspeakerLab and VituixCAD both reconstruct the full system from
+  per-driver data plus the baffle layout.
+</p>
+
+<h3>Channel levels</h3>
+<ul>
+  <li>Laptop L channel = sweep → DUT (calibrated to 2.83 V)</li>
+  <li>Laptop R channel = REW timing-reference pilot → desk speaker (REW-attenuated, typically −20 dB)</li>
+  <li>Arcam volume is <strong>locked</strong> for the entire session after Step 5. Do not touch.</li>
+</ul>
+
+<h3>File-naming convention</h3>
+<p>
+  Every saved file uses the pattern
+  <code>&lt;DriverTag&gt;-&lt;DriverName&gt;-&lt;AngleOrKind&gt;.&lt;ext&gt;</code>.
+  Angles are zero-padded to 3 digits so files sort numerically. The wizard
+  enforces this automatically; if you save manually in REW, use the same
+  pattern.
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width:14%">Driver tag</th>
+      <th style="width:26%">Driver name</th>
+      <th>Example filename</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><code>W1</code></td>   <td>UpperWoofer</td> <td><code>W1-UpperWoofer-H000deg.frd</code></td></tr>
+    <tr><td><code>W2</code></td>   <td>LowerWoofer</td> <td><code>W2-LowerWoofer-H090deg.frd</code></td></tr>
+    <tr><td><code>M3</code></td>   <td>UpperMid</td>    <td><code>M3-UpperMid-V015deg.frd</code></td></tr>
+    <tr><td><code>M4</code></td>   <td>LowerMid</td>    <td><code>M4-LowerMid-NearField.frd</code></td></tr>
+    <tr><td><code>T</code></td>    <td>Tweeter</td>     <td><code>T-Tweeter-H000deg.frd</code></td></tr>
+    <tr><td><code>Pair</code></td> <td>Woofers / Mids (parallel)</td>
+        <td><code>Pair-Woofers-InBox.zma</code>, <code>Pair-Mids-InBox.zma</code></td></tr>
+  </tbody>
+</table>
+
+<p>
+  <strong>Kind suffixes:</strong>
+  <code>H###deg</code> horizontal,
+  <code>V###deg</code> vertical,
+  <code>NearField</code>,
+  <code>InBox</code> (impedance),
+  <code>Distortion</code>,
+  <code>Distortion-1V</code> (tweeter).
+</p>
+
+<h3>Formats saved per measurement</h3>
+<ul>
+  <li>
+    <strong>Acoustic (REW):</strong>
+    <code>.frd</code> (3-col: freq, SPL, phase — for LoudspeakerLab +
+    VituixCAD), <code>.txt</code> (REW export with header metadata —
+    backup), <code>.wav</code> (impulse response — for reanalysis in
+    other tools). One master <code>.mdat</code> session file is saved at
+    the end.
+  </li>
+  <li>
+    <strong>Impedance (DATS):</strong>
+    <code>.zma</code> (3-col: freq, |Z|, phase — primary),
+    <code>.tzz</code> (DATS session — backup),
+    <code>.txt</code> (tertiary backup).
+  </li>
+</ul>
+
+<!-- Sections 3-14 populated in later steps -->
 
 </body>
 </html>
