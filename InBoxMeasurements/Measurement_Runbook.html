@@ -162,11 +162,11 @@
     <li><a href="#sec-0">Tweeter Protection — read first</a></li>
     <li><a href="#sec-1">Equipment &amp; Signal Chain</a></li>
     <li><a href="#sec-2">Measurement Conventions</a></li>
-    <li><a href="#sec-3">Floor Arc Setup</a></li>
-    <li><a href="#sec-4">Pre-Session Setup</a></li>
-    <li><a href="#sec-5">2.83 V Calibration</a></li>
-    <li><a href="#sec-6">Timing Reference Verification</a></li>
-    <li><a href="#sec-7">Impedance Sweeps — DATS V3</a></li>
+    <li><a href="#sec-3">Impedance Sweeps — DATS V3</a></li>
+    <li><a href="#sec-4">Floor Arc Setup</a></li>
+    <li><a href="#sec-5">Pre-Session Setup</a></li>
+    <li><a href="#sec-6">2.83 V Calibration</a></li>
+    <li><a href="#sec-7">Timing Reference Verification</a></li>
     <li><a href="#sec-8">Horizontal Polar Sweeps</a></li>
     <li><a href="#sec-9">Vertical Off-Axis</a></li>
     <li><a href="#sec-10">Nearfield Sweeps</a></li>
@@ -198,7 +198,7 @@
     <tr>
       <td>1</td>
       <td>
-        During 2.83 V calibration (Section 5), the
+        During 2.83 V calibration (Section 6), the
         <strong>tweeter must be physically disconnected</strong> at the wall.
         Only the calibration woofer is connected.
       </td>
@@ -630,7 +630,89 @@ DATS V3 ─USB─▶ Laptop  (separate sessions, not simultaneous with REW)
 <!-- Section 3 -->
 <!-- ======================================================= -->
 
-<h2 id="sec-3">3. Floor Arc Setup</h2>
+<h2 id="sec-3">3. Impedance Sweeps — DATS V3</h2>
+
+<p class="subtle">Budget 30 minutes. Mic not needed.</p>
+
+<div class="callout info">
+  <span class="tag">Do this first</span>
+  DATS is independent of the acoustic rig — no mic, no Arcam, no REW, no
+  floor arc. Just the laptop, the DATS V3 unit, and its clip leads on the
+  wall plate. Knocking out all 7 impedance sweeps up front gets a
+  confidence boost on the board, verifies every driver is wired correctly
+  at the wall, and leaves the next phase (setup + calibration + acoustic
+  sweeps) as one uninterrupted flow.
+</div>
+
+<p>
+  Per-driver, all other drivers disconnected at the wall (open terminals).
+  For each row, save the primary <code>.zma</code> plus a DATS
+  <code>.tzz</code> project and an optional <code>.txt</code> as a
+  tertiary backup. Everything goes to <code>InBoxMeasurements/zma/</code>.
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width:32%">File (.zma primary, + .tzz + .txt)</th>
+      <th style="width:18%">Driver</th>
+      <th>Notes / expectations</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>W1-UpperWoofer-InBox.zma</code></td>
+      <td>Upper woofer</td>
+      <td>Expect Fc ≈ 56 Hz, Qtc ≈ 0.71. Confirm vs Plan of Record.</td>
+    </tr>
+    <tr>
+      <td><code>W2-LowerWoofer-InBox.zma</code></td>
+      <td>Lower woofer</td>
+      <td>Expect Fc ≈ 55 Hz, Qtc ≈ 0.67.</td>
+    </tr>
+    <tr>
+      <td><code>M3-UpperMid-InBox.zma</code></td>
+      <td>Upper mid</td>
+      <td>In-box Fs ≈ 130 Hz (shared chamber raises from 52.7 Hz free-air).</td>
+    </tr>
+    <tr>
+      <td><code>M4-LowerMid-InBox.zma</code></td>
+      <td>Lower mid</td>
+      <td>Expected similar to M3.</td>
+    </tr>
+    <tr>
+      <td><code>T-Tweeter-InBox.zma</code></td>
+      <td>Tweeter</td>
+      <td>Expect Fs ≈ 650 Hz. DATS sweeps are low-level, safe for tweeters.</td>
+    </tr>
+    <tr>
+      <td><code>Pair-Woofers-InBox.zma</code></td>
+      <td>W1 ∥ W2</td>
+      <td>
+        Wire both to DATS in parallel (+ to +, − to −). Expected
+        magnitude ≈ half of one woofer alone.
+      </td>
+    </tr>
+    <tr>
+      <td><code>Pair-Mids-InBox.zma</code></td>
+      <td>M3 ∥ M4</td>
+      <td>Same parallel wiring at the DATS terminals.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="callout info">
+  <span class="tag">DATS project file</span>
+  From DATS, also "Save Project" as <code>.tzz</code> alongside the .zma.
+  It captures the full DATS session for later re-export if you want to
+  change smoothing or export parameters without re-running the sweep.
+</div>
+
+<!-- ======================================================= -->
+<!-- Section 4 -->
+<!-- ======================================================= -->
+
+<h2 id="sec-4">4. Floor Arc Setup</h2>
 
 <p>One-time rigging. Do this before calibration.</p>
 
@@ -778,7 +860,7 @@ DATS V3 ─USB─▶ Laptop  (separate sessions, not simultaneous with REW)
       <rect x="0" y="0" width="340" height="40" rx="6"
             fill="#fdecea" stroke="#c0392b"/>
       <text class="lab-r" x="12" y="25">
-        90° sits alongside the baffle plane (see Section 3).
+        90° sits alongside the baffle plane (see Section 4).
       </text>
     </g>
   </svg>
@@ -792,10 +874,10 @@ DATS V3 ─USB─▶ Laptop  (separate sessions, not simultaneous with REW)
 </figure>
 
 <!-- ======================================================= -->
-<!-- Section 4 -->
+<!-- Section 5 -->
 <!-- ======================================================= -->
 
-<h2 id="sec-4">4. Pre-Session Setup</h2>
+<h2 id="sec-5">5. Pre-Session Setup</h2>
 
 <p class="subtle">Budget 30 – 45 minutes.</p>
 
@@ -805,7 +887,7 @@ DATS V3 ─USB─▶ Laptop  (separate sessions, not simultaneous with REW)
   <li>
     Arcam: power on, input = <strong>7.1 Multichannel</strong>, all DSP off
     (Direct mode), tone controls flat, bass management off. Set volume to
-    the minimum first — you will calibrate it in Section 5.
+    the minimum first — you will calibrate it in Section 6.
   </li>
   <li>Connect L-RCA to Arcam 7.1 FL input, R-RCA to Arcam 7.1 Center input.</li>
   <li>
@@ -842,10 +924,10 @@ DATS V3 ─USB─▶ Laptop  (separate sessions, not simultaneous with REW)
 </ol>
 
 <!-- ======================================================= -->
-<!-- Section 5 -->
+<!-- Section 6 -->
 <!-- ======================================================= -->
 
-<h2 id="sec-5">5. 2.83 V Calibration</h2>
+<h2 id="sec-6">6. 2.83 V Calibration</h2>
 
 <p class="subtle">Budget 10 minutes.</p>
 
@@ -885,10 +967,10 @@ DATS V3 ─USB─▶ Laptop  (separate sessions, not simultaneous with REW)
 </div>
 
 <!-- ======================================================= -->
-<!-- Section 6 -->
+<!-- Section 7 -->
 <!-- ======================================================= -->
 
-<h2 id="sec-6">6. Timing Reference Verification</h2>
+<h2 id="sec-7">7. Timing Reference Verification</h2>
 
 <p class="subtle">Budget 5 minutes.</p>
 
@@ -916,83 +998,6 @@ DATS V3 ─USB─▶ Laptop  (separate sessions, not simultaneous with REW)
   Likely causes: desk speaker muted, wrong Arcam input, splitter polarity,
   REW reference channel set wrong (should be Right), pilot level too low
   for room noise. Re-check each one before forcing the level up.
-</div>
-
-<!-- ======================================================= -->
-<!-- Section 7 -->
-<!-- ======================================================= -->
-
-<h2 id="sec-7">7. Impedance Sweeps — DATS V3</h2>
-
-<p class="subtle">Budget 30 minutes. Mic not needed.</p>
-
-<p>
-  Disconnect the laptop from the Arcam if you like. DATS runs its own
-  low-level impedance sweep — safe for all drivers including the tweeter.
-</p>
-
-<p>
-  Per-driver, all other drivers disconnected at the wall (open terminals).
-  For each row, save the primary <code>.zma</code> plus a DATS
-  <code>.tzz</code> project and an optional <code>.txt</code> as a
-  tertiary backup. Everything goes to <code>InBoxMeasurements/zma/</code>.
-</p>
-
-<table>
-  <thead>
-    <tr>
-      <th style="width:32%">File (.zma primary, + .tzz + .txt)</th>
-      <th style="width:18%">Driver</th>
-      <th>Notes / expectations</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code>W1-UpperWoofer-InBox.zma</code></td>
-      <td>Upper woofer</td>
-      <td>Expect Fc ≈ 56 Hz, Qtc ≈ 0.71. Confirm vs Plan of Record.</td>
-    </tr>
-    <tr>
-      <td><code>W2-LowerWoofer-InBox.zma</code></td>
-      <td>Lower woofer</td>
-      <td>Expect Fc ≈ 55 Hz, Qtc ≈ 0.67.</td>
-    </tr>
-    <tr>
-      <td><code>M3-UpperMid-InBox.zma</code></td>
-      <td>Upper mid</td>
-      <td>In-box Fs ≈ 130 Hz (shared chamber raises from 52.7 Hz free-air).</td>
-    </tr>
-    <tr>
-      <td><code>M4-LowerMid-InBox.zma</code></td>
-      <td>Lower mid</td>
-      <td>Expected similar to M3.</td>
-    </tr>
-    <tr>
-      <td><code>T-Tweeter-InBox.zma</code></td>
-      <td>Tweeter</td>
-      <td>Expect Fs ≈ 650 Hz. DATS sweeps are low-level, safe for tweeters.</td>
-    </tr>
-    <tr>
-      <td><code>Pair-Woofers-InBox.zma</code></td>
-      <td>W1 ∥ W2</td>
-      <td>
-        Wire both to DATS in parallel (+ to +, − to −). Expected
-        magnitude ≈ half of one woofer alone.
-      </td>
-    </tr>
-    <tr>
-      <td><code>Pair-Mids-InBox.zma</code></td>
-      <td>M3 ∥ M4</td>
-      <td>Same parallel wiring at the DATS terminals.</td>
-    </tr>
-  </tbody>
-</table>
-
-<div class="callout info">
-  <span class="tag">DATS project file</span>
-  From DATS, also "Save Project" as <code>.tzz</code> alongside the .zma.
-  It captures the full DATS session for later re-export if you want to
-  change smoothing or export parameters without re-running the sweep.
 </div>
 
 <!-- ======================================================= -->
