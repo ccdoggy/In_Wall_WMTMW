@@ -788,7 +788,100 @@ DATS V3 ─USB─▶ Laptop  (separate sessions, not simultaneous with REW)
   </figcaption>
 </figure>
 
-<!-- Sections 4-14 populated in later steps -->
+<!-- ======================================================= -->
+<!-- Section 4 -->
+<!-- ======================================================= -->
+
+<h2 id="sec-4">4. Pre-Session Setup</h2>
+
+<p class="subtle">Budget 30 – 45 minutes.</p>
+
+<ol>
+  <li>HVAC off. Note the time; you have limited quiet minutes.</li>
+  <li>Deploy toddler distraction.</li>
+  <li>
+    Arcam: power on, input = <strong>7.1 Multichannel</strong>, all DSP off
+    (Direct mode), tone controls flat, bass management off. Set volume to
+    the minimum first — you will calibrate it in Section 5.
+  </li>
+  <li>Connect L-RCA to Arcam 7.1 FL input, R-RCA to Arcam 7.1 Center input.</li>
+  <li>
+    Wire the desk speaker to Arcam Center speaker terminals. Place it on a
+    shelf or stand — anywhere — and <strong>do not move it again</strong>
+    until the session ends.
+  </li>
+  <li>
+    At the wall terminals: disconnect every driver. We'll connect one at a
+    time.
+  </li>
+  <li>
+    REW preferences:
+    <ul>
+      <li>Input device: UMIK-1 (load 0° cal file)</li>
+      <li>Output device: laptop stereo out</li>
+      <li>Analysis → Use Acoustic Timing Reference: <strong>ON</strong>, channel = Right</li>
+      <li>Measurement default: log sweep, 512 k length, 20 Hz – 20 kHz, level −12 dBFS</li>
+      <li>
+        Auto-name template: <code>{name}</code> with sequential suffix off
+        (we'll name manually per sweep — fast enough with the template
+        pre-loaded, and the wizard names files automatically).
+      </li>
+    </ul>
+  </li>
+  <li>
+    Verify channel assignment: use REW's generator to send a 1 kHz tone on
+    <strong>left only</strong>. Confirm only the FL Arcam output is active
+    (touch the FL terminal wire — should see meter movement; desk speaker
+    should be silent). Repeat with right only — desk speaker plays, FL is
+    silent. If both channels play on one output, Arcam is not in
+    Multichannel Direct mode.
+  </li>
+</ol>
+
+<!-- ======================================================= -->
+<!-- Section 5 -->
+<!-- ======================================================= -->
+
+<h2 id="sec-5">5. 2.83 V Calibration</h2>
+
+<p class="subtle">Budget 10 minutes.</p>
+
+<div class="callout safety">
+  <span class="tag">Safety</span>
+  The tweeter must be <strong>physically disconnected at the wall</strong>
+  for this step. A 60 Hz sine at 2.83 V into a tweeter destroys it instantly.
+</div>
+
+<ol>
+  <li>
+    Connect <strong>only W2 (lower woofer)</strong> to Arcam FL terminals.
+    All other drivers disconnected.
+    <strong>Verify tweeter wires are not touching each other or anything
+    conductive.</strong>
+  </li>
+  <li>
+    REW Generator → 60 Hz sine wave, left channel only, level −20 dBFS.
+    Start.
+  </li>
+  <li>DMM on AC V mode, probes across the W2 terminals at the wall.</li>
+  <li>
+    Slowly raise Arcam volume until DMM reads <strong>2.83 V</strong>
+    (±0.02 V).
+  </li>
+  <li>
+    <strong>Stop generator.</strong> Do not touch the Arcam volume knob for
+    the remainder of the session. Consider taping over it.
+  </li>
+  <li>Note the final Arcam volume setting in your log.</li>
+</ol>
+
+<div class="callout info">
+  <span class="tag">Non-True-RMS meter</span>
+  Your non-True-RMS meter is fine here. A standard averaging meter reads
+  RMS correctly on a pure 60 Hz sine.
+</div>
+
+<!-- Sections 6-14 populated in later steps -->
 
 </body>
 </html>
