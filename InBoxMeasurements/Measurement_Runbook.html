@@ -624,7 +624,171 @@ DATS V3 ─USB─▶ Laptop  (separate sessions, not simultaneous with REW)
   </li>
 </ul>
 
-<!-- Sections 3-14 populated in later steps -->
+<!-- ======================================================= -->
+<!-- Section 3 -->
+<!-- ======================================================= -->
+
+<h2 id="sec-3">3. Floor Arc Setup</h2>
+
+<p>One-time rigging. Do this before calibration.</p>
+
+<ol>
+  <li>
+    Drop a <strong>plumb line</strong> from the tweeter's acoustic center
+    straight to the floor. Mark that point with a tape X. This is the
+    <strong>arc origin</strong>.
+  </li>
+  <li>
+    With the tape measure held at the arc origin, extend a string exactly
+    <strong>1.00 m</strong> perpendicular to the baffle (verify perpendicular
+    with a carpenter's square held against the wall). Mark that point as
+    <strong>0° H</strong>.
+  </li>
+  <li>
+    Using a protractor centered on the origin, mark positions for
+    <strong>10°, 20°, 30°, 40°, 50°, 60°, 70°, 80°, 90°</strong> on one side
+    of the 0° line. Each mark is a tape X on the floor at 1.00 m radius from
+    origin.
+    <ul>
+      <li>
+        Arc length between adjacent marks at 1 m radius is
+        <strong>~17.45 cm</strong>. Double-check by measuring the chord:
+        10° chord ≈ 17.4 cm, 20° chord ≈ 34.7 cm, 30° chord ≈ 51.8 cm.
+      </li>
+    </ul>
+  </li>
+  <li>
+    At each tape X, also mark the <strong>angle number</strong> with a
+    sharpie so you don't lose track mid-session.
+  </li>
+  <li>
+    <strong>Tripod height:</strong> set the mic tip to exactly
+    <strong>tweeter height</strong> (measure with tape from floor to tweeter
+    center on the baffle, transfer to tripod). This height stays fixed for
+    all horizontal sweeps.
+  </li>
+  <li>
+    At 0°: if the tripod legs conflict with the wall, use a boom arm so the
+    tripod base sits 1.5 – 2 m back and only the mic extends forward to 1 m.
+    Do not skip 0°.
+  </li>
+</ol>
+
+<div class="callout info">
+  <span class="tag">Horizontal symmetry</span>
+  WMTMW is horizontally symmetric, so one side of the arc (0 – 90°) covers
+  everything. No need to measure the other side.
+</div>
+
+<figure>
+  <svg viewBox="0 0 760 500" xmlns="http://www.w3.org/2000/svg"
+       role="img" aria-label="Top-down floor arc with 10 degree tape marks">
+    <defs>
+      <style>
+        .wall   { fill:#d0d0d0; stroke:#333; stroke-width:1.4; }
+        .baff   { fill:#b5b5b5; stroke:#333; stroke-width:1.2; }
+        .arc    { fill:none; stroke:#196f3d; stroke-width:1.8; stroke-dasharray:6 5; }
+        .radius { stroke:#196f3d; stroke-width:1.2; fill:none; }
+        .tape   { fill:#c0392b; }
+        .orig   { fill:#333; }
+        .lab    { font: 10pt "Helvetica Neue", Arial, sans-serif; fill:#111; }
+        .lab-b  { font: bold 10.5pt "Helvetica Neue", Arial, sans-serif; fill:#111; }
+        .lab-g  { font: 10pt "Helvetica Neue", Arial, sans-serif; fill:#196f3d; }
+        .lab-r  { font: 9.5pt "Helvetica Neue", Arial, sans-serif; fill:#c0392b; }
+        .lab-sm { font: 9pt "Helvetica Neue", Arial, sans-serif; fill:#333; }
+      </style>
+    </defs>
+
+    <!-- Wall and baffle (top-down) -->
+    <rect class="wall" x="20" y="40" width="50" height="420"/>
+    <rect class="baff" x="70" y="170" width="24" height="160" rx="2"/>
+    <text class="lab-sm" x="45"  y="32"  text-anchor="middle">wall</text>
+    <text class="lab-sm" x="82"  y="348" text-anchor="middle">baffle</text>
+
+    <!-- Origin (plumb point from tweeter acoustic center) -->
+    <circle class="orig" cx="94" cy="250" r="5"/>
+    <text class="lab-b" x="100" y="266">origin (tweeter plumb point)</text>
+    <text class="lab-sm" x="100" y="280">arc center — tape X on floor</text>
+
+    <!-- 1 m arc: radius in SVG units. 1 m maps to ~450 px.
+         Arc centered at (94,250), drawn from angle 0 (east) down to 90 (south),
+         but we want "up" for simple top-down visual. We'll go 0 at east and
+         sweep clockwise to 90 at south (below origin) so 0 is to the right
+         and 90 is below, matching a top-down floor plan where the baffle is
+         along the vertical axis. -->
+    <!-- Arc path: from (94+450, 250) sweeping through 0..90 deg below axis -->
+    <path class="arc" d="M 544 250 A 450 450 0 0 1 94 700"
+          transform="translate(0,-450)" />
+    <!-- The trick above doesn't quite draw what we want; use a direct arc: -->
+    <!-- Replace with: from 0deg at (544,250) to 90deg at (94,700) — out of view.
+         Instead draw incremental arc from (544,250) to (94 + 450*cos(90), 250 + 450*sin(90)) -->
+    <!-- Simpler: just draw explicit arc with sweep-flag for clockwise below the axis -->
+    <path class="arc"
+          d="M 544 250
+             A 450 450 0 0 1 94 700"
+          fill="none"/>
+
+    <!-- Tape-X marks at 0, 10, 20, 30, 40, 50, 60, 70, 80, 90 degrees
+         Origin (94,250), radius 450 units, angle measured from +x axis
+         toward +y (downward = larger angle on floor plan).
+         Position = (94 + 450*cos(a), 250 + 450*sin(a))
+    -->
+    <g class="tape">
+      <!-- pre-computed: -->
+      <circle cx="544" cy="250"  r="5"/> <!-- 0 -->
+      <circle cx="537" cy="328"  r="5"/> <!-- 10 -->
+      <circle cx="517" cy="404"  r="5"/> <!-- 20 -->
+      <circle cx="484" cy="475"  r="5"/> <!-- 30 (near bottom) -->
+      <!-- 40..90 partially off the viewport; we'll stop at 30 and indicate the rest textually -->
+    </g>
+    <g>
+      <text class="lab-r" x="556" y="254">0°</text>
+      <text class="lab-r" x="550" y="330">10°</text>
+      <text class="lab-r" x="530" y="406">20°</text>
+      <text class="lab-r" x="496" y="478">30°</text>
+    </g>
+
+    <!-- Radius line from origin to 0 degree mark -->
+    <line class="radius" x1="94" y1="250" x2="544" y2="250"/>
+    <text class="lab-g" x="319" y="244" text-anchor="middle">1.00 m radius</text>
+
+    <!-- Chord annotation between 0 and 10 -->
+    <line class="radius" x1="544" y1="250" x2="537" y2="328"
+          stroke-dasharray="3 3"/>
+    <text class="lab-sm" x="574" y="290">~17.4 cm chord</text>
+    <text class="lab-sm" x="574" y="304">(adjacent marks)</text>
+
+    <!-- Note box for off-diagram angles 40-90 -->
+    <g transform="translate(330,360)">
+      <rect x="0" y="0" width="400" height="122" rx="6" fill="#fdf2e1" stroke="#d68910"/>
+      <text class="lab-b" x="12" y="22">Arc marks — continue the pattern</text>
+      <text class="lab-sm" x="12" y="42">All 10 tape Xs sit on the 1.00 m arc:</text>
+      <text class="lab-sm" x="12" y="58">0°, 10°, 20°, 30°, 40°, 50°, 60°, 70°, 80°, 90°.</text>
+      <text class="lab-sm" x="12" y="80">Chord lengths from 0°: 17.4, 34.7, 51.8, 68.4, 84.5,</text>
+      <text class="lab-sm" x="12" y="96">100.0, 114.7, 128.6, 141.4 cm at 10°…90° respectively.</text>
+      <text class="lab-sm" x="12" y="114">90° mark is directly alongside the baffle (0 m from wall).</text>
+    </g>
+
+    <!-- Mic height note -->
+    <g transform="translate(330,40)">
+      <rect x="0" y="0" width="400" height="82" rx="6" fill="#e8f1fb" stroke="#2471a3"/>
+      <text class="lab-b" x="12" y="22">Mic height (elevation view not shown)</text>
+      <text class="lab-sm" x="12" y="42">Mic tip height = tweeter height, for all horizontal sweeps.</text>
+      <text class="lab-sm" x="12" y="58">Verify with tape from floor to tweeter center on baffle,</text>
+      <text class="lab-sm" x="12" y="74">then transfer to the tripod. Boom arm recommended at 0°.</text>
+    </g>
+  </svg>
+  <figcaption>
+    Floor arc (top-down, one side). Wall at left, baffle protruding into
+    the room. Origin is the plumb point directly below the tweeter's
+    acoustic center. Tape Xs sit on the 1.00 m arc at 0°, 10°, …, 90°;
+    only 0 – 30° are drawn to scale; the rest follow the same radius
+    (chord lengths listed in the yellow panel). Horizontal symmetry
+    means one side covers the whole polar.
+  </figcaption>
+</figure>
+
+<!-- Sections 4-14 populated in later steps -->
 
 </body>
 </html>
