@@ -1,0 +1,1656 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>WMTMW In-Wall Measurement Runbook</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  /* ---------- Page + print ---------- */
+  @page { size: letter; margin: 0.6in 0.7in; }
+  @media print {
+    body { font-size: 10.5pt; }
+    h2 { page-break-before: always; }
+    h2:first-of-type { page-break-before: auto; }
+    .no-print { display: none; }
+    a { color: inherit; text-decoration: none; }
+    svg { page-break-inside: avoid; }
+    table, .callout, pre { page-break-inside: avoid; }
+  }
+
+  /* ---------- Typography ---------- */
+  body {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    color: #111;
+    max-width: 7.5in;
+    margin: 0.5in auto;
+    padding: 0 0.5in;
+    line-height: 1.45;
+  }
+  h1 { font-size: 22pt; margin: 0 0 0.2em; }
+  h2 { font-size: 16pt; margin-top: 1.4em; border-bottom: 2px solid #333; padding-bottom: 0.15em; }
+  h3 { font-size: 12.5pt; margin-top: 1.1em; }
+  h4 { font-size: 11pt; margin: 0.9em 0 0.3em; }
+  p, li { font-size: 10.5pt; }
+  code, pre, kbd, samp { font-family: "SF Mono", Menlo, Consolas, monospace; font-size: 9.5pt; }
+  pre {
+    background: #f4f4f4;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    padding: 0.6em 0.9em;
+    overflow-x: auto;
+    white-space: pre;
+  }
+  code { background: #f4f4f4; padding: 0 3px; border-radius: 2px; }
+  pre code { background: transparent; padding: 0; }
+
+  /* ---------- Tables ---------- */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0.6em 0 1em;
+    font-size: 10pt;
+  }
+  th, td {
+    border: 1px solid #bbb;
+    padding: 4px 8px;
+    vertical-align: top;
+    text-align: left;
+  }
+  th { background: #eee; }
+  tbody tr:nth-child(even) { background: #fafafa; }
+
+  /* ---------- Callouts ---------- */
+  .callout {
+    border-left: 4px solid #888;
+    background: #f6f6f6;
+    padding: 0.6em 0.9em;
+    margin: 0.8em 0;
+    border-radius: 0 3px 3px 0;
+  }
+  .callout.safety { border-left-color: #c0392b; background: #fdecea; }
+  .callout.warn   { border-left-color: #d68910; background: #fdf2e1; }
+  .callout.info   { border-left-color: #2471a3; background: #e8f1fb; }
+  .callout.ok     { border-left-color: #229954; background: #e6f6ec; }
+  .callout .tag {
+    display: inline-block;
+    font-weight: 700;
+    font-size: 9pt;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-right: 0.5em;
+  }
+  .callout.safety .tag { color: #922b21; }
+  .callout.warn   .tag { color: #9c640c; }
+  .callout.info   .tag { color: #1a5276; }
+  .callout.ok     .tag { color: #196f3d; }
+
+  /* ---------- TOC ---------- */
+  .toc { border: 1px solid #ccc; background: #fafafa; padding: 0.6em 1em; border-radius: 3px; }
+  .toc ol { margin: 0.3em 0 0.3em 1.2em; padding: 0; }
+  .toc li { margin: 0.1em 0; }
+  .toc a { color: #1a5276; text-decoration: none; }
+  .toc a:hover { text-decoration: underline; }
+
+  /* ---------- SVG ---------- */
+  figure { margin: 1em 0; text-align: center; }
+  figure svg { max-width: 100%; height: auto; background: #fff; }
+  figcaption { font-size: 9.5pt; color: #555; margin-top: 0.3em; font-style: italic; }
+
+  /* ---------- Misc ---------- */
+  .subtle { color: #666; font-size: 9.5pt; }
+  hr { border: 0; border-top: 1px solid #ccc; margin: 1.6em 0; }
+  .tag-pill {
+    display: inline-block; font-size: 9pt; padding: 1px 6px;
+    border-radius: 10px; background: #eaeaea; color: #333;
+  }
+</style>
+</head>
+<body>
+
+<h1>WMTMW In-Wall Measurement Runbook</h1>
+<p>
+  Session runbook for in-box acoustic and electrical characterization of the
+  prototype WMTMW in-wall speaker. Data targets both
+  <strong>LoudspeakerLab</strong> (primary) and <strong>VituixCAD</strong>
+  (secondary) for crossover design.
+</p>
+
+<h3 style="margin-top:0.8em">Companion tools</h3>
+<table>
+  <thead><tr><th style="width:30%">File</th><th>Purpose</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>Measurement_Runbook.md</code></td>
+      <td>Markdown source of truth. Same content, plain text.</td>
+    </tr>
+    <tr>
+      <td><code>sweep_wizard.py</code></td>
+      <td>
+        Python wizard that drives the acoustic-sweep sequence on Windows.
+        Tries REW's HTTP API; falls back to guided prompts. Enforces tweeter
+        safety (300 Hz start, 256 k length) and the naming convention in
+        Section 2. Resume-friendly via <code>sweep_log.csv</code>.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>measurement_matrix.py</code>,
+        <code>rew_api.py</code>,
+        <code>prompts.py</code>
+      </td>
+      <td>Wizard internals. See <code>README.md</code> for usage.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>
+  This document remains the ground-truth reference. Every filename, sweep
+  range, and safety rule in the wizard matches what is documented here. If
+  the wizard fails or you prefer fully manual, execute this document
+  top-to-bottom.
+</p>
+
+<div class="callout info">
+  <span class="tag">Session time</span>
+  Budget <strong>4.5 – 6 hours</strong> including setup, calibration, and
+  verification. The acoustic polar grid alone is 90 – 120 minutes.
+</div>
+
+<div class="toc" id="toc">
+  <strong>Contents</strong>
+  <ol>
+    <li><a href="#sec-0">Tweeter Protection — read first</a></li>
+    <li><a href="#sec-1">Equipment &amp; Signal Chain</a></li>
+    <li><a href="#sec-2">Measurement Conventions</a></li>
+    <li><a href="#sec-3">Floor Arc Setup</a></li>
+    <li><a href="#sec-4">Pre-Session Setup</a></li>
+    <li><a href="#sec-5">2.83 V Calibration</a></li>
+    <li><a href="#sec-6">Timing Reference Verification</a></li>
+    <li><a href="#sec-7">Impedance Sweeps — DATS V3</a></li>
+    <li><a href="#sec-8">Horizontal Polar Sweeps</a></li>
+    <li><a href="#sec-9">Vertical Off-Axis</a></li>
+    <li><a href="#sec-10">Nearfield Sweeps</a></li>
+    <li><a href="#sec-11">Distortion Sweeps</a></li>
+    <li><a href="#sec-12">Export &amp; Sanity Checks</a></li>
+    <li><a href="#sec-13">Final File Layout</a></li>
+    <li><a href="#sec-14">Troubleshooting</a></li>
+  </ol>
+</div>
+
+<!-- ======================================================= -->
+<!-- Section 0 -->
+<!-- ======================================================= -->
+
+<h2 id="sec-0">0. Tweeter Protection — read first</h2>
+
+<div class="callout safety">
+  <span class="tag">Safety</span>
+  The Scan-Speak H2606/9200 voice coil can burn out in <strong>seconds</strong>
+  if driven with low-frequency content at 2.83 V. Every tweeter-related step
+  below exists to prevent that. Do not skip any of them.
+</div>
+
+<table>
+  <thead>
+    <tr><th style="width:3%">#</th><th style="width:47%">Rule</th><th>Why</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>
+        During 2.83 V calibration (Section 5), the
+        <strong>tweeter must be physically disconnected</strong> at the wall.
+        Only the calibration woofer is connected.
+      </td>
+      <td>60 Hz sine at 2.83 V into a tweeter destroys it instantly.</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>
+        For every tweeter sweep, set REW sweep start frequency to
+        <strong>300 Hz</strong>. Tweeter Fs is ~650 Hz; 300 Hz gives margin
+        but stays well below the intended ~2.5 kHz crossover.
+      </td>
+      <td>
+        The default 20 Hz sweep start applies full voltage below Fs where
+        excursion peaks.
+      </td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>
+        Use <strong>256 k sweep length</strong> for tweeter, not 512 k.
+      </td>
+      <td>Shorter exposure limits thermal dose.</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>
+        Tweeter distortion sweeps run at <strong>1 V</strong>, not 2.83 V.
+        Label files <code>T-Tweeter-Distortion-1V.txt</code>.
+      </td>
+      <td>2.83 V extended stepped sine is thermally punishing.</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>
+        Before the first tweeter sweep, with the tweeter
+        <strong>disconnected</strong>, run a dry sweep and view REW's
+        generator spectrum. Confirm no content below 300 Hz. Then connect
+        the tweeter.
+      </td>
+      <td>Catches misconfigured sweep range before it reaches the driver.</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>
+        <strong>Wear hearing protection</strong> during tweeter sweeps. At
+        95 dB/2.83 V sensitivity, on-axis SPL is ~95 dB at 1 m for the full
+        sweep duration.
+      </td>
+      <td>Hearing damage threshold.</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>
+        If you hear any tick, buzz, or stress during a tweeter sweep,
+        <strong>STOP immediately</strong> and investigate.
+      </td>
+      <td>Thermal or excursion damage is silent until it isn't.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="callout warn">
+  <span class="tag">Calibration-woofer convention</span>
+  Use <strong>W2 (lower woofer)</strong> as the 2.83 V calibration load.
+  Keep it connected throughout. All other drivers — including the tweeter —
+  are disconnected at the wall during calibration.
+</div>
+
+<!-- ======================================================= -->
+<!-- Section 1 -->
+<!-- ======================================================= -->
+
+<h2 id="sec-1">1. Equipment &amp; Signal Chain</h2>
+
+<h3>Hardware</h3>
+<ul>
+  <li>Laptop running REW (latest)</li>
+  <li>UMIK-1 USB mic + its 0° calibration file (downloaded from miniDSP for your serial)</li>
+  <li>DATS V3 + laptop USB</li>
+  <li>Arcam AVR350 (dedicated to this session)</li>
+  <li>Small passive desk speaker (3 – 4" single driver) — used <strong>only</strong> as acoustic timing reference</li>
+  <li>Tripod with boom arm (for 0° clearance) or standard tripod + plan for 0° workaround</li>
+  <li>Digital multimeter (AC V mode)</li>
+  <li>Plumb bob (nut on a string)</li>
+  <li>Masking tape, sharpie, tape measure, protractor</li>
+  <li>3.5 mm TRS → 2× RCA Y-splitter cable</li>
+  <li>Speaker wire for the desk-speaker tap to the Arcam Center terminal</li>
+  <li>Earplugs</li>
+</ul>
+
+<h3>Signal chain</h3>
+
+<pre><code>Laptop 3.5 mm stereo out
+   ├── L channel ─RCA─▶ Arcam 7.1-in "Front Left"  ─▶ Arcam FL amp     ─▶ DUT wires at wall
+   └── R channel ─RCA─▶ Arcam 7.1-in "Center"      ─▶ Arcam Center amp ─▶ Desk speaker (fixed)
+
+UMIK-1 ─USB─▶ Laptop  (REW input)
+DATS V3 ─USB─▶ Laptop  (separate sessions, not simultaneous with REW)
+</code></pre>
+
+<figure>
+  <svg viewBox="0 0 760 420" xmlns="http://www.w3.org/2000/svg"
+       role="img" aria-label="WMTMW session signal chain diagram">
+    <defs>
+      <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5"
+              markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M0,0 L10,5 L0,10 z" fill="#333"/>
+      </marker>
+      <style>
+        .box  { fill:#fff; stroke:#333; stroke-width:1.4; }
+        .amp  { fill:#eef5ff; stroke:#2471a3; stroke-width:1.4; }
+        .dut  { fill:#fdecea; stroke:#c0392b; stroke-width:1.4; }
+        .ref  { fill:#e6f6ec; stroke:#229954; stroke-width:1.4; }
+        .mic  { fill:#fdf2e1; stroke:#d68910; stroke-width:1.4; }
+        .lab  { font: 10.5pt "Helvetica Neue", Arial, sans-serif; fill:#111; }
+        .lab-sm { font: 9pt "Helvetica Neue", Arial, sans-serif; fill:#333; }
+        .lab-b  { font: bold 10.5pt "Helvetica Neue", Arial, sans-serif; fill:#111; }
+        .wire-L { stroke:#2e86c1; stroke-width:2; fill:none; marker-end:url(#arrow); }
+        .wire-R { stroke:#c0392b; stroke-width:2; fill:none; marker-end:url(#arrow); }
+        .wire-U { stroke:#7d3c98; stroke-width:2; fill:none; marker-end:url(#arrow);
+                  stroke-dasharray:6 4; }
+        .wire-S { stroke:#555; stroke-width:2; fill:none; marker-end:url(#arrow); }
+      </style>
+    </defs>
+
+    <!-- Laptop -->
+    <rect class="box" x="20"  y="60"  width="130" height="90" rx="6"/>
+    <text class="lab-b" x="85"  y="92"  text-anchor="middle">Laptop</text>
+    <text class="lab-sm" x="85" y="110" text-anchor="middle">REW + sweep_wizard</text>
+    <text class="lab-sm" x="85" y="126" text-anchor="middle">3.5 mm stereo out</text>
+
+    <!-- Splitter -->
+    <rect class="box" x="185" y="85" width="90" height="40" rx="4"/>
+    <text class="lab-sm" x="230" y="110" text-anchor="middle">TRS → 2× RCA</text>
+
+    <!-- Arcam -->
+    <rect class="amp" x="310" y="40" width="220" height="210" rx="6"/>
+    <text class="lab-b" x="420" y="64" text-anchor="middle">Arcam AVR350</text>
+    <text class="lab-sm" x="420" y="80" text-anchor="middle">7.1 Multichannel / Direct</text>
+
+    <rect class="box" x="330" y="96"  width="90" height="36" rx="3"/>
+    <text class="lab-sm" x="375" y="118" text-anchor="middle">7.1-in FL</text>
+
+    <rect class="box" x="330" y="148" width="90" height="36" rx="3"/>
+    <text class="lab-sm" x="375" y="170" text-anchor="middle">7.1-in Center</text>
+
+    <rect class="amp" x="440" y="96"  width="80" height="36" rx="3"/>
+    <text class="lab-sm" x="480" y="118" text-anchor="middle">FL amp</text>
+
+    <rect class="amp" x="440" y="148" width="80" height="36" rx="3"/>
+    <text class="lab-sm" x="480" y="170" text-anchor="middle">Center amp</text>
+
+    <text class="lab-sm" x="420" y="218" text-anchor="middle">Volume locked after Step 5</text>
+
+    <!-- DUT -->
+    <rect class="dut" x="590" y="70"  width="150" height="90" rx="6"/>
+    <text class="lab-b" x="665" y="96"  text-anchor="middle">DUT @ wall</text>
+    <text class="lab-sm" x="665" y="114" text-anchor="middle">one driver at a time</text>
+    <text class="lab-sm" x="665" y="130" text-anchor="middle">(W1/W2/M3/M4/T)</text>
+    <text class="lab-sm" x="665" y="146" text-anchor="middle">all others disconnected</text>
+
+    <!-- Desk speaker -->
+    <rect class="ref" x="590" y="190" width="150" height="60" rx="6"/>
+    <text class="lab-b" x="665" y="214" text-anchor="middle">Desk speaker</text>
+    <text class="lab-sm" x="665" y="232" text-anchor="middle">acoustic timing ref</text>
+    <text class="lab-sm" x="665" y="246" text-anchor="middle">(fixed position)</text>
+
+    <!-- UMIK-1 -->
+    <rect class="mic" x="20"  y="280" width="130" height="60" rx="6"/>
+    <text class="lab-b"  x="85" y="304" text-anchor="middle">UMIK-1</text>
+    <text class="lab-sm" x="85" y="322" text-anchor="middle">USB mic (0° cal)</text>
+
+    <!-- DATS V3 -->
+    <rect class="mic" x="20"  y="358" width="130" height="46" rx="6"/>
+    <text class="lab-b"  x="85" y="380" text-anchor="middle">DATS V3</text>
+    <text class="lab-sm" x="85" y="396" text-anchor="middle">impedance, separate</text>
+
+    <!-- Wires -->
+    <!-- Laptop -> splitter (combined) -->
+    <path class="wire-S" d="M150 105 H185"/>
+    <text class="lab-sm" x="168" y="98" text-anchor="middle">3.5 mm</text>
+
+    <!-- Splitter L -> Arcam FL -->
+    <path class="wire-L" d="M275 100 C 295 100 310 114 330 114"/>
+    <text class="lab-sm" x="296" y="94" text-anchor="middle" fill="#2e86c1">L (sweep)</text>
+
+    <!-- Splitter R -> Arcam Center -->
+    <path class="wire-R" d="M275 115 C 295 130 310 166 330 166"/>
+    <text class="lab-sm" x="296" y="148" text-anchor="middle" fill="#c0392b">R (pilot)</text>
+
+    <!-- Arcam FL amp -> DUT -->
+    <path class="wire-L" d="M520 114 C 555 114 565 114 590 114"/>
+    <text class="lab-sm" x="555" y="108" text-anchor="middle" fill="#2e86c1">FL speaker out</text>
+
+    <!-- Arcam Center amp -> Desk speaker -->
+    <path class="wire-R" d="M520 166 C 555 180 565 214 590 214"/>
+    <text class="lab-sm" x="555" y="196" text-anchor="middle" fill="#c0392b">Center speaker out</text>
+
+    <!-- UMIK-1 -> Laptop USB (back up to laptop) -->
+    <path class="wire-U" d="M85 280 V 170 H 135 V 150"/>
+    <text class="lab-sm" x="110" y="225" fill="#7d3c98">USB in</text>
+
+    <!-- Legend -->
+    <g transform="translate(310,280)">
+      <rect class="box" x="0" y="0" width="260" height="128" rx="6"/>
+      <text class="lab-b" x="10" y="20">Legend</text>
+      <line class="wire-L" x1="15" y1="40" x2="55" y2="40"/>
+      <text class="lab-sm" x="65" y="44">L channel: sweep to DUT (2.83 V calibrated)</text>
+      <line class="wire-R" x1="15" y1="62" x2="55" y2="62"/>
+      <text class="lab-sm" x="65" y="66">R channel: REW pilot tone (timing ref)</text>
+      <line class="wire-U" x1="15" y1="84" x2="55" y2="84"/>
+      <text class="lab-sm" x="65" y="88">USB (mic / DATS)</text>
+      <line class="wire-S" x1="15" y1="106" x2="55" y2="106"/>
+      <text class="lab-sm" x="65" y="110">Combined analog stereo</text>
+    </g>
+  </svg>
+  <figcaption>
+    Session signal chain. Laptop stereo out splits into two RCA lines —
+    left drives the DUT via Arcam FL; right drives the timing-reference
+    desk speaker via Arcam Center. UMIK-1 returns over USB. DATS runs
+    in its own session and does not share the chain.
+  </figcaption>
+</figure>
+
+<div class="callout info">
+  <span class="tag">Arcam source</span>
+  Select <strong>7.1 Multichannel Input / Direct</strong> on the Arcam.
+  No DSP, no decoder, no bass management.
+</div>
+
+<!-- ======================================================= -->
+<!-- Section 2 -->
+<!-- ======================================================= -->
+
+<h2 id="sec-2">2. Measurement Conventions</h2>
+
+<h3>Where distance is measured from</h3>
+<p>
+  The UMIK-1 acoustic reference point is the <strong>tip of the mic
+  capsule</strong> (the end closest to the source). The distance "1 m" is
+  measured from the <strong>driver's acoustic center</strong> to that
+  <strong>mic tip</strong>. For a cone driver, acoustic center is roughly
+  the center of the cone at the dust-cap plane. For the tweeter, it is
+  the center of the dome.
+</p>
+<figure>
+  <svg viewBox="0 0 760 360" xmlns="http://www.w3.org/2000/svg"
+       role="img" aria-label="Mic distance reference: tip to acoustic center">
+    <defs>
+      <style>
+        .baf   { fill:#ddd; stroke:#333; stroke-width:1.4; }
+        .cone  { fill:#b5b5b5; stroke:#333; stroke-width:1.2; }
+        .dust  { fill:#333; }
+        .dome  { fill:#6c7a89; stroke:#333; stroke-width:1.2; }
+        .mic   { fill:#fdf2e1; stroke:#d68910; stroke-width:1.4; }
+        .tip   { fill:#c0392b; stroke:#922b21; stroke-width:1.2; }
+        .lab-b { font: bold 10.5pt "Helvetica Neue", Arial, sans-serif; fill:#111; }
+        .lab   { font: 10pt "Helvetica Neue", Arial, sans-serif; fill:#111; }
+        .lab-sm{ font: 9pt "Helvetica Neue", Arial, sans-serif; fill:#333; }
+        .lab-r { font: 10pt "Helvetica Neue", Arial, sans-serif; fill:#c0392b; }
+        .lab-g { font: 10pt "Helvetica Neue", Arial, sans-serif; fill:#196f3d; }
+        .axis  { stroke:#2e86c1; stroke-width:1.6; fill:none; stroke-dasharray:5 4; }
+        .dim   { stroke:#196f3d; stroke-width:1.4; fill:none; }
+      </style>
+      <marker id="tick" viewBox="0 0 6 10" refX="3" refY="5"
+              markerWidth="4" markerHeight="7" orient="auto">
+        <path d="M3,0 V10" stroke="#196f3d" stroke-width="1.4"/>
+      </marker>
+    </defs>
+
+    <!-- Baffle (top view, simplified) -->
+    <rect class="baf" x="40" y="40" width="80" height="280" rx="4"/>
+    <text class="lab-sm" x="80" y="34" text-anchor="middle">baffle (side view)</text>
+
+    <!-- Woofer cone (top) -->
+    <path class="cone"
+          d="M120 100 L160 70 L160 130 Z M120 100"/>
+    <circle class="dust" cx="160" cy="100" r="5"/>
+    <text class="lab-sm" x="165" y="66">cone (woofer / mid)</text>
+
+    <!-- Tweeter dome (bottom) -->
+    <path class="dome"
+          d="M120 240 C 140 225 160 225 180 240 C 160 255 140 255 120 240 Z"/>
+    <circle class="dust" cx="150" cy="240" r="4"/>
+    <text class="lab-sm" x="185" y="235">tweeter dome</text>
+
+    <!-- Labels for acoustic centers -->
+    <text class="lab-g" x="170" y="100" dx="10">acoustic center:</text>
+    <text class="lab-g" x="170" y="114" dx="10">dust-cap center</text>
+    <text class="lab-g" x="185" y="258">acoustic center:</text>
+    <text class="lab-g" x="185" y="272">dome center</text>
+
+    <!-- UMIK-1 (shown near tweeter axis, mic aimed at dome) -->
+    <g transform="translate(600,220)">
+      <rect class="mic" x="0" y="0" width="110" height="40" rx="6"/>
+      <text class="lab-b" x="55" y="16" text-anchor="middle">UMIK-1</text>
+      <text class="lab-sm" x="55" y="32" text-anchor="middle">USB mic (0° cal)</text>
+      <!-- capsule tip -->
+      <rect class="tip" x="-18" y="14" width="18" height="12" rx="2"/>
+      <text class="lab-r" x="-22" y="10" text-anchor="end">tip</text>
+      <text class="lab-r" x="-22" y="24" text-anchor="end">(ref point)</text>
+    </g>
+
+    <!-- 1 m axis from tweeter dome to mic tip -->
+    <line class="axis" x1="150" y1="240" x2="582" y2="240"/>
+    <text class="lab" x="370" y="232" text-anchor="middle" fill="#2e86c1">
+      mic axis points at driver (0° incidence)
+    </text>
+
+    <!-- Dimension line under the axis: exactly 1.00 m -->
+    <line class="dim"
+          x1="150" y1="300" x2="582" y2="300"
+          marker-start="url(#tick)" marker-end="url(#tick)"/>
+    <text class="lab-g" x="366" y="318" text-anchor="middle">
+      1.00 m  (string from acoustic center to mic tip)
+    </text>
+
+    <!-- Vertical ticks connecting axis to dim line -->
+    <line class="dim" x1="150" y1="244" x2="150" y2="300"/>
+    <line class="dim" x1="582" y1="244" x2="582" y2="300"/>
+
+    <!-- Note box -->
+    <g transform="translate(250,70)">
+      <rect x="0" y="0" width="460" height="100" rx="6" fill="#e8f1fb" stroke="#2471a3"/>
+      <text class="lab-b" x="12" y="22">Measurement rules</text>
+      <text class="lab-sm" x="12" y="42">• Distance = driver acoustic center to mic tip (not mic body).</text>
+      <text class="lab-sm" x="12" y="58">• Mic tip = the end closest to the source.</text>
+      <text class="lab-sm" x="12" y="74">• Mic always points at the DUT. Use 0° UMIK-1 cal file.</text>
+      <text class="lab-sm" x="12" y="90">• Verify the 1.00 m with a string every time the mic moves.</text>
+    </g>
+  </svg>
+  <figcaption>
+    Distance reference. The 1 m is measured from the driver's acoustic
+    center (dust-cap center for cones, dome center for the tweeter) to
+    the mic tip — not the body, not the mount. The mic always points at
+    the DUT.
+  </figcaption>
+</figure>
+
+<h3>Mic orientation</h3>
+<p>
+  Mic axis points <strong>directly at the driver under test</strong>
+  (0° incidence). Always. Load the <strong>0° calibration file</strong>
+  in REW, not the 90°.
+</p>
+
+<h3>On-axis reference</h3>
+<p>
+  The single design-axis point is <strong>1 m from the tweeter,
+  perpendicular to the baffle, at tweeter height</strong>. This is the
+  origin for every arc.
+</p>
+
+<h3>One mic position, all drivers</h3>
+<p>
+  At each angle, all five drivers are measured from the same mic position
+  (centered on the tweeter arc). This is close enough for crossover design —
+  LoudspeakerLab and VituixCAD both reconstruct the full system from
+  per-driver data plus the baffle layout.
+</p>
+
+<h3>Channel levels</h3>
+<ul>
+  <li>Laptop L channel = sweep → DUT (calibrated to 2.83 V)</li>
+  <li>Laptop R channel = REW timing-reference pilot → desk speaker (REW-attenuated, typically −20 dB)</li>
+  <li>Arcam volume is <strong>locked</strong> for the entire session after Step 5. Do not touch.</li>
+</ul>
+
+<h3>File-naming convention</h3>
+<p>
+  Every saved file uses the pattern
+  <code>&lt;DriverTag&gt;-&lt;DriverName&gt;-&lt;AngleOrKind&gt;.&lt;ext&gt;</code>.
+  Angles are zero-padded to 3 digits so files sort numerically. The wizard
+  enforces this automatically; if you save manually in REW, use the same
+  pattern.
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width:14%">Driver tag</th>
+      <th style="width:26%">Driver name</th>
+      <th>Example filename</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><code>W1</code></td>   <td>UpperWoofer</td> <td><code>W1-UpperWoofer-H000deg.frd</code></td></tr>
+    <tr><td><code>W2</code></td>   <td>LowerWoofer</td> <td><code>W2-LowerWoofer-H090deg.frd</code></td></tr>
+    <tr><td><code>M3</code></td>   <td>UpperMid</td>    <td><code>M3-UpperMid-V015deg.frd</code></td></tr>
+    <tr><td><code>M4</code></td>   <td>LowerMid</td>    <td><code>M4-LowerMid-NearField.frd</code></td></tr>
+    <tr><td><code>T</code></td>    <td>Tweeter</td>     <td><code>T-Tweeter-H000deg.frd</code></td></tr>
+    <tr><td><code>Pair</code></td> <td>Woofers / Mids (parallel)</td>
+        <td><code>Pair-Woofers-InBox.zma</code>, <code>Pair-Mids-InBox.zma</code></td></tr>
+  </tbody>
+</table>
+
+<p>
+  <strong>Kind suffixes:</strong>
+  <code>H###deg</code> horizontal,
+  <code>V###deg</code> vertical,
+  <code>NearField</code>,
+  <code>InBox</code> (impedance),
+  <code>Distortion</code>,
+  <code>Distortion-1V</code> (tweeter).
+</p>
+
+<h3>Formats saved per measurement</h3>
+<ul>
+  <li>
+    <strong>Acoustic (REW):</strong>
+    <code>.frd</code> (3-col: freq, SPL, phase — for LoudspeakerLab +
+    VituixCAD), <code>.txt</code> (REW export with header metadata —
+    backup), <code>.wav</code> (impulse response — for reanalysis in
+    other tools). One master <code>.mdat</code> session file is saved at
+    the end.
+  </li>
+  <li>
+    <strong>Impedance (DATS):</strong>
+    <code>.zma</code> (3-col: freq, |Z|, phase — primary),
+    <code>.tzz</code> (DATS session — backup),
+    <code>.txt</code> (tertiary backup).
+  </li>
+</ul>
+
+<!-- ======================================================= -->
+<!-- Section 3 -->
+<!-- ======================================================= -->
+
+<h2 id="sec-3">3. Floor Arc Setup</h2>
+
+<p>One-time rigging. Do this before calibration.</p>
+
+<ol>
+  <li>
+    Drop a <strong>plumb line</strong> from the tweeter's acoustic center
+    straight to the floor. Mark that point with a tape X. This is the
+    <strong>arc origin</strong>.
+  </li>
+  <li>
+    With the tape measure held at the arc origin, extend a string exactly
+    <strong>1.00 m</strong> perpendicular to the baffle (verify perpendicular
+    with a carpenter's square held against the wall). Mark that point as
+    <strong>0° H</strong>.
+  </li>
+  <li>
+    Using a protractor centered on the origin, mark positions for
+    <strong>10°, 20°, 30°, 40°, 50°, 60°, 70°, 80°, 90°</strong> on one side
+    of the 0° line. Each mark is a tape X on the floor at 1.00 m radius from
+    origin.
+    <ul>
+      <li>
+        Arc length between adjacent marks at 1 m radius is
+        <strong>~17.45 cm</strong>. Double-check by measuring the chord:
+        10° chord ≈ 17.4 cm, 20° chord ≈ 34.7 cm, 30° chord ≈ 51.8 cm.
+      </li>
+    </ul>
+  </li>
+  <li>
+    At each tape X, also mark the <strong>angle number</strong> with a
+    sharpie so you don't lose track mid-session.
+  </li>
+  <li>
+    <strong>Tripod height:</strong> set the mic tip to exactly
+    <strong>tweeter height</strong> (measure with tape from floor to tweeter
+    center on the baffle, transfer to tripod). This height stays fixed for
+    all horizontal sweeps.
+  </li>
+  <li>
+    At 0°: if the tripod legs conflict with the wall, use a boom arm so the
+    tripod base sits 1.5 – 2 m back and only the mic extends forward to 1 m.
+    Do not skip 0°.
+  </li>
+</ol>
+
+<div class="callout info">
+  <span class="tag">Horizontal symmetry</span>
+  WMTMW is horizontally symmetric, so one side of the arc (0 – 90°) covers
+  everything. No need to measure the other side.
+</div>
+
+<figure>
+  <svg viewBox="0 0 760 500" xmlns="http://www.w3.org/2000/svg"
+       role="img" aria-label="Top-down floor arc with 10 degree tape marks">
+    <defs>
+      <style>
+        .wall   { fill:#d0d0d0; stroke:#333; stroke-width:1.4; }
+        .baff   { fill:#b5b5b5; stroke:#333; stroke-width:1.2; }
+        .arc    { fill:none; stroke:#196f3d; stroke-width:1.8; stroke-dasharray:6 5; }
+        .radius { stroke:#196f3d; stroke-width:1.2; fill:none; }
+        .tape   { fill:#c0392b; }
+        .orig   { fill:#333; }
+        .lab    { font: 10pt "Helvetica Neue", Arial, sans-serif; fill:#111; }
+        .lab-b  { font: bold 10.5pt "Helvetica Neue", Arial, sans-serif; fill:#111; }
+        .lab-g  { font: 10pt "Helvetica Neue", Arial, sans-serif; fill:#196f3d; }
+        .lab-r  { font: 9.5pt "Helvetica Neue", Arial, sans-serif; fill:#c0392b; }
+        .lab-sm { font: 9pt "Helvetica Neue", Arial, sans-serif; fill:#333; }
+      </style>
+    </defs>
+
+    <!-- Wall and baffle (top-down) -->
+    <rect class="wall" x="20" y="40" width="50" height="420"/>
+    <rect class="baff" x="70" y="170" width="24" height="160" rx="2"/>
+    <text class="lab-sm" x="45"  y="32"  text-anchor="middle">wall</text>
+    <text class="lab-sm" x="82"  y="348" text-anchor="middle">baffle</text>
+
+    <!-- Origin (plumb point from tweeter acoustic center) -->
+    <circle class="orig" cx="94" cy="250" r="5"/>
+    <text class="lab-b" x="100" y="266">origin (tweeter plumb point)</text>
+    <text class="lab-sm" x="100" y="280">arc center — tape X on floor</text>
+
+    <!-- 1 m arc: radius in SVG units. 1 m maps to ~450 px.
+         Arc centered at (94,250), drawn from angle 0 (east) down to 90 (south),
+         but we want "up" for simple top-down visual. We'll go 0 at east and
+         sweep clockwise to 90 at south (below origin) so 0 is to the right
+         and 90 is below, matching a top-down floor plan where the baffle is
+         along the vertical axis. -->
+    <!-- Arc path: from (94+450, 250) sweeping through 0..90 deg below axis -->
+    <path class="arc" d="M 544 250 A 450 450 0 0 1 94 700"
+          transform="translate(0,-450)" />
+    <!-- The trick above doesn't quite draw what we want; use a direct arc: -->
+    <!-- Replace with: from 0deg at (544,250) to 90deg at (94,700) — out of view.
+         Instead draw incremental arc from (544,250) to (94 + 450*cos(90), 250 + 450*sin(90)) -->
+    <!-- Simpler: just draw explicit arc with sweep-flag for clockwise below the axis -->
+    <path class="arc"
+          d="M 544 250
+             A 450 450 0 0 1 94 700"
+          fill="none"/>
+
+    <!-- Tape-X marks at 0, 10, 20, 30, 40, 50, 60, 70, 80, 90 degrees
+         Origin (94,250), radius 450 units, angle measured from +x axis
+         toward +y (downward = larger angle on floor plan).
+         Position = (94 + 450*cos(a), 250 + 450*sin(a))
+    -->
+    <g class="tape">
+      <!-- pre-computed: -->
+      <circle cx="544" cy="250"  r="5"/> <!-- 0 -->
+      <circle cx="537" cy="328"  r="5"/> <!-- 10 -->
+      <circle cx="517" cy="404"  r="5"/> <!-- 20 -->
+      <circle cx="484" cy="475"  r="5"/> <!-- 30 (near bottom) -->
+      <!-- 40..90 partially off the viewport; we'll stop at 30 and indicate the rest textually -->
+    </g>
+    <g>
+      <text class="lab-r" x="556" y="254">0°</text>
+      <text class="lab-r" x="550" y="330">10°</text>
+      <text class="lab-r" x="530" y="406">20°</text>
+      <text class="lab-r" x="496" y="478">30°</text>
+    </g>
+
+    <!-- Radius line from origin to 0 degree mark -->
+    <line class="radius" x1="94" y1="250" x2="544" y2="250"/>
+    <text class="lab-g" x="319" y="244" text-anchor="middle">1.00 m radius</text>
+
+    <!-- Chord annotation between 0 and 10 -->
+    <line class="radius" x1="544" y1="250" x2="537" y2="328"
+          stroke-dasharray="3 3"/>
+    <text class="lab-sm" x="574" y="290">~17.4 cm chord</text>
+    <text class="lab-sm" x="574" y="304">(adjacent marks)</text>
+
+    <!-- Note box for off-diagram angles 40-90 -->
+    <g transform="translate(330,360)">
+      <rect x="0" y="0" width="400" height="122" rx="6" fill="#fdf2e1" stroke="#d68910"/>
+      <text class="lab-b" x="12" y="22">Arc marks — continue the pattern</text>
+      <text class="lab-sm" x="12" y="42">All 10 tape Xs sit on the 1.00 m arc:</text>
+      <text class="lab-sm" x="12" y="58">0°, 10°, 20°, 30°, 40°, 50°, 60°, 70°, 80°, 90°.</text>
+      <text class="lab-sm" x="12" y="80">Chord lengths from 0°: 17.4, 34.7, 51.8, 68.4, 84.5,</text>
+      <text class="lab-sm" x="12" y="96">100.0, 114.7, 128.6, 141.4 cm at 10°…90° respectively.</text>
+      <text class="lab-sm" x="12" y="114">90° mark is directly alongside the baffle (0 m from wall).</text>
+    </g>
+
+    <!-- Mic height note -->
+    <g transform="translate(330,40)">
+      <rect x="0" y="0" width="400" height="82" rx="6" fill="#e8f1fb" stroke="#2471a3"/>
+      <text class="lab-b" x="12" y="22">Mic height (elevation view not shown)</text>
+      <text class="lab-sm" x="12" y="42">Mic tip height = tweeter height, for all horizontal sweeps.</text>
+      <text class="lab-sm" x="12" y="58">Verify with tape from floor to tweeter center on baffle,</text>
+      <text class="lab-sm" x="12" y="74">then transfer to the tripod. Boom arm recommended at 0°.</text>
+    </g>
+  </svg>
+  <figcaption>
+    Floor arc (top-down, one side). Wall at left, baffle protruding into
+    the room. Origin is the plumb point directly below the tweeter's
+    acoustic center. Tape Xs sit on the 1.00 m arc at 0°, 10°, …, 90°;
+    only 0 – 30° are drawn to scale; the rest follow the same radius
+    (chord lengths listed in the yellow panel). Horizontal symmetry
+    means one side covers the whole polar.
+  </figcaption>
+</figure>
+
+<!-- ======================================================= -->
+<!-- Section 4 -->
+<!-- ======================================================= -->
+
+<h2 id="sec-4">4. Pre-Session Setup</h2>
+
+<p class="subtle">Budget 30 – 45 minutes.</p>
+
+<ol>
+  <li>HVAC off. Note the time; you have limited quiet minutes.</li>
+  <li>Deploy toddler distraction.</li>
+  <li>
+    Arcam: power on, input = <strong>7.1 Multichannel</strong>, all DSP off
+    (Direct mode), tone controls flat, bass management off. Set volume to
+    the minimum first — you will calibrate it in Section 5.
+  </li>
+  <li>Connect L-RCA to Arcam 7.1 FL input, R-RCA to Arcam 7.1 Center input.</li>
+  <li>
+    Wire the desk speaker to Arcam Center speaker terminals. Place it on a
+    shelf or stand — anywhere — and <strong>do not move it again</strong>
+    until the session ends.
+  </li>
+  <li>
+    At the wall terminals: disconnect every driver. We'll connect one at a
+    time.
+  </li>
+  <li>
+    REW preferences:
+    <ul>
+      <li>Input device: UMIK-1 (load 0° cal file)</li>
+      <li>Output device: laptop stereo out</li>
+      <li>Analysis → Use Acoustic Timing Reference: <strong>ON</strong>, channel = Right</li>
+      <li>Measurement default: log sweep, 512 k length, 20 Hz – 20 kHz, level −12 dBFS</li>
+      <li>
+        Auto-name template: <code>{name}</code> with sequential suffix off
+        (we'll name manually per sweep — fast enough with the template
+        pre-loaded, and the wizard names files automatically).
+      </li>
+    </ul>
+  </li>
+  <li>
+    Verify channel assignment: use REW's generator to send a 1 kHz tone on
+    <strong>left only</strong>. Confirm only the FL Arcam output is active
+    (touch the FL terminal wire — should see meter movement; desk speaker
+    should be silent). Repeat with right only — desk speaker plays, FL is
+    silent. If both channels play on one output, Arcam is not in
+    Multichannel Direct mode.
+  </li>
+</ol>
+
+<!-- ======================================================= -->
+<!-- Section 5 -->
+<!-- ======================================================= -->
+
+<h2 id="sec-5">5. 2.83 V Calibration</h2>
+
+<p class="subtle">Budget 10 minutes.</p>
+
+<div class="callout safety">
+  <span class="tag">Safety</span>
+  The tweeter must be <strong>physically disconnected at the wall</strong>
+  for this step. A 60 Hz sine at 2.83 V into a tweeter destroys it instantly.
+</div>
+
+<ol>
+  <li>
+    Connect <strong>only W2 (lower woofer)</strong> to Arcam FL terminals.
+    All other drivers disconnected.
+    <strong>Verify tweeter wires are not touching each other or anything
+    conductive.</strong>
+  </li>
+  <li>
+    REW Generator → 60 Hz sine wave, left channel only, level −20 dBFS.
+    Start.
+  </li>
+  <li>DMM on AC V mode, probes across the W2 terminals at the wall.</li>
+  <li>
+    Slowly raise Arcam volume until DMM reads <strong>2.83 V</strong>
+    (±0.02 V).
+  </li>
+  <li>
+    <strong>Stop generator.</strong> Do not touch the Arcam volume knob for
+    the remainder of the session. Consider taping over it.
+  </li>
+  <li>Note the final Arcam volume setting in your log.</li>
+</ol>
+
+<div class="callout info">
+  <span class="tag">Non-True-RMS meter</span>
+  Your non-True-RMS meter is fine here. A standard averaging meter reads
+  RMS correctly on a pure 60 Hz sine.
+</div>
+
+<!-- ======================================================= -->
+<!-- Section 6 -->
+<!-- ======================================================= -->
+
+<h2 id="sec-6">6. Timing Reference Verification</h2>
+
+<p class="subtle">Budget 5 minutes.</p>
+
+<ol>
+  <li>Mic at 0° tape X (1 m on-axis).</li>
+  <li>W2 still connected to FL. Other drivers disconnected.</li>
+  <li>REW Measure → run a throwaway sweep.</li>
+  <li>
+    Check the log: REW must report "Timing reference found" or similar. The
+    IR should show a clean, isolated leading edge.
+  </li>
+  <li>
+    If timing reference not found: raise the pilot level in REW
+    preferences, or raise Arcam Center output if it's too quiet (but then
+    re-lock). Iterate until found.
+  </li>
+  <li>
+    Once locked, <strong>do not move the desk speaker or the mic</strong>
+    except along the arc.
+  </li>
+</ol>
+
+<div class="callout warn">
+  <span class="tag">If it won't lock</span>
+  Likely causes: desk speaker muted, wrong Arcam input, splitter polarity,
+  REW reference channel set wrong (should be Right), pilot level too low
+  for room noise. Re-check each one before forcing the level up.
+</div>
+
+<!-- ======================================================= -->
+<!-- Section 7 -->
+<!-- ======================================================= -->
+
+<h2 id="sec-7">7. Impedance Sweeps — DATS V3</h2>
+
+<p class="subtle">Budget 30 minutes. Mic not needed.</p>
+
+<p>
+  Disconnect the laptop from the Arcam if you like. DATS runs its own
+  low-level impedance sweep — safe for all drivers including the tweeter.
+</p>
+
+<p>
+  Per-driver, all other drivers disconnected at the wall (open terminals).
+  For each row, save the primary <code>.zma</code> plus a DATS
+  <code>.tzz</code> project and an optional <code>.txt</code> as a
+  tertiary backup. Everything goes to <code>InBoxMeasurements/zma/</code>.
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width:32%">File (.zma primary, + .tzz + .txt)</th>
+      <th style="width:18%">Driver</th>
+      <th>Notes / expectations</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>W1-UpperWoofer-InBox.zma</code></td>
+      <td>Upper woofer</td>
+      <td>Expect Fc ≈ 56 Hz, Qtc ≈ 0.71. Confirm vs Plan of Record.</td>
+    </tr>
+    <tr>
+      <td><code>W2-LowerWoofer-InBox.zma</code></td>
+      <td>Lower woofer</td>
+      <td>Expect Fc ≈ 55 Hz, Qtc ≈ 0.67.</td>
+    </tr>
+    <tr>
+      <td><code>M3-UpperMid-InBox.zma</code></td>
+      <td>Upper mid</td>
+      <td>In-box Fs ≈ 130 Hz (shared chamber raises from 52.7 Hz free-air).</td>
+    </tr>
+    <tr>
+      <td><code>M4-LowerMid-InBox.zma</code></td>
+      <td>Lower mid</td>
+      <td>Expected similar to M3.</td>
+    </tr>
+    <tr>
+      <td><code>T-Tweeter-InBox.zma</code></td>
+      <td>Tweeter</td>
+      <td>Expect Fs ≈ 650 Hz. DATS sweeps are low-level, safe for tweeters.</td>
+    </tr>
+    <tr>
+      <td><code>Pair-Woofers-InBox.zma</code></td>
+      <td>W1 ∥ W2</td>
+      <td>
+        Wire both to DATS in parallel (+ to +, − to −). Expected
+        magnitude ≈ half of one woofer alone.
+      </td>
+    </tr>
+    <tr>
+      <td><code>Pair-Mids-InBox.zma</code></td>
+      <td>M3 ∥ M4</td>
+      <td>Same parallel wiring at the DATS terminals.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="callout info">
+  <span class="tag">DATS project file</span>
+  From DATS, also "Save Project" as <code>.tzz</code> alongside the .zma.
+  It captures the full DATS session for later re-export if you want to
+  change smoothing or export parameters without re-running the sweep.
+</div>
+
+<!-- ======================================================= -->
+<!-- Section 8 -->
+<!-- ======================================================= -->
+
+<h2 id="sec-8">8. Horizontal Polar Sweeps</h2>
+
+<p class="subtle">Budget 90 – 120 minutes.</p>
+
+<div class="callout info">
+  <span class="tag">Loop order</span>
+  <strong>Outer loop = mic angle</strong> (minimizes mic moves).
+  <strong>Inner loop = driver</strong> (fast cable swap at wall).
+</div>
+
+<p>
+  For each angle in
+  <code>[000, 010, 020, 030, 040, 050, 060, 070, 080, 090]</code> degrees
+  horizontal (zero-padded in filenames):
+</p>
+
+<ol>
+  <li>
+    Move the tripod so the mic tip sits directly over the tape X for that
+    angle. Mic pointed at the tweeter. Verify 1 m with the string from
+    tweeter to mic tip.
+  </li>
+  <li>
+    Sweep each driver in order. Each time: disconnect the previous driver,
+    connect the next, all others stay disconnected. Each row saves
+    <code>.frd</code> + <code>.txt</code> + <code>.wav</code>.
+  </li>
+</ol>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width:22%">Driver</th>
+      <th style="width:36%">Filename stem (→ .frd, .txt, .wav)</th>
+      <th style="width:20%">Sweep range</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>W1 upper woofer</td>
+      <td><code>W1-UpperWoofer-H{ddd}deg</code></td>
+      <td>20 Hz – 20 kHz, 512 k</td>
+      <td>Full range</td>
+    </tr>
+    <tr>
+      <td>W2 lower woofer</td>
+      <td><code>W2-LowerWoofer-H{ddd}deg</code></td>
+      <td>20 Hz – 20 kHz, 512 k</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>M3 upper mid</td>
+      <td><code>M3-UpperMid-H{ddd}deg</code></td>
+      <td>20 Hz – 20 kHz, 512 k</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>M4 lower mid</td>
+      <td><code>M4-LowerMid-H{ddd}deg</code></td>
+      <td>20 Hz – 20 kHz, 512 k</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>T tweeter</td>
+      <td><code>T-Tweeter-H{ddd}deg</code></td>
+      <td><strong>300 Hz – 20 kHz, 256 k</strong></td>
+      <td>See Section 0</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>
+  <strong>Total: 50 sweeps × 3 output formats = 150 files.</strong> Each
+  sweep measures in ~5 – 10 s; the wizard auto-names and auto-exports.
+</p>
+
+<p class="subtle">
+  Keep the timing-reference desk speaker in place the entire time.
+</p>
+
+<!-- ======================================================= -->
+<!-- Section 9 -->
+<!-- ======================================================= -->
+
+<h2 id="sec-9">9. Vertical Off-Axis</h2>
+
+<p class="subtle">Budget 15 – 20 minutes.</p>
+
+<p>
+  WMTMW is vertically symmetric around the tweeter, so measure one
+  direction only (upward). Only T, M3, M4 need vertical data — woofers
+  are omnidirectional at their operating band.
+</p>
+
+<p>At <strong>1 m radius from the tweeter</strong>:</p>
+
+<ul>
+  <li>
+    <strong>+15° vertical:</strong> mic is 96.6 cm out from baffle,
+    25.9 cm above tweeter height.
+  </li>
+  <li>
+    <strong>+30° vertical:</strong> mic is 86.6 cm out from baffle,
+    50.0 cm above tweeter height.
+  </li>
+</ul>
+
+<p>
+  Measure these offsets from the 0° on-axis point: raise the tripod by the
+  height delta and pull it in toward the baffle by the distance delta.
+  Verify with the 1 m string from tweeter to mic tip.
+</p>
+
+<figure>
+  <svg viewBox="0 0 760 420" xmlns="http://www.w3.org/2000/svg"
+       role="img" aria-label="Side view of vertical arc at +15 and +30 degrees">
+    <defs>
+      <style>
+        .wall    { fill:#d0d0d0; stroke:#333; stroke-width:1.4; }
+        .baff    { fill:#b5b5b5; stroke:#333; stroke-width:1.2; }
+        .floor   { fill:#ececec; stroke:#aaa; stroke-width:1; }
+        .arc     { fill:none; stroke:#196f3d; stroke-width:1.8; stroke-dasharray:6 5; }
+        .radius  { stroke:#196f3d; stroke-width:1.2; fill:none; }
+        .mic     { fill:#fdf2e1; stroke:#d68910; stroke-width:1.4; }
+        .tw      { fill:#333; }
+        .lab     { font: 10pt "Helvetica Neue", Arial, sans-serif; fill:#111; }
+        .lab-b   { font: bold 10.5pt "Helvetica Neue", Arial, sans-serif; fill:#111; }
+        .lab-g   { font: 10pt "Helvetica Neue", Arial, sans-serif; fill:#196f3d; }
+        .lab-sm  { font: 9pt "Helvetica Neue", Arial, sans-serif; fill:#333; }
+        .dim     { stroke:#2471a3; stroke-width:1.1; fill:none; stroke-dasharray:3 3; }
+      </style>
+    </defs>
+
+    <!-- Wall and floor -->
+    <rect class="wall"  x="20" y="20"  width="50" height="370"/>
+    <rect class="floor" x="20" y="390" width="730" height="20"/>
+    <text class="lab-sm" x="385" y="405" text-anchor="middle">floor</text>
+
+    <!-- Baffle (side slice) with drivers stacked, side view -->
+    <rect class="baff" x="70" y="80" width="24" height="260" rx="2"/>
+    <text class="lab-sm" x="82" y="72" text-anchor="middle">baffle (side)</text>
+
+    <!-- Driver dots: W1 top, M3, T (center), M4, W2 bottom — simplified -->
+    <circle class="tw" cx="82" cy="110" r="6"/> <text class="lab-sm" x="100" y="114">W1</text>
+    <circle class="tw" cx="82" cy="160" r="5"/> <text class="lab-sm" x="100" y="164">M3</text>
+    <circle class="tw" cx="82" cy="210" r="7" fill="#c0392b"/>
+    <text class="lab-sm" x="100" y="214" fill="#c0392b">T (tweeter — reference)</text>
+    <circle class="tw" cx="82" cy="260" r="5"/> <text class="lab-sm" x="100" y="264">M4</text>
+    <circle class="tw" cx="82" cy="310" r="6"/> <text class="lab-sm" x="100" y="314">W2</text>
+
+    <!-- Scale: 1 m = 450 SVG units (horizontal), same for vertical -->
+    <!-- Tweeter at (82,210). Mic positions: -->
+    <!-- On-axis (0°):   x = 82 + 450 = 532, y = 210 -->
+    <!-- +15°:           x = 82 + 450*cos15 ≈ 82 + 434.7 = 516.7, y = 210 - 450*sin15 ≈ 210 - 116.5 = 93.5 -->
+    <!-- +30°:           x = 82 + 450*cos30 ≈ 82 + 389.7 = 471.7, y = 210 - 450*sin30 = 210 - 225 = -15 (off-canvas) -->
+    <!-- 30deg y is off-canvas at this scale; use compact scale 1 m = 300 units for clarity -->
+
+    <!-- Reset: 1 m = 300 units. Tweeter at (82, 260). -->
+    <!-- On-axis: (82+300, 260) = (382, 260) -->
+    <!-- +15°:   (82 + 300*cos15, 260 - 300*sin15) = (82+289.8, 260-77.6) = (371.8, 182.4) -->
+    <!-- +30°:   (82 + 300*cos30, 260 - 300*sin30) = (82+259.8, 260-150)   = (341.8, 110) -->
+
+    <!-- Adjust the tweeter dot y to 260 to match scale -->
+    <circle class="tw" cx="82" cy="260" r="9" fill="#c0392b" stroke="#fff" stroke-width="1"/>
+    <text class="lab-b" x="100" y="260" fill="#c0392b">tweeter (1 m radius origin)</text>
+
+    <!-- 1 m arc center (82,260), radius 300, from 0 to +30 -->
+    <path class="arc" d="M 382 260 A 300 300 0 0 0 341.8 110"/>
+    <text class="lab-g" x="395" y="250" text-anchor="start">1.00 m arc</text>
+
+    <!-- Mic on-axis (0°) -->
+    <rect class="mic" x="382" y="244" width="96" height="32" rx="5"/>
+    <text class="lab-b" x="430" y="264" text-anchor="middle">mic 0°</text>
+    <!-- tip on the left edge -->
+    <rect x="370" y="254" width="12" height="12" rx="2" fill="#c0392b"/>
+    <text class="lab-sm" x="368" y="252" text-anchor="end" fill="#c0392b">tip</text>
+
+    <!-- Mic +15° -->
+    <g transform="translate(-10,0)">
+      <rect class="mic" x="372" y="166" width="96" height="32" rx="5"/>
+      <text class="lab-b" x="420" y="186" text-anchor="middle">mic +15°</text>
+      <rect x="360" y="176" width="12" height="12" rx="2" fill="#c0392b"/>
+    </g>
+
+    <!-- Mic +30° -->
+    <g transform="translate(-20,0)">
+      <rect class="mic" x="352" y="94" width="96" height="32" rx="5"/>
+      <text class="lab-b" x="400" y="114" text-anchor="middle">mic +30°</text>
+      <rect x="340" y="104" width="12" height="12" rx="2" fill="#c0392b"/>
+    </g>
+
+    <!-- Radius lines from tweeter to each mic tip -->
+    <line class="radius" x1="82" y1="260" x2="370" y2="260"/> <!-- 0° -->
+    <line class="radius" x1="82" y1="260" x2="360" y2="182"/> <!-- +15° -->
+    <line class="radius" x1="82" y1="260" x2="340" y2="110"/> <!-- +30° -->
+
+    <!-- Annotations: horizontal offsets from baffle -->
+    <line class="dim" x1="94"  y1="352" x2="370" y2="352"/>
+    <text class="lab-sm" x="232" y="366" text-anchor="middle" fill="#1a5276">
+      0°: 100 cm out from baffle
+    </text>
+    <line class="dim" x1="94"  y1="380" x2="360" y2="380"/>
+    <text class="lab-sm" x="226" y="394" text-anchor="middle" fill="#1a5276">
+      +15°: 96.6 cm out from baffle
+    </text>
+
+    <!-- Vertical offset annotations on the right side -->
+    <line class="dim" x1="500" y1="260" x2="500" y2="182"/>
+    <text class="lab-sm" x="506" y="224" fill="#1a5276">+15°:</text>
+    <text class="lab-sm" x="506" y="238" fill="#1a5276">25.9 cm above</text>
+    <text class="lab-sm" x="506" y="252" fill="#1a5276">tweeter height</text>
+
+    <line class="dim" x1="560" y1="260" x2="560" y2="110"/>
+    <text class="lab-sm" x="566" y="184" fill="#1a5276">+30°:</text>
+    <text class="lab-sm" x="566" y="198" fill="#1a5276">50.0 cm above</text>
+    <text class="lab-sm" x="566" y="212" fill="#1a5276">tweeter height</text>
+    <text class="lab-sm" x="566" y="226" fill="#1a5276">(86.6 cm out)</text>
+
+    <!-- Note box -->
+    <g transform="translate(580,260)">
+      <rect x="0" y="0" width="160" height="104" rx="6" fill="#e8f1fb" stroke="#2471a3"/>
+      <text class="lab-b" x="10" y="22">Who gets V polars?</text>
+      <text class="lab-sm" x="10" y="42">T: yes (300 Hz, 256 k)</text>
+      <text class="lab-sm" x="10" y="58">M3: yes (full range)</text>
+      <text class="lab-sm" x="10" y="74">M4: yes (full range)</text>
+      <text class="lab-sm" x="10" y="90">W1/W2: no (omni band)</text>
+    </g>
+  </svg>
+  <figcaption>
+    Vertical arc, side view. Mic stays on the 1.00 m circle centered on
+    the tweeter. Raise the tripod and pull it toward the baffle by the
+    annotated deltas. Woofers are omnidirectional in-band so only T, M3,
+    and M4 get vertical sweeps.
+  </figcaption>
+</figure>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width:14%">Driver</th>
+      <th style="width:56%">Filename stems (→ .frd, .txt, .wav)</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>T</td>
+      <td><code>T-Tweeter-V015deg</code>, <code>T-Tweeter-V030deg</code></td>
+      <td>300 Hz – 20 kHz, 256 k</td>
+    </tr>
+    <tr>
+      <td>M3</td>
+      <td><code>M3-UpperMid-V015deg</code>, <code>M3-UpperMid-V030deg</code></td>
+      <td>Full range</td>
+    </tr>
+    <tr>
+      <td>M4</td>
+      <td><code>M4-LowerMid-V015deg</code>, <code>M4-LowerMid-V030deg</code></td>
+      <td>Full range</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Total: 6 sweeps × 3 formats = 18 files.</strong></p>
+
+<!-- ======================================================= -->
+<!-- Section 10 -->
+<!-- ======================================================= -->
+
+<h2 id="sec-10">10. Nearfield Sweeps</h2>
+
+<p class="subtle">Budget 15 minutes.</p>
+
+<p>
+  Mic tip <strong>&lt;5 mm from dust-cap center</strong>, pointed axially
+  into the driver. No gate applied. Timing reference remains on (harmless;
+  REW just can't gate nearfield responses tightly).
+</p>
+
+<figure>
+  <svg viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg"
+       role="img" aria-label="Nearfield mic placement: tip less than 5 mm from dust cap">
+    <defs>
+      <style>
+        .baff   { fill:#b5b5b5; stroke:#333; stroke-width:1.2; }
+        .cone   { fill:#c9c9c9; stroke:#333; stroke-width:1.2; }
+        .dust   { fill:#333; }
+        .mic    { fill:#fdf2e1; stroke:#d68910; stroke-width:1.4; }
+        .tip    { fill:#c0392b; stroke:#922b21; stroke-width:1; }
+        .axis   { stroke:#2e86c1; stroke-width:1.6; fill:none; stroke-dasharray:5 4; }
+        .dim    { stroke:#196f3d; stroke-width:1.4; fill:none; }
+        .lab    { font: 10pt "Helvetica Neue", Arial, sans-serif; fill:#111; }
+        .lab-b  { font: bold 10.5pt "Helvetica Neue", Arial, sans-serif; fill:#111; }
+        .lab-g  { font: 10pt "Helvetica Neue", Arial, sans-serif; fill:#196f3d; }
+        .lab-sm { font: 9pt "Helvetica Neue", Arial, sans-serif; fill:#333; }
+        .lab-r  { font: 10pt "Helvetica Neue", Arial, sans-serif; fill:#c0392b; }
+      </style>
+      <marker id="nf-tick" viewBox="0 0 6 10" refX="3" refY="5"
+              markerWidth="4" markerHeight="7" orient="auto">
+        <path d="M3,0 V10" stroke="#196f3d" stroke-width="1.4"/>
+      </marker>
+    </defs>
+
+    <!-- Baffle -->
+    <rect class="baff" x="40" y="40" width="60" height="220" rx="3"/>
+    <text class="lab-sm" x="70" y="34" text-anchor="middle">baffle</text>
+
+    <!-- Cone (side profile): triangle with dust cap in the middle -->
+    <path class="cone"
+          d="M100 80 L230 150 L230 152 L100 222 Z"/>
+    <!-- Dust cap at cone apex -->
+    <circle class="dust" cx="230" cy="151" r="10"/>
+    <text class="lab-sm" x="252" y="142">dust-cap center</text>
+    <text class="lab-sm" x="252" y="156">(acoustic reference)</text>
+
+    <!-- Mic body with tip almost touching dust cap -->
+    <rect class="mic" x="320" y="134" width="300" height="34" rx="6"/>
+    <text class="lab-b" x="470" y="158" text-anchor="middle">UMIK-1 (axial)</text>
+    <rect class="tip" x="300" y="142" width="20" height="18" rx="2"/>
+    <text class="lab-r" x="300" y="134" text-anchor="end">tip</text>
+
+    <!-- Axis from cone center out through mic -->
+    <line class="axis" x1="230" y1="151" x2="640" y2="151"/>
+    <text class="lab" x="540" y="142" text-anchor="middle" fill="#2e86c1">
+      mic axis = driver axis (0° incidence)
+    </text>
+
+    <!-- Distance callout: less than 5 mm from dust cap to tip -->
+    <line class="dim" x1="241" y1="200" x2="298" y2="200"
+          marker-start="url(#nf-tick)" marker-end="url(#nf-tick)"/>
+    <text class="lab-g" x="269" y="218" text-anchor="middle">&lt; 5 mm</text>
+    <text class="lab-sm" x="269" y="232" text-anchor="middle">(close but NOT touching)</text>
+
+    <!-- Rules panel -->
+    <g transform="translate(340,40)">
+      <rect x="0" y="0" width="360" height="86" rx="6" fill="#e8f1fb" stroke="#2471a3"/>
+      <text class="lab-b" x="10" y="22">Nearfield rules</text>
+      <text class="lab-sm" x="10" y="42">• Tip within 5 mm of dust-cap center (do not contact cone).</text>
+      <text class="lab-sm" x="10" y="58">• Aim mic straight into the driver (axial, 0° incidence).</text>
+      <text class="lab-sm" x="10" y="74">• No gating. Leave timing reference on.</text>
+    </g>
+
+    <!-- Skip note for tweeter -->
+    <g transform="translate(340,252)">
+      <rect x="0" y="0" width="360" height="38" rx="6" fill="#fdecea" stroke="#c0392b"/>
+      <text class="lab-r" x="10" y="24">Tweeter: SKIP nearfield (directivity makes it meaningless).</text>
+    </g>
+  </svg>
+  <figcaption>
+    Nearfield placement. Mic tip sits within 5 mm of the dust-cap center,
+    pointing axially into the cone. Close enough to dominate room
+    reflections, not close enough to touch. Tweeter is skipped —
+    nearfield is not useful for dome tweeters.
+  </figcaption>
+</figure>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width:18%">Driver</th>
+      <th>Filename stem (→ .frd, .txt, .wav)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>W1</td><td><code>W1-UpperWoofer-NearField</code></td></tr>
+    <tr><td>W2</td><td><code>W2-LowerWoofer-NearField</code></td></tr>
+    <tr><td>M3</td><td><code>M3-UpperMid-NearField</code></td></tr>
+    <tr><td>M4</td><td><code>M4-LowerMid-NearField</code></td></tr>
+  </tbody>
+</table>
+
+<div class="callout info">
+  <span class="tag">Tweeter: skip</span>
+  LoudspeakerLab auto-splices based on driver diameter for woofers and
+  mids only; tweeter nearfield is meaningless.
+</div>
+
+<p><strong>Total: 4 sweeps × 3 formats = 12 files.</strong></p>
+
+<!-- ======================================================= -->
+<!-- Section 11 -->
+<!-- ======================================================= -->
+
+<h2 id="sec-11">11. Distortion Sweeps</h2>
+
+<p class="subtle">Budget 20 minutes.</p>
+
+<p>
+  Mic back at <strong>0° H, 1 m on-axis</strong> (tape X). Same Arcam volume
+  as the rest of the session. REW Distortion measurement → stepped sine
+  or long log sweep. Export as text ("Export All as Text" from the
+  distortion window).
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width:12%">Driver</th>
+      <th style="width:38%">Filename</th>
+      <th style="width:14%">Level</th>
+      <th>Sweep range</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>W1</td>
+      <td><code>W1-UpperWoofer-Distortion.txt</code></td>
+      <td>2.83 V</td>
+      <td>20 Hz – 20 kHz</td>
+    </tr>
+    <tr>
+      <td>W2</td>
+      <td><code>W2-LowerWoofer-Distortion.txt</code></td>
+      <td>2.83 V</td>
+      <td>20 Hz – 20 kHz</td>
+    </tr>
+    <tr>
+      <td>M3</td>
+      <td><code>M3-UpperMid-Distortion.txt</code></td>
+      <td>2.83 V</td>
+      <td>20 Hz – 20 kHz</td>
+    </tr>
+    <tr>
+      <td>M4</td>
+      <td><code>M4-LowerMid-Distortion.txt</code></td>
+      <td>2.83 V</td>
+      <td>20 Hz – 20 kHz</td>
+    </tr>
+    <tr>
+      <td>T</td>
+      <td><code>T-Tweeter-Distortion-1V.txt</code></td>
+      <td><strong>1 V</strong></td>
+      <td><strong>300 Hz – 20 kHz</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="callout safety">
+  <span class="tag">Tweeter at 1 V</span>
+  In REW, reduce the sweep output level by <strong>9 dB</strong>
+  (2.83 V → 1.00 V is a 9.02 dB reduction: −12 dBFS → −21 dBFS). The
+  filename suffix <code>-1V</code> records the level. LoudspeakerLab
+  expects files at the calibrated level, but distortion data is used
+  as a relative penalty — annotate the actual measurement level at
+  upload.
+</div>
+
+<p><strong>Total: 5 distortion files</strong> (plus REW also auto-saves
+its internal <code>.mdat</code> entry).</p>
+
+<!-- ======================================================= -->
+<!-- Section 12 -->
+<!-- ======================================================= -->
+
+<h2 id="sec-12">12. Export &amp; Sanity Checks</h2>
+
+<p class="subtle">Budget 20 minutes. Do this before tearing down the rig.</p>
+
+<p>
+  If the wizard ran, most of this is already done; this checklist covers
+  manual-mode and the final backup pass.
+</p>
+
+<ol>
+  <li>
+    <strong>Export all REW sweeps as <code>.frd</code></strong> (3-column:
+    freq, SPL, phase) → <code>InBoxMeasurements/frd/</code>.
+  </li>
+  <li>
+    <strong>Export all REW sweeps as <code>.txt</code></strong> (REW native,
+    preserves header metadata) → <code>InBoxMeasurements/txt/</code>.
+  </li>
+  <li>
+    <strong>Export impulse responses as <code>.wav</code></strong> for each
+    sweep (REW → File → Export → Export measurement impulse response as
+    WAV) → <code>InBoxMeasurements/wav/</code>.
+  </li>
+  <li>
+    <strong>Export distortion as text</strong> (REW → File → Export →
+    Export All as Text from each distortion measurement) →
+    <code>InBoxMeasurements/distortion/</code>.
+  </li>
+  <li>
+    <strong>Save REW session</strong> as
+    <code>InBoxMeasurements/REW_session.mdat</code> — master recovery file.
+  </li>
+  <li>
+    <strong>DATS files:</strong> <code>.zma</code> primary files in
+    <code>InBoxMeasurements/zma/</code>, DATS project file
+    <code>.tzz</code> alongside, optional <code>.txt</code> as tertiary
+    backup.
+  </li>
+</ol>
+
+<h3>Sanity checks — do these before you touch the rig</h3>
+<ul>
+  <li>
+    Overlay all 10 <code>W1-UpperWoofer-H{ddd}deg.frd</code> sweeps.
+    On-axis should be highest SPL in the forward lobe; off-axis should
+    drop cleanly in the treble (woofer beams above ~2 kHz). No weird
+    notches or level discontinuities.
+  </li>
+  <li>
+    Tweeter on-axis should be flat-ish from 2 kHz to 10 kHz, around
+    95 dB, with no sub-300 Hz content (you set the sweep start there —
+    confirm).
+  </li>
+  <li>
+    Impedance sweeps: woofer peak near 56 Hz (sealed Fc), tweeter peak
+    near 650 Hz. Mids peak near their in-box Fc (expect ~120 – 150 Hz
+    given the mid/tweeter shared chamber).
+  </li>
+  <li>
+    No clipping in any IR — check REW's overload indicator retroactively.
+  </li>
+</ul>
+
+<div class="callout warn">
+  <span class="tag">Re-run now, not later</span>
+  If any sweep looks wrong, re-run it <strong>now</strong> while the rig
+  is still set up. Re-rigging next weekend costs you an afternoon.
+</div>
+
+<!-- ======================================================= -->
+<!-- Section 13 -->
+<!-- ======================================================= -->
+
+<h2 id="sec-13">13. Final File Layout</h2>
+
+<pre><code>InBoxMeasurements/
+├── Measurement_Runbook.md           ← markdown source of truth
+├── Measurement_Runbook.html         ← this printable version
+├── README.md                        ← wizard usage
+├── sweep_wizard.py                  ← wizard entry point
+├── measurement_matrix.py            ← sweep/DATS definitions
+├── rew_api.py                       ← REW HTTP API adapter
+├── prompts.py                       ← UI + logging helpers
+├── sweep_log.csv                    ← wizard progress log (auto-created)
+├── REW_session.mdat                 ← REW master session (save at end)
+│
+├── zma/                             ← DATS impedance files
+│   ├── W1-UpperWoofer-InBox.zma  (+ .tzz, .txt)
+│   ├── W2-LowerWoofer-InBox.zma  (+ .tzz, .txt)
+│   ├── M3-UpperMid-InBox.zma     (+ .tzz, .txt)
+│   ├── M4-LowerMid-InBox.zma     (+ .tzz, .txt)
+│   ├── T-Tweeter-InBox.zma       (+ .tzz, .txt)
+│   ├── Pair-Woofers-InBox.zma    (+ .tzz, .txt)
+│   └── Pair-Mids-InBox.zma       (+ .tzz, .txt)
+│
+├── frd/                             ← REW 3-col FRD (freq, SPL, phase)
+│   ├── W1-UpperWoofer-H000deg.frd … H090deg.frd, NearField.frd
+│   ├── W2-LowerWoofer-H000deg.frd … H090deg.frd, NearField.frd
+│   ├── M3-UpperMid-H000deg.frd    … H090deg.frd, V015deg.frd, V030deg.frd, NearField.frd
+│   ├── M4-LowerMid-H000deg.frd    … H090deg.frd, V015deg.frd, V030deg.frd, NearField.frd
+│   └── T-Tweeter-H000deg.frd      … H090deg.frd, V015deg.frd, V030deg.frd
+│
+├── txt/                             ← REW native text export (mirrors frd/)
+├── wav/                             ← impulse response WAV (mirrors frd/)
+│
+└── distortion/                      ← REW distortion export as text
+    ├── W1-UpperWoofer-Distortion.txt
+    ├── W2-LowerWoofer-Distortion.txt
+    ├── M3-UpperMid-Distortion.txt
+    ├── M4-LowerMid-Distortion.txt
+    └── T-Tweeter-Distortion-1V.txt
+</code></pre>
+
+<h3>Counts</h3>
+<ul>
+  <li>Acoustic sweeps: 50 H + 6 V + 4 NF + 5 THD = <strong>65 sweeps</strong>.</li>
+  <li>Impedance sweeps: <strong>7</strong> (5 individual + 2 pairs).</li>
+  <li>File outputs per acoustic sweep: 3 (<code>.frd</code>, <code>.txt</code>, <code>.wav</code>).</li>
+  <li>File outputs per impedance sweep: 3 (<code>.zma</code>, <code>.tzz</code>, <code>.txt</code>).</li>
+  <li>
+    Grand total: <strong>65 × 3 + 7 × 3 + 5 distortion + 1 REW session =
+    222 files</strong>.
+  </li>
+</ul>
+
+<!-- ======================================================= -->
+<!-- Section 14 -->
+<!-- ======================================================= -->
+
+<h2 id="sec-14">14. Troubleshooting</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width:30%">Symptom</th>
+      <th style="width:30%">Likely cause</th>
+      <th>Fix</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>REW says "Timing reference not found"</td>
+      <td>Desk speaker not producing audible pilot at mic</td>
+      <td>Raise R-channel level in REW, or reposition desk speaker closer to mic.</td>
+    </tr>
+    <tr>
+      <td>IR shows ragged / multiple leading edges</td>
+      <td>Desk speaker moved, or room picked up a new reflection</td>
+      <td>Re-verify desk speaker position; re-run last sweep.</td>
+    </tr>
+    <tr>
+      <td>On-axis SPL much lower than expected</td>
+      <td>Wrong driver connected, or phase cancellation from another driver still wired in parallel</td>
+      <td>Verify only one driver is connected at a time; check polarity.</td>
+    </tr>
+    <tr>
+      <td>Sweep clipping</td>
+      <td>Arcam volume crept up, or laptop output raised</td>
+      <td>Re-check 2.83 V on the calibration woofer; don't trust the knob.</td>
+    </tr>
+    <tr>
+      <td>Tweeter sweep shows low-frequency noise</td>
+      <td>REW sweep range not restricted to 300 Hz+</td>
+      <td>
+        Check Measure dialog range. Disconnect tweeter and verify generator
+        range first.
+      </td>
+    </tr>
+    <tr>
+      <td>Nearfield shows cone-breakup artifacts</td>
+      <td>Mic too close to cone (coupling) or off-center</td>
+      <td>Move mic to &lt;5 mm but not touching; center over dust cap.</td>
+    </tr>
+    <tr>
+      <td>Wizard can't reach REW API</td>
+      <td>REW API not enabled, port busy, version mismatch</td>
+      <td>
+        In REW: Preferences → API → Enable, or launch with <code>-api</code>.
+        Check the debug log printed by the wizard. Force manual mode with
+        <code>python sweep_wizard.py --manual</code>.
+      </td>
+    </tr>
+    <tr>
+      <td>Wizard exits mid-session</td>
+      <td>Ctrl-C, crash, or laptop sleep</td>
+      <td>
+        Restart: <code>python sweep_wizard.py</code>. It resumes from
+        <code>sweep_log.csv</code> and skips anything already 'done'.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<hr>
+
+<p class="subtle">
+  This runbook is the execution-time companion to
+  <code>WMTMW_PlanOfRecord.md</code>. Update the Plan of Record with final
+  crossover values once the LoudspeakerLab / VituixCAD design is complete.
+</p>
+
+</body>
+</html>
