@@ -22,7 +22,7 @@ The Scan-Speak H2606/9200 voice coil can burn out in **seconds** if driven with 
 
 | # | Rule | Why |
 |---|------|-----|
-| 1 | During 2.83 V calibration (Step 5), the **tweeter must be physically disconnected** at the wall. Only the calibration woofer is connected. | 60 Hz sine at 2.83 V into a tweeter destroys it instantly. |
+| 1 | During 2.83 V calibration (Step 6), the **tweeter must be physically disconnected** at the wall. Only the calibration woofer is connected. | 60 Hz sine at 2.83 V into a tweeter destroys it instantly. |
 | 2 | For every tweeter sweep, set REW **sweep start frequency to 300 Hz**. Tweeter Fs is ~650 Hz; 300 Hz gives margin but stays well below the intended ~2.5 kHz crossover. | The default 20 Hz sweep start applies full voltage below Fs where excursion peaks. |
 | 3 | Use **256 k sweep length** for tweeter, not 512 k. Shorter exposure. | Limits thermal dose. |
 | 4 | Tweeter distortion sweeps run at **1 V**, not 2.83 V. Label files `T-Tweeter-Distortion-1V.txt`. | 2.83 V extended stepped sine is thermally punishing. |
@@ -79,7 +79,7 @@ Arcam source selection: **7.1 Multichannel Input / Direct** (no DSP, no decoder,
 **Channel levels.**
 - Laptop L channel = sweep → DUT (calibrated to 2.83 V)
 - Laptop R channel = REW timing-reference pilot → desk speaker (REW-attenuated, typically −20 dB)
-- Arcam volume is **locked** for the entire session after Step 5. Do not touch.
+- Arcam volume is **locked** for the entire session after Step 6. Do not touch.
 
 **File-naming convention.** Every saved file uses the pattern `<DriverTag>-<DriverName>-<AngleOrKind>.<ext>`. Angles are zero-padded to 3 digits so files sort numerically. The wizard enforces this automatically; if you save manually in REW, use the same pattern.
 
@@ -100,67 +100,9 @@ Kind suffixes: `H###deg` horizontal, `V###deg` vertical, `NearField`, `InBox` (i
 
 ---
 
-## 3. Floor Arc Setup
+## 3. Impedance Sweeps — DATS V3 (30 min)
 
-One-time rigging. Do this before calibration.
-
-1. Drop a **plumb line** from the tweeter's acoustic center straight to the floor. Mark that point with a tape X. This is the **arc origin**.
-2. With the tape measure held at the arc origin, extend a string exactly **1.00 m** perpendicular to the baffle (verify perpendicular with a carpenter's square held against the wall). Mark that point as **0° H**.
-3. Using a protractor centered on the origin, mark positions for **10°, 20°, 30°, 40°, 50°, 60°, 70°, 80°, 90°** on one side of the 0° line. Each mark is a tape X on the floor at 1.00 m radius from origin.
-   - Arc length between adjacent marks at 1 m radius is ~17.4 cm. Double-check by measuring the chord: 10° chord ≈ 17.4 cm, 20° chord ≈ 34.7 cm, etc.
-4. At each tape X, also mark the **angle number** with a sharpie so you don't lose track mid-session.
-5. **Tripod height:** set the mic tip to exactly **tweeter height** (measure with tape from floor to tweeter center on the baffle, transfer to tripod). This height stays fixed for all horizontal sweeps.
-6. At 0°: if the tripod legs conflict with the wall, use a boom arm so the tripod base sits 1.5–2 m back and only the mic extends forward to 1 m. Do not skip 0°.
-
-**Horizontal symmetry:** WMTMW is horizontally symmetric, so one side of the arc (0–90°) covers everything. No need to measure the other side.
-
----
-
-## 4. Pre-Session Setup (30–45 min)
-
-1. HVAC off. Note the time; you have limited quiet minutes.
-2. Deploy toddler distraction.
-3. Arcam: power on, input = 7.1 Multichannel, all DSP off (Direct mode), tone controls flat, bass management off. Set volume to the minimum first — you'll calibrate it in Step 5.
-4. Connect L-RCA to Arcam 7.1 FL input, R-RCA to Arcam 7.1 Center input.
-5. Wire desk speaker to Arcam Center speaker terminals. Place desk speaker on a shelf or stand — anywhere — and **do not move it again** until the session ends.
-6. At the wall terminals: disconnect every driver. We'll connect one at a time.
-7. REW preferences:
-   - Input device: UMIK-1 (load 0° cal file)
-   - Output device: laptop stereo out
-   - Analysis → Use Acoustic Timing Reference: **ON**, channel = Right
-   - Measurement default: log sweep, 512 k length, 20 Hz – 20 kHz, level −12 dBFS
-   - Auto-name template: `{name}` with sequential suffix off (we'll name manually per sweep — fast enough with the template pre-loaded)
-8. Verify channel assignment: use REW's generator to send a 1 kHz tone on **left only**. Confirm only the FL Arcam output is active (touch the FL terminal wire — should see meter movement; desk speaker should be silent). Repeat with right only — desk speaker plays, FL is silent. If both channels play on one output, Arcam is not in Multichannel Direct mode.
-
----
-
-## 5. 2.83 V Calibration (10 min)
-
-1. Connect **only W2 (lower woofer)** to Arcam FL terminals. All other drivers disconnected. **Verify tweeter wires are not touching each other or anything conductive.**
-2. REW Generator → 60 Hz sine wave, left channel only, level −20 dBFS. Start.
-3. DMM on AC V mode, probes across the W2 terminals at the wall.
-4. Slowly raise Arcam volume until DMM reads **2.83 V** (±0.02 V).
-5. **Stop generator.** Do not touch the Arcam volume knob for the remainder of the session. Consider taping over it.
-6. Note the final Arcam volume setting in your log.
-
-**Your non-True-RMS meter is fine here.** A standard averaging meter reads RMS correctly on a pure 60 Hz sine.
-
----
-
-## 6. Timing Reference Verification (5 min)
-
-1. Mic at 0° tape X (1 m on-axis).
-2. W2 still connected to FL. Other drivers disconnected.
-3. REW Measure → run a throwaway sweep.
-4. Check the log: REW must report "Timing reference found" or similar. The IR should show a clean, isolated leading edge.
-5. If timing reference not found: raise the pilot level in REW preferences, or raise Arcam Center output if it's too quiet (but then re-lock). Iterate until found.
-6. Once locked, **do not move the desk speaker or the mic** except along the arc.
-
----
-
-## 7. Impedance Sweeps — DATS V3 (30 min)
-
-Mic not needed for this section. Disconnect laptop from Arcam if you like.
+**Do this first.** DATS is independent of the acoustic rig — no mic, no Arcam, no REW, no floor arc. Just the laptop, the DATS V3 unit, and clip leads at the wall plate. Knocking out all 7 impedance sweeps up front is quick, satisfying, and verifies every driver is wired correctly at the wall before you invest in the acoustic setup.
 
 Per-driver, all other drivers disconnected at the wall (open terminals):
 
@@ -178,14 +120,75 @@ Save all to `InBoxMeasurements/zma/`. From DATS, also "Save Project" as `.tzz` a
 
 ---
 
+## 4. Floor Arc Setup
+
+One-time rigging. Do this before calibration.
+
+1. Drop a **plumb line** from the tweeter's acoustic center straight to the floor. Mark that point with a tape X. This is the **arc origin**.
+2. With the tape measure held at the arc origin, extend a string exactly **1.00 m** perpendicular to the baffle (verify perpendicular with a carpenter's square held against the wall). Mark that point as **0° H**.
+3. Using a protractor centered on the origin, mark positions for **10°, 20°, 30°, 40°, 50°, 60°, 70°, 80°, 90°** on one side of the 0° line. Each mark is a tape X on the floor at 1.00 m radius from origin.
+   - Arc length between adjacent marks at 1 m radius is ~17.4 cm. Double-check by measuring the chord: 10° chord ≈ 17.4 cm, 20° chord ≈ 34.7 cm, etc.
+4. At each tape X, also mark the **angle number** with a sharpie so you don't lose track mid-session.
+5. **Tripod height:** set the mic tip to exactly **tweeter height** (measure with tape from floor to tweeter center on the baffle, transfer to tripod). This height stays fixed for all horizontal sweeps.
+6. At 0°: if the tripod legs conflict with the wall, use a boom arm so the tripod base sits 1.5–2 m back and only the mic extends forward to 1 m. Do not skip 0°.
+
+**Horizontal symmetry:** WMTMW is horizontally symmetric, so one side of the arc (0–90°) covers everything. No need to measure the other side.
+
+---
+
+## 5. Pre-Session Setup (30–45 min)
+
+1. HVAC off. Note the time; you have limited quiet minutes.
+2. Deploy toddler distraction.
+3. Arcam: power on, input = 7.1 Multichannel, all DSP off (Direct mode), tone controls flat, bass management off. Set volume to the minimum first — you'll calibrate it in Step 6.
+4. Connect L-RCA to Arcam 7.1 FL input, R-RCA to Arcam 7.1 Center input.
+5. Wire desk speaker to Arcam Center speaker terminals. Place desk speaker on a shelf or stand — anywhere — and **do not move it again** until the session ends.
+6. At the wall terminals: disconnect every driver. We'll connect one at a time.
+7. REW preferences:
+   - Input device: UMIK-1 (load 0° cal file)
+   - Output device: laptop stereo out
+   - Analysis → Use Acoustic Timing Reference: **ON**, channel = Right
+   - Measurement default: log sweep, 512 k length, 20 Hz – 20 kHz, level −12 dBFS
+   - Auto-name template: `{name}` with sequential suffix off (we'll name manually per sweep — fast enough with the template pre-loaded)
+8. Verify channel assignment: use REW's generator to send a 1 kHz tone on **left only**. Confirm only the FL Arcam output is active (touch the FL terminal wire — should see meter movement; desk speaker should be silent). Repeat with right only — desk speaker plays, FL is silent. If both channels play on one output, Arcam is not in Multichannel Direct mode.
+
+---
+
+## 6. 2.83 V Calibration (10 min)
+
+1. Connect **only W2 (lower woofer)** to Arcam FL terminals. All other drivers disconnected. **Verify tweeter wires are not touching each other or anything conductive.**
+2. REW Generator → 60 Hz sine wave, left channel only, level −20 dBFS. Start.
+3. DMM on AC V mode, probes across the W2 terminals at the wall.
+4. Slowly raise Arcam volume until DMM reads **2.83 V** (±0.02 V).
+5. **Stop generator.** Do not touch the Arcam volume knob for the remainder of the session. Consider taping over it.
+6. Note the final Arcam volume setting in your log.
+
+**Your non-True-RMS meter is fine here.** A standard averaging meter reads RMS correctly on a pure 60 Hz sine.
+
+---
+
+## 7. Timing Reference Verification (5 min)
+
+1. Mic at 0° tape X (1 m on-axis).
+2. W2 still connected to FL. Other drivers disconnected.
+3. REW Measure → run a throwaway sweep.
+4. Check the log: REW must report "Timing reference found" or similar. The IR should show a clean, isolated leading edge.
+5. If timing reference not found: raise the pilot level in REW preferences, or raise Arcam Center output if it's too quiet (but then re-lock). Iterate until found.
+6. Once locked, **do not move the desk speaker or the mic** except along the arc.
+
+---
+
 ## 8. Horizontal Polar Sweeps (90–120 min)
 
-**Outer loop = mic angle (minimizes mic moves). Inner loop = driver (fast cable swap at wall).**
+**Why this order.** Moving the mic is slow (tripod + 1 m string check + re-aim at the tweeter). Wire swaps at the wall plate take seconds. So park the mic at one angle and sweep all five drivers before moving the mic. Five driver swaps per mic position, ten mic positions = 50 sweeps.
 
-For each angle in `[000, 010, 020, 030, 040, 050, 060, 070, 080, 090]` degrees horizontal (zero-padded in filenames):
+For each of the ten angles `[000, 010, 020, 030, 040, 050, 060, 070, 080, 090]` (the zero-padded number also goes into the filename):
 
-1. Move tripod so mic tip sits directly over the tape X for that angle. Mic pointed at tweeter. Verify 1 m with string from tweeter to mic tip.
-2. Sweep each driver in order (each time: disconnect previous driver, connect next driver, all others stay disconnected). Each row saves .frd + .txt + .wav:
+1. Move tripod so mic tip sits directly over that angle's tape X. Aim the mic at the tweeter. Verify 1 m with the string from tweeter to mic tip.
+2. Sweep all five drivers without moving the mic. For each driver: disconnect the previous one at the wall plate, connect this one, leave all others disconnected, run the sweep. Each saves .frd + .txt + .wav.
+3. Move the mic to the next angle's tape X and repeat.
+
+Driver rows for the inner loop:
 
 | Driver | Filename stem (→ .frd, .txt, .wav) | Sweep range | Notes |
 |--------|-----------|------------|-------|

@@ -162,11 +162,11 @@
     <li><a href="#sec-0">Tweeter Protection — read first</a></li>
     <li><a href="#sec-1">Equipment &amp; Signal Chain</a></li>
     <li><a href="#sec-2">Measurement Conventions</a></li>
-    <li><a href="#sec-3">Floor Arc Setup</a></li>
-    <li><a href="#sec-4">Pre-Session Setup</a></li>
-    <li><a href="#sec-5">2.83 V Calibration</a></li>
-    <li><a href="#sec-6">Timing Reference Verification</a></li>
-    <li><a href="#sec-7">Impedance Sweeps — DATS V3</a></li>
+    <li><a href="#sec-3">Impedance Sweeps — DATS V3</a></li>
+    <li><a href="#sec-4">Floor Arc Setup</a></li>
+    <li><a href="#sec-5">Pre-Session Setup</a></li>
+    <li><a href="#sec-6">2.83 V Calibration</a></li>
+    <li><a href="#sec-7">Timing Reference Verification</a></li>
     <li><a href="#sec-8">Horizontal Polar Sweeps</a></li>
     <li><a href="#sec-9">Vertical Off-Axis</a></li>
     <li><a href="#sec-10">Nearfield Sweeps</a></li>
@@ -198,7 +198,7 @@
     <tr>
       <td>1</td>
       <td>
-        During 2.83 V calibration (Section 5), the
+        During 2.83 V calibration (Section 6), the
         <strong>tweeter must be physically disconnected</strong> at the wall.
         Only the calibration woofer is connected.
       </td>
@@ -446,7 +446,7 @@ DATS V3 ─USB─▶ Laptop  (separate sessions, not simultaneous with REW)
   the center of the dome.
 </p>
 <figure>
-  <svg viewBox="0 0 760 360" xmlns="http://www.w3.org/2000/svg"
+  <svg viewBox="0 0 760 300" xmlns="http://www.w3.org/2000/svg"
        role="img" aria-label="Mic distance reference: tip to acoustic center">
     <defs>
       <style>
@@ -461,83 +461,85 @@ DATS V3 ─USB─▶ Laptop  (separate sessions, not simultaneous with REW)
         .lab-sm{ font: 9pt "Helvetica Neue", Arial, sans-serif; fill:#333; }
         .lab-r { font: 10pt "Helvetica Neue", Arial, sans-serif; fill:#c0392b; }
         .lab-g { font: 10pt "Helvetica Neue", Arial, sans-serif; fill:#196f3d; }
+        .lab-b2{ font: 10pt "Helvetica Neue", Arial, sans-serif; fill:#2e86c1; }
         .axis  { stroke:#2e86c1; stroke-width:1.6; fill:none; stroke-dasharray:5 4; }
         .dim   { stroke:#196f3d; stroke-width:1.4; fill:none; }
+        .lead  { stroke:#666; stroke-width:1; fill:none; }
       </style>
-      <marker id="tick" viewBox="0 0 6 10" refX="3" refY="5"
+      <marker id="mic-tick" viewBox="0 0 6 10" refX="3" refY="5"
               markerWidth="4" markerHeight="7" orient="auto">
         <path d="M3,0 V10" stroke="#196f3d" stroke-width="1.4"/>
       </marker>
     </defs>
 
-    <!-- Baffle (top view, simplified) -->
-    <rect class="baf" x="40" y="40" width="80" height="280" rx="4"/>
-    <text class="lab-sm" x="80" y="34" text-anchor="middle">baffle (side view)</text>
+    <!-- Zone 1: Baffle side view on the far left (x 30-110).
+         Shows the cone (top) and tweeter dome (bottom) stacked. -->
+    <rect class="baf" x="40" y="40" width="70" height="200" rx="3"/>
+    <text class="lab-sm" x="75" y="34" text-anchor="middle">baffle</text>
+    <text class="lab-sm" x="75" y="254" text-anchor="middle">(side view)</text>
 
-    <!-- Woofer cone (top) -->
-    <path class="cone"
-          d="M120 100 L160 70 L160 130 Z M120 100"/>
-    <circle class="dust" cx="160" cy="100" r="5"/>
-    <text class="lab-sm" x="165" y="66">cone (woofer / mid)</text>
+    <!-- Cone side profile: triangle pointing right from baffle -->
+    <path class="cone" d="M110 80 L160 105 L160 107 L110 132 Z"/>
+    <circle class="dust" cx="160" cy="106" r="5"/>
 
-    <!-- Tweeter dome (bottom) -->
-    <path class="dome"
-          d="M120 240 C 140 225 160 225 180 240 C 160 255 140 255 120 240 Z"/>
-    <circle class="dust" cx="150" cy="240" r="4"/>
-    <text class="lab-sm" x="185" y="235">tweeter dome</text>
+    <!-- Tweeter dome profile: small half-ellipse -->
+    <path class="dome" d="M110 175 C 128 163 148 163 166 175 L110 175 Z"/>
+    <circle class="dust" cx="138" cy="175" r="4"/>
 
-    <!-- Labels for acoustic centers -->
-    <text class="lab-g" x="170" y="100" dx="10">acoustic center:</text>
-    <text class="lab-g" x="170" y="114" dx="10">dust-cap center</text>
-    <text class="lab-g" x="185" y="258">acoustic center:</text>
-    <text class="lab-g" x="185" y="272">dome center</text>
+    <!-- Zone 2: Acoustic-center callouts (x 180-320) — leader lines -->
+    <!-- Cone acoustic-center leader -->
+    <line class="lead" x1="160" y1="106" x2="200" y2="70"/>
+    <text class="lab-g" x="205" y="66">acoustic center</text>
+    <text class="lab-g" x="205" y="80">(cone: dust-cap center)</text>
 
-    <!-- UMIK-1 (shown near tweeter axis, mic aimed at dome) -->
-    <g transform="translate(600,220)">
-      <rect class="mic" x="0" y="0" width="110" height="40" rx="6"/>
-      <text class="lab-b" x="55" y="16" text-anchor="middle">UMIK-1</text>
-      <text class="lab-sm" x="55" y="32" text-anchor="middle">USB mic (0° cal)</text>
-      <!-- capsule tip -->
-      <rect class="tip" x="-18" y="14" width="18" height="12" rx="2"/>
-      <text class="lab-r" x="-22" y="10" text-anchor="end">tip</text>
-      <text class="lab-r" x="-22" y="24" text-anchor="end">(ref point)</text>
+    <!-- Tweeter dome acoustic-center leader -->
+    <line class="lead" x1="138" y1="175" x2="200" y2="210"/>
+    <text class="lab-g" x="205" y="214">acoustic center</text>
+    <text class="lab-g" x="205" y="228">(tweeter: dome center)</text>
+
+    <!-- Zone 3: UMIK-1 on the far right (x 560-720), drawn mid-height -->
+    <g transform="translate(560,130)">
+      <rect class="mic" x="0" y="0" width="160" height="36" rx="6"/>
+      <text class="lab-b" x="80" y="16" text-anchor="middle">UMIK-1</text>
+      <text class="lab-sm" x="80" y="30" text-anchor="middle">USB mic, 0° cal file</text>
+      <!-- Capsule tip on the LEFT edge, highlighted -->
+      <rect class="tip" x="-16" y="10" width="16" height="16" rx="2"/>
     </g>
+    <!-- Tip callout -->
+    <line class="lead" x1="544" y1="148" x2="510" y2="86"/>
+    <text class="lab-r" x="506" y="80" text-anchor="end">tip = reference point</text>
+    <text class="lab-r" x="506" y="94" text-anchor="end">(end closest to source)</text>
 
-    <!-- 1 m axis from tweeter dome to mic tip -->
-    <line class="axis" x1="150" y1="240" x2="582" y2="240"/>
-    <text class="lab" x="370" y="232" text-anchor="middle" fill="#2e86c1">
-      mic axis points at driver (0° incidence)
+    <!-- Zone 4: mic axis (dashed blue), drawn along y=148 (mic tip mid-height) -->
+    <line class="axis" x1="160" y1="148" x2="544" y2="148"/>
+    <text class="lab-b2" x="352" y="140" text-anchor="middle">
+      mic axis pointed at driver under test (0° incidence)
     </text>
 
-    <!-- Dimension line under the axis: exactly 1.00 m -->
-    <line class="dim"
-          x1="150" y1="300" x2="582" y2="300"
-          marker-start="url(#tick)" marker-end="url(#tick)"/>
-    <text class="lab-g" x="366" y="318" text-anchor="middle">
-      1.00 m  (string from acoustic center to mic tip)
+    <!-- Zone 5: 1.00 m dimension line BELOW the axis, clear of all text -->
+    <line class="dim" x1="160" y1="270" x2="544" y2="270"
+          marker-start="url(#mic-tick)" marker-end="url(#mic-tick)"/>
+    <!-- vertical tick-guides from acoustic center and tip down to the dim line -->
+    <line class="dim" x1="160" y1="148" x2="160" y2="270" stroke-dasharray="3 3"/>
+    <line class="dim" x1="544" y1="148" x2="544" y2="270" stroke-dasharray="3 3"/>
+    <text class="lab-g" x="352" y="288" text-anchor="middle">
+      1.00 m — string from acoustic center to mic tip
     </text>
-
-    <!-- Vertical ticks connecting axis to dim line -->
-    <line class="dim" x1="150" y1="244" x2="150" y2="300"/>
-    <line class="dim" x1="582" y1="244" x2="582" y2="300"/>
-
-    <!-- Note box -->
-    <g transform="translate(250,70)">
-      <rect x="0" y="0" width="460" height="100" rx="6" fill="#e8f1fb" stroke="#2471a3"/>
-      <text class="lab-b" x="12" y="22">Measurement rules</text>
-      <text class="lab-sm" x="12" y="42">• Distance = driver acoustic center to mic tip (not mic body).</text>
-      <text class="lab-sm" x="12" y="58">• Mic tip = the end closest to the source.</text>
-      <text class="lab-sm" x="12" y="74">• Mic always points at the DUT. Use 0° UMIK-1 cal file.</text>
-      <text class="lab-sm" x="12" y="90">• Verify the 1.00 m with a string every time the mic moves.</text>
-    </g>
   </svg>
   <figcaption>
     Distance reference. The 1 m is measured from the driver's acoustic
     center (dust-cap center for cones, dome center for the tweeter) to
     the mic tip — not the body, not the mount. The mic always points at
-    the DUT.
+    the driver under test (DUT).
   </figcaption>
 </figure>
+
+<ul>
+  <li>Distance = driver acoustic center to mic tip (not the mic body or mount).</li>
+  <li>Mic tip = the end of the capsule closest to the source.</li>
+  <li>Mic always points at the driver under test. Use the 0° UMIK-1 calibration file.</li>
+  <li>Verify 1.00 m with a string every time the mic moves.</li>
+</ul>
 
 <h3>Mic orientation</h3>
 <p>
@@ -628,305 +630,19 @@ DATS V3 ─USB─▶ Laptop  (separate sessions, not simultaneous with REW)
 <!-- Section 3 -->
 <!-- ======================================================= -->
 
-<h2 id="sec-3">3. Floor Arc Setup</h2>
-
-<p>One-time rigging. Do this before calibration.</p>
-
-<ol>
-  <li>
-    Drop a <strong>plumb line</strong> from the tweeter's acoustic center
-    straight to the floor. Mark that point with a tape X. This is the
-    <strong>arc origin</strong>.
-  </li>
-  <li>
-    With the tape measure held at the arc origin, extend a string exactly
-    <strong>1.00 m</strong> perpendicular to the baffle (verify perpendicular
-    with a carpenter's square held against the wall). Mark that point as
-    <strong>0° H</strong>.
-  </li>
-  <li>
-    Using a protractor centered on the origin, mark positions for
-    <strong>10°, 20°, 30°, 40°, 50°, 60°, 70°, 80°, 90°</strong> on one side
-    of the 0° line. Each mark is a tape X on the floor at 1.00 m radius from
-    origin.
-    <ul>
-      <li>
-        Arc length between adjacent marks at 1 m radius is
-        <strong>~17.45 cm</strong>. Double-check by measuring the chord:
-        10° chord ≈ 17.4 cm, 20° chord ≈ 34.7 cm, 30° chord ≈ 51.8 cm.
-      </li>
-    </ul>
-  </li>
-  <li>
-    At each tape X, also mark the <strong>angle number</strong> with a
-    sharpie so you don't lose track mid-session.
-  </li>
-  <li>
-    <strong>Tripod height:</strong> set the mic tip to exactly
-    <strong>tweeter height</strong> (measure with tape from floor to tweeter
-    center on the baffle, transfer to tripod). This height stays fixed for
-    all horizontal sweeps.
-  </li>
-  <li>
-    At 0°: if the tripod legs conflict with the wall, use a boom arm so the
-    tripod base sits 1.5 – 2 m back and only the mic extends forward to 1 m.
-    Do not skip 0°.
-  </li>
-</ol>
-
-<div class="callout info">
-  <span class="tag">Horizontal symmetry</span>
-  WMTMW is horizontally symmetric, so one side of the arc (0 – 90°) covers
-  everything. No need to measure the other side.
-</div>
-
-<figure>
-  <svg viewBox="0 0 760 500" xmlns="http://www.w3.org/2000/svg"
-       role="img" aria-label="Top-down floor arc with 10 degree tape marks">
-    <defs>
-      <style>
-        .wall   { fill:#d0d0d0; stroke:#333; stroke-width:1.4; }
-        .baff   { fill:#b5b5b5; stroke:#333; stroke-width:1.2; }
-        .arc    { fill:none; stroke:#196f3d; stroke-width:1.8; stroke-dasharray:6 5; }
-        .radius { stroke:#196f3d; stroke-width:1.2; fill:none; }
-        .tape   { fill:#c0392b; }
-        .orig   { fill:#333; }
-        .lab    { font: 10pt "Helvetica Neue", Arial, sans-serif; fill:#111; }
-        .lab-b  { font: bold 10.5pt "Helvetica Neue", Arial, sans-serif; fill:#111; }
-        .lab-g  { font: 10pt "Helvetica Neue", Arial, sans-serif; fill:#196f3d; }
-        .lab-r  { font: 9.5pt "Helvetica Neue", Arial, sans-serif; fill:#c0392b; }
-        .lab-sm { font: 9pt "Helvetica Neue", Arial, sans-serif; fill:#333; }
-      </style>
-    </defs>
-
-    <!-- Wall and baffle (top-down) -->
-    <rect class="wall" x="20" y="40" width="50" height="420"/>
-    <rect class="baff" x="70" y="170" width="24" height="160" rx="2"/>
-    <text class="lab-sm" x="45"  y="32"  text-anchor="middle">wall</text>
-    <text class="lab-sm" x="82"  y="348" text-anchor="middle">baffle</text>
-
-    <!-- Origin (plumb point from tweeter acoustic center) -->
-    <circle class="orig" cx="94" cy="250" r="5"/>
-    <text class="lab-b" x="100" y="266">origin (tweeter plumb point)</text>
-    <text class="lab-sm" x="100" y="280">arc center — tape X on floor</text>
-
-    <!-- 1 m arc: radius in SVG units. 1 m maps to ~450 px.
-         Arc centered at (94,250), drawn from angle 0 (east) down to 90 (south),
-         but we want "up" for simple top-down visual. We'll go 0 at east and
-         sweep clockwise to 90 at south (below origin) so 0 is to the right
-         and 90 is below, matching a top-down floor plan where the baffle is
-         along the vertical axis. -->
-    <!-- Arc path: from (94+450, 250) sweeping through 0..90 deg below axis -->
-    <path class="arc" d="M 544 250 A 450 450 0 0 1 94 700"
-          transform="translate(0,-450)" />
-    <!-- The trick above doesn't quite draw what we want; use a direct arc: -->
-    <!-- Replace with: from 0deg at (544,250) to 90deg at (94,700) — out of view.
-         Instead draw incremental arc from (544,250) to (94 + 450*cos(90), 250 + 450*sin(90)) -->
-    <!-- Simpler: just draw explicit arc with sweep-flag for clockwise below the axis -->
-    <path class="arc"
-          d="M 544 250
-             A 450 450 0 0 1 94 700"
-          fill="none"/>
-
-    <!-- Tape-X marks at 0, 10, 20, 30, 40, 50, 60, 70, 80, 90 degrees
-         Origin (94,250), radius 450 units, angle measured from +x axis
-         toward +y (downward = larger angle on floor plan).
-         Position = (94 + 450*cos(a), 250 + 450*sin(a))
-    -->
-    <g class="tape">
-      <!-- pre-computed: -->
-      <circle cx="544" cy="250"  r="5"/> <!-- 0 -->
-      <circle cx="537" cy="328"  r="5"/> <!-- 10 -->
-      <circle cx="517" cy="404"  r="5"/> <!-- 20 -->
-      <circle cx="484" cy="475"  r="5"/> <!-- 30 (near bottom) -->
-      <!-- 40..90 partially off the viewport; we'll stop at 30 and indicate the rest textually -->
-    </g>
-    <g>
-      <text class="lab-r" x="556" y="254">0°</text>
-      <text class="lab-r" x="550" y="330">10°</text>
-      <text class="lab-r" x="530" y="406">20°</text>
-      <text class="lab-r" x="496" y="478">30°</text>
-    </g>
-
-    <!-- Radius line from origin to 0 degree mark -->
-    <line class="radius" x1="94" y1="250" x2="544" y2="250"/>
-    <text class="lab-g" x="319" y="244" text-anchor="middle">1.00 m radius</text>
-
-    <!-- Chord annotation between 0 and 10 -->
-    <line class="radius" x1="544" y1="250" x2="537" y2="328"
-          stroke-dasharray="3 3"/>
-    <text class="lab-sm" x="574" y="290">~17.4 cm chord</text>
-    <text class="lab-sm" x="574" y="304">(adjacent marks)</text>
-
-    <!-- Note box for off-diagram angles 40-90 -->
-    <g transform="translate(330,360)">
-      <rect x="0" y="0" width="400" height="122" rx="6" fill="#fdf2e1" stroke="#d68910"/>
-      <text class="lab-b" x="12" y="22">Arc marks — continue the pattern</text>
-      <text class="lab-sm" x="12" y="42">All 10 tape Xs sit on the 1.00 m arc:</text>
-      <text class="lab-sm" x="12" y="58">0°, 10°, 20°, 30°, 40°, 50°, 60°, 70°, 80°, 90°.</text>
-      <text class="lab-sm" x="12" y="80">Chord lengths from 0°: 17.4, 34.7, 51.8, 68.4, 84.5,</text>
-      <text class="lab-sm" x="12" y="96">100.0, 114.7, 128.6, 141.4 cm at 10°…90° respectively.</text>
-      <text class="lab-sm" x="12" y="114">90° mark is directly alongside the baffle (0 m from wall).</text>
-    </g>
-
-    <!-- Mic height note -->
-    <g transform="translate(330,40)">
-      <rect x="0" y="0" width="400" height="82" rx="6" fill="#e8f1fb" stroke="#2471a3"/>
-      <text class="lab-b" x="12" y="22">Mic height (elevation view not shown)</text>
-      <text class="lab-sm" x="12" y="42">Mic tip height = tweeter height, for all horizontal sweeps.</text>
-      <text class="lab-sm" x="12" y="58">Verify with tape from floor to tweeter center on baffle,</text>
-      <text class="lab-sm" x="12" y="74">then transfer to the tripod. Boom arm recommended at 0°.</text>
-    </g>
-  </svg>
-  <figcaption>
-    Floor arc (top-down, one side). Wall at left, baffle protruding into
-    the room. Origin is the plumb point directly below the tweeter's
-    acoustic center. Tape Xs sit on the 1.00 m arc at 0°, 10°, …, 90°;
-    only 0 – 30° are drawn to scale; the rest follow the same radius
-    (chord lengths listed in the yellow panel). Horizontal symmetry
-    means one side covers the whole polar.
-  </figcaption>
-</figure>
-
-<!-- ======================================================= -->
-<!-- Section 4 -->
-<!-- ======================================================= -->
-
-<h2 id="sec-4">4. Pre-Session Setup</h2>
-
-<p class="subtle">Budget 30 – 45 minutes.</p>
-
-<ol>
-  <li>HVAC off. Note the time; you have limited quiet minutes.</li>
-  <li>Deploy toddler distraction.</li>
-  <li>
-    Arcam: power on, input = <strong>7.1 Multichannel</strong>, all DSP off
-    (Direct mode), tone controls flat, bass management off. Set volume to
-    the minimum first — you will calibrate it in Section 5.
-  </li>
-  <li>Connect L-RCA to Arcam 7.1 FL input, R-RCA to Arcam 7.1 Center input.</li>
-  <li>
-    Wire the desk speaker to Arcam Center speaker terminals. Place it on a
-    shelf or stand — anywhere — and <strong>do not move it again</strong>
-    until the session ends.
-  </li>
-  <li>
-    At the wall terminals: disconnect every driver. We'll connect one at a
-    time.
-  </li>
-  <li>
-    REW preferences:
-    <ul>
-      <li>Input device: UMIK-1 (load 0° cal file)</li>
-      <li>Output device: laptop stereo out</li>
-      <li>Analysis → Use Acoustic Timing Reference: <strong>ON</strong>, channel = Right</li>
-      <li>Measurement default: log sweep, 512 k length, 20 Hz – 20 kHz, level −12 dBFS</li>
-      <li>
-        Auto-name template: <code>{name}</code> with sequential suffix off
-        (we'll name manually per sweep — fast enough with the template
-        pre-loaded, and the wizard names files automatically).
-      </li>
-    </ul>
-  </li>
-  <li>
-    Verify channel assignment: use REW's generator to send a 1 kHz tone on
-    <strong>left only</strong>. Confirm only the FL Arcam output is active
-    (touch the FL terminal wire — should see meter movement; desk speaker
-    should be silent). Repeat with right only — desk speaker plays, FL is
-    silent. If both channels play on one output, Arcam is not in
-    Multichannel Direct mode.
-  </li>
-</ol>
-
-<!-- ======================================================= -->
-<!-- Section 5 -->
-<!-- ======================================================= -->
-
-<h2 id="sec-5">5. 2.83 V Calibration</h2>
-
-<p class="subtle">Budget 10 minutes.</p>
-
-<div class="callout safety">
-  <span class="tag">Safety</span>
-  The tweeter must be <strong>physically disconnected at the wall</strong>
-  for this step. A 60 Hz sine at 2.83 V into a tweeter destroys it instantly.
-</div>
-
-<ol>
-  <li>
-    Connect <strong>only W2 (lower woofer)</strong> to Arcam FL terminals.
-    All other drivers disconnected.
-    <strong>Verify tweeter wires are not touching each other or anything
-    conductive.</strong>
-  </li>
-  <li>
-    REW Generator → 60 Hz sine wave, left channel only, level −20 dBFS.
-    Start.
-  </li>
-  <li>DMM on AC V mode, probes across the W2 terminals at the wall.</li>
-  <li>
-    Slowly raise Arcam volume until DMM reads <strong>2.83 V</strong>
-    (±0.02 V).
-  </li>
-  <li>
-    <strong>Stop generator.</strong> Do not touch the Arcam volume knob for
-    the remainder of the session. Consider taping over it.
-  </li>
-  <li>Note the final Arcam volume setting in your log.</li>
-</ol>
-
-<div class="callout info">
-  <span class="tag">Non-True-RMS meter</span>
-  Your non-True-RMS meter is fine here. A standard averaging meter reads
-  RMS correctly on a pure 60 Hz sine.
-</div>
-
-<!-- ======================================================= -->
-<!-- Section 6 -->
-<!-- ======================================================= -->
-
-<h2 id="sec-6">6. Timing Reference Verification</h2>
-
-<p class="subtle">Budget 5 minutes.</p>
-
-<ol>
-  <li>Mic at 0° tape X (1 m on-axis).</li>
-  <li>W2 still connected to FL. Other drivers disconnected.</li>
-  <li>REW Measure → run a throwaway sweep.</li>
-  <li>
-    Check the log: REW must report "Timing reference found" or similar. The
-    IR should show a clean, isolated leading edge.
-  </li>
-  <li>
-    If timing reference not found: raise the pilot level in REW
-    preferences, or raise Arcam Center output if it's too quiet (but then
-    re-lock). Iterate until found.
-  </li>
-  <li>
-    Once locked, <strong>do not move the desk speaker or the mic</strong>
-    except along the arc.
-  </li>
-</ol>
-
-<div class="callout warn">
-  <span class="tag">If it won't lock</span>
-  Likely causes: desk speaker muted, wrong Arcam input, splitter polarity,
-  REW reference channel set wrong (should be Right), pilot level too low
-  for room noise. Re-check each one before forcing the level up.
-</div>
-
-<!-- ======================================================= -->
-<!-- Section 7 -->
-<!-- ======================================================= -->
-
-<h2 id="sec-7">7. Impedance Sweeps — DATS V3</h2>
+<h2 id="sec-3">3. Impedance Sweeps — DATS V3</h2>
 
 <p class="subtle">Budget 30 minutes. Mic not needed.</p>
 
-<p>
-  Disconnect the laptop from the Arcam if you like. DATS runs its own
-  low-level impedance sweep — safe for all drivers including the tweeter.
-</p>
+<div class="callout info">
+  <span class="tag">Do this first</span>
+  DATS is independent of the acoustic rig — no mic, no Arcam, no REW, no
+  floor arc. Just the laptop, the DATS V3 unit, and its clip leads on the
+  wall plate. Knocking out all 7 impedance sweeps up front gets a
+  confidence boost on the board, verifies every driver is wired correctly
+  at the wall, and leaves the next phase (setup + calibration + acoustic
+  sweeps) as one uninterrupted flow.
+</div>
 
 <p>
   Per-driver, all other drivers disconnected at the wall (open terminals).
@@ -993,6 +709,298 @@ DATS V3 ─USB─▶ Laptop  (separate sessions, not simultaneous with REW)
 </div>
 
 <!-- ======================================================= -->
+<!-- Section 4 -->
+<!-- ======================================================= -->
+
+<h2 id="sec-4">4. Floor Arc Setup</h2>
+
+<p>One-time rigging. Do this before calibration.</p>
+
+<ol>
+  <li>
+    Drop a <strong>plumb line</strong> from the tweeter's acoustic center
+    straight to the floor. Mark that point with a tape X. This is the
+    <strong>arc origin</strong>.
+  </li>
+  <li>
+    With the tape measure held at the arc origin, extend a string exactly
+    <strong>1.00 m</strong> perpendicular to the baffle (verify perpendicular
+    with a carpenter's square held against the wall). Mark that point as
+    <strong>0° H</strong>.
+  </li>
+  <li>
+    Using a protractor centered on the origin, mark positions for
+    <strong>10°, 20°, 30°, 40°, 50°, 60°, 70°, 80°, 90°</strong> on one side
+    of the 0° line. Each mark is a tape X on the floor at 1.00 m radius from
+    origin.
+    <ul>
+      <li>
+        Arc length between adjacent marks at 1 m radius is
+        <strong>~17.45 cm</strong>. Double-check by measuring the chord:
+        10° chord ≈ 17.4 cm, 20° chord ≈ 34.7 cm, 30° chord ≈ 51.8 cm.
+      </li>
+    </ul>
+  </li>
+  <li>
+    At each tape X, also mark the <strong>angle number</strong> with a
+    sharpie so you don't lose track mid-session.
+  </li>
+  <li>
+    <strong>Tripod height:</strong> set the mic tip to exactly
+    <strong>tweeter height</strong> (measure with tape from floor to tweeter
+    center on the baffle, transfer to tripod). This height stays fixed for
+    all horizontal sweeps.
+  </li>
+  <li>
+    At 0°: if the tripod legs conflict with the wall, use a boom arm so the
+    tripod base sits 1.5 – 2 m back and only the mic extends forward to 1 m.
+    Do not skip 0°.
+  </li>
+</ol>
+
+<div class="callout info">
+  <span class="tag">Horizontal symmetry</span>
+  WMTMW is horizontally symmetric, so one side of the arc (0 – 90°) covers
+  everything. No need to measure the other side.
+</div>
+
+<figure>
+  <svg viewBox="0 0 760 480" xmlns="http://www.w3.org/2000/svg"
+       role="img" aria-label="Top-down floor arc with 10 degree tape marks from 0 to 90 degrees">
+    <defs>
+      <style>
+        .wall   { fill:#d0d0d0; stroke:#333; stroke-width:1.4; }
+        .baff   { fill:#b5b5b5; stroke:#333; stroke-width:1.2; }
+        .arc    { fill:none; stroke:#196f3d; stroke-width:1.8; stroke-dasharray:6 5; }
+        .radius { stroke:#196f3d; stroke-width:1.2; fill:none; }
+        .chord  { stroke:#196f3d; stroke-width:1; fill:none; stroke-dasharray:3 3; }
+        .tape   { fill:#c0392b; }
+        .orig   { fill:#333; }
+        .lab    { font: 10pt "Helvetica Neue", Arial, sans-serif; fill:#111; }
+        .lab-b  { font: bold 10.5pt "Helvetica Neue", Arial, sans-serif; fill:#111; }
+        .lab-g  { font: 10pt "Helvetica Neue", Arial, sans-serif; fill:#196f3d; }
+        .lab-r  { font: 9.5pt "Helvetica Neue", Arial, sans-serif; fill:#c0392b; }
+        .lab-sm { font: 9pt "Helvetica Neue", Arial, sans-serif; fill:#333; }
+      </style>
+    </defs>
+
+    <!-- Wall (left) and baffle (protruding into the room).
+         Top-down view: wall runs vertically, room is to the right. -->
+    <rect class="wall" x="20" y="20" width="50" height="440"/>
+    <rect class="baff" x="70" y="60"  width="40" height="140" rx="2"/>
+    <text class="lab-sm" x="45"  y="16"  text-anchor="middle">wall</text>
+    <text class="lab-sm" x="90"  y="52"  text-anchor="middle">baffle (top-down)</text>
+
+    <!-- Origin: plumb point on floor, directly in front of the tweeter.
+         Positioned at the front face of the baffle, at tweeter's vertical
+         position. Origin = (110, 90). -->
+    <circle class="orig" cx="110" cy="90" r="5"/>
+    <text class="lab-b"  x="118" y="88">origin (tweeter plumb point)</text>
+    <text class="lab-sm" x="118" y="102">arc center — tape X on floor</text>
+
+    <!-- 1.00 m arc. Radius = 320 px. Origin (110, 90).
+         Sweeps from 0 degrees (east, +x) clockwise to 90 degrees (south, +y).
+         Endpoints: 0 deg = (430, 90), 90 deg = (110, 410). -->
+    <path class="arc" d="M 430 90 A 320 320 0 0 1 110 410"/>
+
+    <!-- All 10 tape Xs, positions pre-computed as
+         (110 + 320*cos(a), 90 + 320*sin(a)) for a in 0..90 step 10. -->
+    <g class="tape">
+      <circle cx="430.00" cy=" 90.00" r="5"/> <!-- 0 deg -->
+      <circle cx="425.14" cy="145.56" r="5"/> <!-- 10 deg -->
+      <circle cx="410.75" cy="199.45" r="5"/> <!-- 20 deg -->
+      <circle cx="387.13" cy="250.00" r="5"/> <!-- 30 deg -->
+      <circle cx="355.15" cy="295.69" r="5"/> <!-- 40 deg -->
+      <circle cx="315.69" cy="335.15" r="5"/> <!-- 50 deg -->
+      <circle cx="270.00" cy="367.13" r="5"/> <!-- 60 deg -->
+      <circle cx="219.45" cy="390.75" r="5"/> <!-- 70 deg -->
+      <circle cx="165.56" cy="405.14" r="5"/> <!-- 80 deg -->
+      <circle cx="110.00" cy="410.00" r="5"/> <!-- 90 deg -->
+    </g>
+    <g>
+      <text class="lab-r" x="440" y=" 94"> 0°</text>
+      <text class="lab-r" x="440" y="150">10°</text>
+      <text class="lab-r" x="425" y="204">20°</text>
+      <text class="lab-r" x="400" y="254">30°</text>
+      <text class="lab-r" x="368" y="300">40°</text>
+      <text class="lab-r" x="328" y="340">50°</text>
+      <text class="lab-r" x="282" y="372">60°</text>
+      <text class="lab-r" x="232" y="396">70°</text>
+      <text class="lab-r" x="172" y="418">80°</text>
+      <text class="lab-r" x="112" y="428">90°</text>
+    </g>
+
+    <!-- Radius line from origin to 0 deg mark, labeled '1.00 m' -->
+    <line class="radius" x1="110" y1="90" x2="430" y2="90"/>
+    <text class="lab-g" x="270" y="82" text-anchor="middle">1.00 m radius</text>
+
+    <!-- Chord annotation between 0 deg and 10 deg marks -->
+    <line class="chord" x1="430" y1="90" x2="425.14" y2="145.56"/>
+    <text class="lab-sm" x="472" y="118">~17.4 cm chord</text>
+    <text class="lab-sm" x="472" y="132">(between adjacent</text>
+    <text class="lab-sm" x="472" y="146">tape marks)</text>
+
+    <!-- Info panel: chord lengths for every 10 deg step.
+         Sited well clear of every tape X and every label. -->
+    <g transform="translate(500,180)">
+      <rect x="0" y="0" width="240" height="152" rx="6"
+            fill="#fdf2e1" stroke="#d68910"/>
+      <text class="lab-b" x="12" y="22">Chord length from 0°</text>
+      <text class="lab-sm" x="12" y="42">(straight-line distance from</text>
+      <text class="lab-sm" x="12" y="56">0° tape X to angle N tape X)</text>
+      <text class="lab-sm" x="12" y="78">10°:  17.4 cm    60°: 100.0 cm</text>
+      <text class="lab-sm" x="12" y="92">20°:  34.7 cm    70°: 114.7 cm</text>
+      <text class="lab-sm" x="12" y="106">30°:  51.8 cm    80°: 128.6 cm</text>
+      <text class="lab-sm" x="12" y="120">40°:  68.4 cm    90°: 141.4 cm</text>
+      <text class="lab-sm" x="12" y="134">50°:  84.5 cm</text>
+    </g>
+
+    <!-- 90 deg callout: noting it's right next to the baffle plane. -->
+    <g transform="translate(140,430)">
+      <rect x="0" y="0" width="340" height="40" rx="6"
+            fill="#fdecea" stroke="#c0392b"/>
+      <text class="lab-r" x="12" y="25">
+        90° sits alongside the baffle plane (see Section 4).
+      </text>
+    </g>
+  </svg>
+  <figcaption>
+    Top-down floor arc. Wall on the left, baffle protruding into the
+    room. Origin is the plumb point directly below the tweeter's
+    acoustic center. All 10 tape Xs lie on the 1.00 m arc at 0°, 10°,
+    …, 90° — this time drawn to scale. Horizontal symmetry means one
+    side covers the whole polar.
+  </figcaption>
+</figure>
+
+<!-- ======================================================= -->
+<!-- Section 5 -->
+<!-- ======================================================= -->
+
+<h2 id="sec-5">5. Pre-Session Setup</h2>
+
+<p class="subtle">Budget 30 – 45 minutes.</p>
+
+<ol>
+  <li>HVAC off. Note the time; you have limited quiet minutes.</li>
+  <li>Deploy toddler distraction.</li>
+  <li>
+    Arcam: power on, input = <strong>7.1 Multichannel</strong>, all DSP off
+    (Direct mode), tone controls flat, bass management off. Set volume to
+    the minimum first — you will calibrate it in Section 6.
+  </li>
+  <li>Connect L-RCA to Arcam 7.1 FL input, R-RCA to Arcam 7.1 Center input.</li>
+  <li>
+    Wire the desk speaker to Arcam Center speaker terminals. Place it on a
+    shelf or stand — anywhere — and <strong>do not move it again</strong>
+    until the session ends.
+  </li>
+  <li>
+    At the wall terminals: disconnect every driver. We'll connect one at a
+    time.
+  </li>
+  <li>
+    REW preferences:
+    <ul>
+      <li>Input device: UMIK-1 (load 0° cal file)</li>
+      <li>Output device: laptop stereo out</li>
+      <li>Analysis → Use Acoustic Timing Reference: <strong>ON</strong>, channel = Right</li>
+      <li>Measurement default: log sweep, 512 k length, 20 Hz – 20 kHz, level −12 dBFS</li>
+      <li>
+        Auto-name template: <code>{name}</code> with sequential suffix off
+        (we'll name manually per sweep — fast enough with the template
+        pre-loaded, and the wizard names files automatically).
+      </li>
+    </ul>
+  </li>
+  <li>
+    Verify channel assignment: use REW's generator to send a 1 kHz tone on
+    <strong>left only</strong>. Confirm only the FL Arcam output is active
+    (touch the FL terminal wire — should see meter movement; desk speaker
+    should be silent). Repeat with right only — desk speaker plays, FL is
+    silent. If both channels play on one output, Arcam is not in
+    Multichannel Direct mode.
+  </li>
+</ol>
+
+<!-- ======================================================= -->
+<!-- Section 6 -->
+<!-- ======================================================= -->
+
+<h2 id="sec-6">6. 2.83 V Calibration</h2>
+
+<p class="subtle">Budget 10 minutes.</p>
+
+<div class="callout safety">
+  <span class="tag">Safety</span>
+  The tweeter must be <strong>physically disconnected at the wall</strong>
+  for this step. A 60 Hz sine at 2.83 V into a tweeter destroys it instantly.
+</div>
+
+<ol>
+  <li>
+    Connect <strong>only W2 (lower woofer)</strong> to Arcam FL terminals.
+    All other drivers disconnected.
+    <strong>Verify tweeter wires are not touching each other or anything
+    conductive.</strong>
+  </li>
+  <li>
+    REW Generator → 60 Hz sine wave, left channel only, level −20 dBFS.
+    Start.
+  </li>
+  <li>DMM on AC V mode, probes across the W2 terminals at the wall.</li>
+  <li>
+    Slowly raise Arcam volume until DMM reads <strong>2.83 V</strong>
+    (±0.02 V).
+  </li>
+  <li>
+    <strong>Stop generator.</strong> Do not touch the Arcam volume knob for
+    the remainder of the session. Consider taping over it.
+  </li>
+  <li>Note the final Arcam volume setting in your log.</li>
+</ol>
+
+<div class="callout info">
+  <span class="tag">Non-True-RMS meter</span>
+  Your non-True-RMS meter is fine here. A standard averaging meter reads
+  RMS correctly on a pure 60 Hz sine.
+</div>
+
+<!-- ======================================================= -->
+<!-- Section 7 -->
+<!-- ======================================================= -->
+
+<h2 id="sec-7">7. Timing Reference Verification</h2>
+
+<p class="subtle">Budget 5 minutes.</p>
+
+<ol>
+  <li>Mic at 0° tape X (1 m on-axis).</li>
+  <li>W2 still connected to FL. Other drivers disconnected.</li>
+  <li>REW Measure → run a throwaway sweep.</li>
+  <li>
+    Check the log: REW must report "Timing reference found" or similar. The
+    IR should show a clean, isolated leading edge.
+  </li>
+  <li>
+    If timing reference not found: raise the pilot level in REW
+    preferences, or raise Arcam Center output if it's too quiet (but then
+    re-lock). Iterate until found.
+  </li>
+  <li>
+    Once locked, <strong>do not move the desk speaker or the mic</strong>
+    except along the arc.
+  </li>
+</ol>
+
+<div class="callout warn">
+  <span class="tag">If it won't lock</span>
+  Likely causes: desk speaker muted, wrong Arcam input, splitter polarity,
+  REW reference channel set wrong (should be Right), pilot level too low
+  for room noise. Re-check each one before forcing the level up.
+</div>
+
+<!-- ======================================================= -->
 <!-- Section 8 -->
 <!-- ======================================================= -->
 
@@ -1001,28 +1009,33 @@ DATS V3 ─USB─▶ Laptop  (separate sessions, not simultaneous with REW)
 <p class="subtle">Budget 90 – 120 minutes.</p>
 
 <div class="callout info">
-  <span class="tag">Loop order</span>
-  <strong>Outer loop = mic angle</strong> (minimizes mic moves).
-  <strong>Inner loop = driver</strong> (fast cable swap at wall).
+  <span class="tag">Why this order</span>
+  The mic is on a tripod 1 m away — moving it means re-measuring the string
+  and re-aiming at the tweeter. Wire swaps at the wall plate take seconds.
+  So we <strong>park the mic at one angle and sweep all five drivers
+  before moving the mic</strong>. Five driver swaps per mic position,
+  ten mic positions total = 50 sweeps.
 </div>
 
 <p>
-  For each angle in
-  <code>[000, 010, 020, 030, 040, 050, 060, 070, 080, 090]</code> degrees
-  horizontal (zero-padded in filenames):
+  Concretely, for each of the ten angles
+  <code>[000, 010, 020, 030, 040, 050, 060, 070, 080, 090]</code>
+  (the zero-padded number also goes into the filename):
 </p>
 
 <ol>
   <li>
-    Move the tripod so the mic tip sits directly over the tape X for that
-    angle. Mic pointed at the tweeter. Verify 1 m with the string from
-    tweeter to mic tip.
+    Move the tripod so the mic tip sits directly over that angle's tape X.
+    Aim the mic at the tweeter. Verify 1 m with the string from tweeter
+    to mic tip.
   </li>
   <li>
-    Sweep each driver in order. Each time: disconnect the previous driver,
-    connect the next, all others stay disconnected. Each row saves
+    Sweep all five drivers without moving the mic. For each driver:
+    disconnect the previous one at the wall plate, connect this one, leave
+    all others disconnected, run the sweep. Each sweep saves
     <code>.frd</code> + <code>.txt</code> + <code>.wav</code>.
   </li>
+  <li>Move the mic to the next angle's tape X and repeat.</li>
 </ol>
 
 <table>
@@ -1111,125 +1124,117 @@ DATS V3 ─USB─▶ Laptop  (separate sessions, not simultaneous with REW)
 </p>
 
 <figure>
-  <svg viewBox="0 0 760 420" xmlns="http://www.w3.org/2000/svg"
-       role="img" aria-label="Side view of vertical arc at +15 and +30 degrees">
+  <svg viewBox="0 0 760 460" xmlns="http://www.w3.org/2000/svg"
+       role="img" aria-label="Side view of vertical arc at 0, +15 and +30 degrees from tweeter">
     <defs>
       <style>
-        .wall    { fill:#d0d0d0; stroke:#333; stroke-width:1.4; }
-        .baff    { fill:#b5b5b5; stroke:#333; stroke-width:1.2; }
-        .floor   { fill:#ececec; stroke:#aaa; stroke-width:1; }
-        .arc     { fill:none; stroke:#196f3d; stroke-width:1.8; stroke-dasharray:6 5; }
-        .radius  { stroke:#196f3d; stroke-width:1.2; fill:none; }
-        .mic     { fill:#fdf2e1; stroke:#d68910; stroke-width:1.4; }
-        .tw      { fill:#333; }
-        .lab     { font: 10pt "Helvetica Neue", Arial, sans-serif; fill:#111; }
-        .lab-b   { font: bold 10.5pt "Helvetica Neue", Arial, sans-serif; fill:#111; }
-        .lab-g   { font: 10pt "Helvetica Neue", Arial, sans-serif; fill:#196f3d; }
-        .lab-sm  { font: 9pt "Helvetica Neue", Arial, sans-serif; fill:#333; }
-        .dim     { stroke:#2471a3; stroke-width:1.1; fill:none; stroke-dasharray:3 3; }
+        .wall   { fill:#d0d0d0; stroke:#333; stroke-width:1.4; }
+        .baff   { fill:#b5b5b5; stroke:#333; stroke-width:1.2; }
+        .floor  { fill:#ececec; stroke:#aaa; stroke-width:1; }
+        .arc    { fill:none; stroke:#196f3d; stroke-width:1.8; stroke-dasharray:6 5; }
+        .radius { stroke:#196f3d; stroke-width:1.2; fill:none; stroke-dasharray:4 3; }
+        .mic    { fill:#fdf2e1; stroke:#d68910; stroke-width:1.4; }
+        .tip    { fill:#c0392b; stroke:#922b21; stroke-width:1; }
+        .drv    { fill:#333; }
+        .tw     { fill:#c0392b; stroke:#fff; stroke-width:1.2; }
+        .lab    { font: 10pt "Helvetica Neue", Arial, sans-serif; fill:#111; }
+        .lab-b  { font: bold 10.5pt "Helvetica Neue", Arial, sans-serif; fill:#111; }
+        .lab-g  { font: 10pt "Helvetica Neue", Arial, sans-serif; fill:#196f3d; }
+        .lab-r  { font: 10pt "Helvetica Neue", Arial, sans-serif; fill:#c0392b; }
+        .lab-sm { font: 9pt "Helvetica Neue", Arial, sans-serif; fill:#333; }
       </style>
     </defs>
 
+    <!-- Layout zones (no overlap):
+           Wall/baffle/drivers:  x =  20 .. 150
+           Arc + mic positions:  x = 150 .. 460   y =  60 .. 340
+           Right info panel:     x = 480 .. 740   y =  60 .. 300
+           Floor strip:          y = 420 .. 440
+         Scale: 1.00 m = 280 SVG units.
+         Tweeter (origin):      (80, 240).
+         0 deg mic tip:          (80+280, 240)              = (360, 240)
+         +15 deg mic tip:        (80+280*cos15, 240-280*sin15) = (350.5, 167.5)
+         +30 deg mic tip:        (80+280*cos30, 240-280*sin30) = (322.5, 100)
+         All three fit inside x<=360, y>=100. -->
+
     <!-- Wall and floor -->
-    <rect class="wall"  x="20" y="20"  width="50" height="370"/>
-    <rect class="floor" x="20" y="390" width="730" height="20"/>
-    <text class="lab-sm" x="385" y="405" text-anchor="middle">floor</text>
+    <rect class="wall"  x="20"  y="20"  width="40" height="400"/>
+    <rect class="floor" x="20"  y="420" width="720" height="20"/>
+    <text class="lab-sm" x="36"  y="16"  text-anchor="middle">wall</text>
+    <text class="lab-sm" x="380" y="436" text-anchor="middle">floor</text>
 
-    <!-- Baffle (side slice) with drivers stacked, side view -->
-    <rect class="baff" x="70" y="80" width="24" height="260" rx="2"/>
-    <text class="lab-sm" x="82" y="72" text-anchor="middle">baffle (side)</text>
+    <!-- Baffle side slice with stacked driver dots -->
+    <rect class="baff" x="60" y="70" width="28" height="340" rx="3"/>
+    <text class="lab-sm" x="74" y="62" text-anchor="middle">baffle (side)</text>
 
-    <!-- Driver dots: W1 top, M3, T (center), M4, W2 bottom — simplified -->
-    <circle class="tw" cx="82" cy="110" r="6"/> <text class="lab-sm" x="100" y="114">W1</text>
-    <circle class="tw" cx="82" cy="160" r="5"/> <text class="lab-sm" x="100" y="164">M3</text>
-    <circle class="tw" cx="82" cy="210" r="7" fill="#c0392b"/>
-    <text class="lab-sm" x="100" y="214" fill="#c0392b">T (tweeter — reference)</text>
-    <circle class="tw" cx="82" cy="260" r="5"/> <text class="lab-sm" x="100" y="264">M4</text>
-    <circle class="tw" cx="82" cy="310" r="6"/> <text class="lab-sm" x="100" y="314">W2</text>
+    <!-- Non-tweeter driver circles (neutral grey) -->
+    <circle class="drv" cx="74" cy="110" r="5"/>
+    <text class="lab-sm" x="96" y="114">W1</text>
+    <circle class="drv" cx="74" cy="175" r="4"/>
+    <text class="lab-sm" x="96" y="179">M3</text>
+    <circle class="drv" cx="74" cy="305" r="4"/>
+    <text class="lab-sm" x="96" y="309">M4</text>
+    <circle class="drv" cx="74" cy="370" r="5"/>
+    <text class="lab-sm" x="96" y="374">W2</text>
 
-    <!-- Scale: 1 m = 450 SVG units (horizontal), same for vertical -->
-    <!-- Tweeter at (82,210). Mic positions: -->
-    <!-- On-axis (0°):   x = 82 + 450 = 532, y = 210 -->
-    <!-- +15°:           x = 82 + 450*cos15 ≈ 82 + 434.7 = 516.7, y = 210 - 450*sin15 ≈ 210 - 116.5 = 93.5 -->
-    <!-- +30°:           x = 82 + 450*cos30 ≈ 82 + 389.7 = 471.7, y = 210 - 450*sin30 = 210 - 225 = -15 (off-canvas) -->
-    <!-- 30deg y is off-canvas at this scale; use compact scale 1 m = 300 units for clarity -->
+    <!-- Tweeter (reference origin) -->
+    <circle class="tw" cx="80" cy="240" r="7"/>
+    <text class="lab-r" x="96" y="236">T (tweeter)</text>
+    <text class="lab-sm" x="96" y="250">1 m arc origin</text>
 
-    <!-- Reset: 1 m = 300 units. Tweeter at (82, 260). -->
-    <!-- On-axis: (82+300, 260) = (382, 260) -->
-    <!-- +15°:   (82 + 300*cos15, 260 - 300*sin15) = (82+289.8, 260-77.6) = (371.8, 182.4) -->
-    <!-- +30°:   (82 + 300*cos30, 260 - 300*sin30) = (82+259.8, 260-150)   = (341.8, 110) -->
+    <!-- 1 m arc, centered at (80, 240), radius 280, from 0 deg (east)
+         counter-clockwise (upward) to +30 deg.  End points:
+         start (0 deg):   (360, 240)
+         end   (+30 deg): (322.5, 100) -->
+    <path class="arc" d="M 360 240 A 280 280 0 0 0 322.5 100"/>
+    <text class="lab-g" x="352" y="190" text-anchor="start">1.00 m arc</text>
 
-    <!-- Adjust the tweeter dot y to 260 to match scale -->
-    <circle class="tw" cx="82" cy="260" r="9" fill="#c0392b" stroke="#fff" stroke-width="1"/>
-    <text class="lab-b" x="100" y="260" fill="#c0392b">tweeter (1 m radius origin)</text>
+    <!-- Radius lines from tweeter to each mic position -->
+    <line class="radius" x1="80" y1="240" x2="360"   y2="240"/>  <!-- 0 deg -->
+    <line class="radius" x1="80" y1="240" x2="350.5" y2="167.5"/><!-- +15 deg -->
+    <line class="radius" x1="80" y1="240" x2="322.5" y2="100"/>  <!-- +30 deg -->
 
-    <!-- 1 m arc center (82,260), radius 300, from 0 to +30 -->
-    <path class="arc" d="M 382 260 A 300 300 0 0 0 341.8 110"/>
-    <text class="lab-g" x="395" y="250" text-anchor="start">1.00 m arc</text>
+    <!-- 0 deg mic: body to the right of tip -->
+    <rect class="tip" x="355"  y="232"  width="10" height="16" rx="2"/>
+    <rect class="mic" x="365"  y="226"  width="96" height="28" rx="5"/>
+    <text class="lab-b"  x="413" y="245" text-anchor="middle">mic 0°</text>
 
-    <!-- Mic on-axis (0°) -->
-    <rect class="mic" x="382" y="244" width="96" height="32" rx="5"/>
-    <text class="lab-b" x="430" y="264" text-anchor="middle">mic 0°</text>
-    <!-- tip on the left edge -->
-    <rect x="370" y="254" width="12" height="12" rx="2" fill="#c0392b"/>
-    <text class="lab-sm" x="368" y="252" text-anchor="end" fill="#c0392b">tip</text>
+    <!-- +15 deg mic -->
+    <rect class="tip" x="345.5" y="161"  width="10" height="16" rx="2"/>
+    <rect class="mic" x="355.5" y="155"  width="96" height="28" rx="5"/>
+    <text class="lab-b"  x="403.5" y="174" text-anchor="middle">mic +15°</text>
 
-    <!-- Mic +15° -->
-    <g transform="translate(-10,0)">
-      <rect class="mic" x="372" y="166" width="96" height="32" rx="5"/>
-      <text class="lab-b" x="420" y="186" text-anchor="middle">mic +15°</text>
-      <rect x="360" y="176" width="12" height="12" rx="2" fill="#c0392b"/>
-    </g>
+    <!-- +30 deg mic -->
+    <rect class="tip" x="317.5" y=" 94"  width="10" height="16" rx="2"/>
+    <rect class="mic" x="327.5" y=" 88"  width="96" height="28" rx="5"/>
+    <text class="lab-b"  x="375.5" y="107" text-anchor="middle">mic +30°</text>
 
-    <!-- Mic +30° -->
-    <g transform="translate(-20,0)">
-      <rect class="mic" x="352" y="94" width="96" height="32" rx="5"/>
-      <text class="lab-b" x="400" y="114" text-anchor="middle">mic +30°</text>
-      <rect x="340" y="104" width="12" height="12" rx="2" fill="#c0392b"/>
-    </g>
+    <!-- Info panel: right side, free of any geometry.
+         Lists who gets vertical polars and the offset deltas. -->
+    <g transform="translate(480,70)">
+      <rect x="0" y="0" width="260" height="230" rx="6"
+            fill="#e8f1fb" stroke="#2471a3"/>
+      <text class="lab-b"  x="12" y="22">Vertical sweep cheat-sheet</text>
 
-    <!-- Radius lines from tweeter to each mic tip -->
-    <line class="radius" x1="82" y1="260" x2="370" y2="260"/> <!-- 0° -->
-    <line class="radius" x1="82" y1="260" x2="360" y2="182"/> <!-- +15° -->
-    <line class="radius" x1="82" y1="260" x2="340" y2="110"/> <!-- +30° -->
+      <text class="lab-sm" x="12" y="46">Mic offsets from on-axis (0°) point:</text>
+      <text class="lab-sm" x="12" y="64">  +15°: pull in 3.4 cm, raise 25.9 cm</text>
+      <text class="lab-sm" x="12" y="78">  +30°: pull in 13.4 cm, raise 50.0 cm</text>
+      <text class="lab-sm" x="12" y="92">Verify each with the 1 m string from</text>
+      <text class="lab-sm" x="12" y="106">tweeter to mic tip.</text>
 
-    <!-- Annotations: horizontal offsets from baffle -->
-    <line class="dim" x1="94"  y1="352" x2="370" y2="352"/>
-    <text class="lab-sm" x="232" y="366" text-anchor="middle" fill="#1a5276">
-      0°: 100 cm out from baffle
-    </text>
-    <line class="dim" x1="94"  y1="380" x2="360" y2="380"/>
-    <text class="lab-sm" x="226" y="394" text-anchor="middle" fill="#1a5276">
-      +15°: 96.6 cm out from baffle
-    </text>
-
-    <!-- Vertical offset annotations on the right side -->
-    <line class="dim" x1="500" y1="260" x2="500" y2="182"/>
-    <text class="lab-sm" x="506" y="224" fill="#1a5276">+15°:</text>
-    <text class="lab-sm" x="506" y="238" fill="#1a5276">25.9 cm above</text>
-    <text class="lab-sm" x="506" y="252" fill="#1a5276">tweeter height</text>
-
-    <line class="dim" x1="560" y1="260" x2="560" y2="110"/>
-    <text class="lab-sm" x="566" y="184" fill="#1a5276">+30°:</text>
-    <text class="lab-sm" x="566" y="198" fill="#1a5276">50.0 cm above</text>
-    <text class="lab-sm" x="566" y="212" fill="#1a5276">tweeter height</text>
-    <text class="lab-sm" x="566" y="226" fill="#1a5276">(86.6 cm out)</text>
-
-    <!-- Note box -->
-    <g transform="translate(580,260)">
-      <rect x="0" y="0" width="160" height="104" rx="6" fill="#e8f1fb" stroke="#2471a3"/>
-      <text class="lab-b" x="10" y="22">Who gets V polars?</text>
-      <text class="lab-sm" x="10" y="42">T: yes (300 Hz, 256 k)</text>
-      <text class="lab-sm" x="10" y="58">M3: yes (full range)</text>
-      <text class="lab-sm" x="10" y="74">M4: yes (full range)</text>
-      <text class="lab-sm" x="10" y="90">W1/W2: no (omni band)</text>
+      <text class="lab-b"  x="12" y="136">Who gets vertical polars?</text>
+      <text class="lab-sm" x="12" y="156">T  — yes (300 Hz start, 256 k)</text>
+      <text class="lab-sm" x="12" y="172">M3 — yes (full range)</text>
+      <text class="lab-sm" x="12" y="188">M4 — yes (full range)</text>
+      <text class="lab-sm" x="12" y="204">W1 / W2 — skip (omni in band)</text>
+      <text class="lab-sm" x="12" y="220">(only upward side — speaker is symmetric)</text>
     </g>
   </svg>
   <figcaption>
-    Vertical arc, side view. Mic stays on the 1.00 m circle centered on
-    the tweeter. Raise the tripod and pull it toward the baffle by the
-    annotated deltas. Woofers are omnidirectional in-band so only T, M3,
-    and M4 get vertical sweeps.
+    Vertical arc, side view. All three mic positions lie on the 1.00 m
+    circle centered on the tweeter. From the 0° on-axis point, raise the
+    tripod and pull it toward the baffle by the deltas in the cheat-sheet.
+    WMTMW is vertically symmetric so only the upward side is measured.
   </figcaption>
 </figure>
 
@@ -1277,17 +1282,19 @@ DATS V3 ─USB─▶ Laptop  (separate sessions, not simultaneous with REW)
 </p>
 
 <figure>
-  <svg viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg"
-       role="img" aria-label="Nearfield mic placement: tip less than 5 mm from dust cap">
+  <svg viewBox="0 0 760 360" xmlns="http://www.w3.org/2000/svg"
+       role="img" aria-label="Side view of a cone driver with UMIK-1 mic tip within 5 mm of the dust cap">
     <defs>
       <style>
         .baff   { fill:#b5b5b5; stroke:#333; stroke-width:1.2; }
-        .cone   { fill:#c9c9c9; stroke:#333; stroke-width:1.2; }
-        .dust   { fill:#333; }
+        .cone   { fill:#d5d5d5; stroke:#444; stroke-width:1.3; }
+        .frame  { stroke:#333; stroke-width:2; fill:none; }
+        .dust   { fill:#333; stroke:#000; stroke-width:1; }
         .mic    { fill:#fdf2e1; stroke:#d68910; stroke-width:1.4; }
         .tip    { fill:#c0392b; stroke:#922b21; stroke-width:1; }
-        .axis   { stroke:#2e86c1; stroke-width:1.6; fill:none; stroke-dasharray:5 4; }
+        .axis   { stroke:#2e86c1; stroke-width:1.4; fill:none; stroke-dasharray:6 4; }
         .dim    { stroke:#196f3d; stroke-width:1.4; fill:none; }
+        .lead   { stroke:#555; stroke-width:0.9; fill:none; }
         .lab    { font: 10pt "Helvetica Neue", Arial, sans-serif; fill:#111; }
         .lab-b  { font: bold 10.5pt "Helvetica Neue", Arial, sans-serif; fill:#111; }
         .lab-g  { font: 10pt "Helvetica Neue", Arial, sans-serif; fill:#196f3d; }
@@ -1300,56 +1307,93 @@ DATS V3 ─USB─▶ Laptop  (separate sessions, not simultaneous with REW)
       </marker>
     </defs>
 
-    <!-- Baffle -->
-    <rect class="baff" x="40" y="40" width="60" height="220" rx="3"/>
-    <text class="lab-sm" x="70" y="34" text-anchor="middle">baffle</text>
+    <!-- Layout zones (no overlap):
+           Baffle + driver:   x =  40 .. 210,  y =  60 .. 270
+           Mic + gap + axis:  x = 210 .. 520,  y = 140 .. 200
+           Right info panel:  x = 540 .. 740,  y =  60 .. 300
+         Scale: 1 mm approx 3 px. A 5 mm gap reads as 15 px, which is
+         clearly distinct from the 220 px (~75 mm) mic body length. -->
 
-    <!-- Cone (side profile): triangle with dust cap in the middle -->
-    <path class="cone"
-          d="M100 80 L230 150 L230 152 L100 222 Z"/>
-    <!-- Dust cap at cone apex -->
-    <circle class="dust" cx="230" cy="151" r="10"/>
-    <text class="lab-sm" x="252" y="142">dust-cap center</text>
-    <text class="lab-sm" x="252" y="156">(acoustic reference)</text>
+    <!-- Baffle: front face of the in-wall cabinet, vertical slab.
+         The driver is mounted to it. -->
+    <rect class="baff" x="50" y="50" width="40" height="240" rx="2"/>
+    <text class="lab-sm" x="70" y="44" text-anchor="middle">baffle (side)</text>
 
-    <!-- Mic body with tip almost touching dust cap -->
-    <rect class="mic" x="320" y="134" width="300" height="34" rx="6"/>
-    <text class="lab-b" x="470" y="158" text-anchor="middle">UMIK-1 (axial)</text>
-    <rect class="tip" x="300" y="142" width="20" height="18" rx="2"/>
-    <text class="lab-r" x="300" y="134" text-anchor="end">tip</text>
+    <!-- Driver frame: basket sits behind the baffle and extends slightly
+         forward to form the mounting flange. In side view it's an
+         outline extending from the baffle into the enclosure. -->
+    <path class="frame"
+          d="M 90 110
+             L 78 110
+             C 60 110 60 150 90 170
+             L 90 190
+             C 60 210 60 250 78 250
+             L 90 250"/>
+    <text class="lab-sm" x="70" y="180" text-anchor="middle" fill="#444">basket</text>
 
-    <!-- Axis from cone center out through mic -->
-    <line class="axis" x1="230" y1="151" x2="640" y2="151"/>
-    <text class="lab" x="540" y="142" text-anchor="middle" fill="#2e86c1">
-      mic axis = driver axis (0° incidence)
+    <!-- Cone (side profile, outward-facing).
+         The cone is a shallow funnel opening toward the room.
+         Top rim at (90, 100), bottom rim at (90, 260), apex near the
+         dust cap at (170, 180). The apex points OUTWARD (right). -->
+    <polygon class="cone" points="90,100 170,175 170,185 90,260"/>
+    <text class="lab-sm" x="112" y="88">cone (side profile)</text>
+
+    <!-- Dust cap: small dark cap at the cone apex, sitting on the
+         driver's central axis. This is the nearfield reference. -->
+    <circle class="dust" cx="170" cy="180" r="8"/>
+    <line class="lead" x1="178" y1="180" x2="228" y2="115"/>
+    <text class="lab-b" x="232" y="112">dust-cap center</text>
+    <text class="lab-sm" x="232" y="126">(acoustic reference point)</text>
+
+    <!-- Driver axis: horizontal dashed line through the dust cap -->
+    <line class="axis" x1="170" y1="180" x2="520" y2="180"/>
+    <text class="lab-sm" x="410" y="172" text-anchor="middle" fill="#2e86c1">
+      driver axis = mic axis (0° incidence)
     </text>
 
-    <!-- Distance callout: less than 5 mm from dust cap to tip -->
-    <line class="dim" x1="241" y1="200" x2="298" y2="200"
-          marker-start="url(#nf-tick)" marker-end="url(#nf-tick)"/>
-    <text class="lab-g" x="269" y="218" text-anchor="middle">&lt; 5 mm</text>
-    <text class="lab-sm" x="269" y="232" text-anchor="middle">(close but NOT touching)</text>
+    <!-- Gap between dust cap and mic tip (< 5 mm, drawn to scale).
+         Dust cap right edge is at x = 178. Mic tip left edge at x = 193. -->
+    <rect class="tip" x="193" y="170" width="10" height="20" rx="2"/>
+    <text class="lab-r" x="198" y="162" text-anchor="middle">tip</text>
 
-    <!-- Rules panel -->
-    <g transform="translate(340,40)">
-      <rect x="0" y="0" width="360" height="86" rx="6" fill="#e8f1fb" stroke="#2471a3"/>
-      <text class="lab-b" x="10" y="22">Nearfield rules</text>
-      <text class="lab-sm" x="10" y="42">• Tip within 5 mm of dust-cap center (do not contact cone).</text>
-      <text class="lab-sm" x="10" y="58">• Aim mic straight into the driver (axial, 0° incidence).</text>
-      <text class="lab-sm" x="10" y="74">• No gating. Leave timing reference on.</text>
+    <!-- UMIK-1 body: rectangular, tip on the left, aimed at the driver.
+         Positioned so its tip is within 5 mm of the dust cap. -->
+    <rect class="mic" x="203" y="164" width="220" height="32" rx="6"/>
+    <text class="lab-b" x="313" y="184" text-anchor="middle">UMIK-1 (aim into the driver)</text>
+
+    <!-- Distance annotation below the gap -->
+    <line class="dim" x1="180" y1="222" x2="193" y2="222"
+          marker-start="url(#nf-tick)" marker-end="url(#nf-tick)"/>
+    <text class="lab-g"  x="186" y="242" text-anchor="middle">&lt; 5 mm</text>
+    <text class="lab-sm" x="186" y="256" text-anchor="middle">(close, not touching)</text>
+
+    <!-- Right-side info panel: rules + tweeter-skip callout,
+         well clear of the geometry. -->
+    <g transform="translate(540,60)">
+      <rect x="0" y="0" width="200" height="118" rx="6"
+            fill="#e8f1fb" stroke="#2471a3"/>
+      <text class="lab-b"  x="12" y="22">Nearfield rules</text>
+      <text class="lab-sm" x="12" y="44">• Tip within 5 mm of the</text>
+      <text class="lab-sm" x="12" y="58">   dust-cap center.</text>
+      <text class="lab-sm" x="12" y="76">• Do not touch the cone.</text>
+      <text class="lab-sm" x="12" y="94">• Aim axially (0° incidence).</text>
+      <text class="lab-sm" x="12" y="110">• No gating. Timing ref stays on.</text>
     </g>
 
-    <!-- Skip note for tweeter -->
-    <g transform="translate(340,252)">
-      <rect x="0" y="0" width="360" height="38" rx="6" fill="#fdecea" stroke="#c0392b"/>
-      <text class="lab-r" x="10" y="24">Tweeter: SKIP nearfield (directivity makes it meaningless).</text>
+    <g transform="translate(540,196)">
+      <rect x="0" y="0" width="200" height="56" rx="6"
+            fill="#fdecea" stroke="#c0392b"/>
+      <text class="lab-r"  x="12" y="22">Tweeter: SKIP nearfield</text>
+      <text class="lab-sm" x="12" y="40">(dome directivity makes it</text>
+      <text class="lab-sm" x="12" y="52">meaningless at 5 mm).</text>
     </g>
   </svg>
   <figcaption>
-    Nearfield placement. Mic tip sits within 5 mm of the dust-cap center,
-    pointing axially into the cone. Close enough to dominate room
-    reflections, not close enough to touch. Tweeter is skipped —
-    nearfield is not useful for dome tweeters.
+    Side view of a cone driver. The baffle is on the left; the cone opens
+    outward into the room with the dust cap at its center. The UMIK-1 tip
+    sits within 5 mm of the dust cap — close enough to dominate room
+    reflections, not close enough to touch the moving cone. Tweeter is
+    skipped for the same reason nearfield always is on tweeters.
   </figcaption>
 </figure>
 
