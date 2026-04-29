@@ -48,7 +48,7 @@ The Scan-Speak H2606/9200 voice coil can burn out in **seconds** if driven with 
 - Plumb bob (nut on a string)
 - Masking tape, sharpie, tape measure, protractor
 - 3.5 mm TRS → 2× RCA Y-splitter cable
-- Speaker wire for desk-speaker tap to Arcam Center terminal
+- Speaker wire for desk-speaker tap to Arcam Front-Left terminal
 - Earplugs
 
 **Signal chain**
@@ -57,8 +57,8 @@ The Scan-Speak H2606/9200 voice coil can burn out in **seconds** if driven with 
 
 ```
 Laptop 3.5mm stereo out
-   ├── L channel ─RCA─► Arcam 7.1-in "Front Left"  ─► Arcam FL amp ─► driver under test (DUT) at wall
-   └── R channel ─RCA─► Arcam 7.1-in "Center"      ─► Arcam Center amp ─► Desk speaker (fixed position)
+   ├── L channel ─RCA─► Arcam 7.1-in "Front Left"   ─► Arcam FL amp ─► Desk speaker (fixed position, timing ref)
+   └── R channel ─RCA─► Arcam 7.1-in "Front Right"  ─► Arcam FR amp ─► driver under test (DUT) at wall
 
 UMIK-1 ─USB─► Laptop (REW input)
 DATS V3 ─USB─► Laptop (separate sessions, not simultaneous with REW)
@@ -79,8 +79,8 @@ Arcam source selection: **7.1 Multichannel Input / Direct** (no DSP, no decoder,
 **One mic position, all drivers.** At each angle, all five drivers are measured from the same mic position (centered on the tweeter arc). This is close enough for crossover design — LoudspeakerLab and VituixCAD both reconstruct the full system from per-driver data plus the baffle layout.
 
 **Channel levels.**
-- Laptop L channel = sweep → driver under test (DUT), calibrated to 2.83 V
-- Laptop R channel = REW timing-reference pilot → desk speaker (REW-attenuated, typically −20 dB)
+- Laptop L channel = REW timing-reference pilot → desk speaker on Arcam **Front-Left** (REW-attenuated, typically −20 dB)
+- Laptop R channel = sweep → driver under test (DUT) on Arcam **Front-Right**, calibrated to 2.83 V
 - Arcam volume is **locked** for the entire session after Step 6. Do not touch.
 
 **File-naming convention.** Every saved file uses the pattern `<DriverTag>-<DriverName>-<AngleOrKind>.<ext>`. Angles are zero-padded to 3 digits so files sort numerically. The wizard enforces this automatically; if you save manually in REW, use the same pattern.
@@ -143,23 +143,23 @@ One-time rigging. Do this before calibration.
 1. HVAC off. Note the time; you have limited quiet minutes.
 2. Deploy toddler distraction.
 3. Arcam: power on, input = 7.1 Multichannel, all DSP off (Direct mode), tone controls flat, bass management off. Set volume to the minimum first — you'll calibrate it in Step 6.
-4. Connect L-RCA to Arcam 7.1 FL input, R-RCA to Arcam 7.1 Center input.
-5. Wire desk speaker to Arcam Center speaker terminals. Place desk speaker on a shelf or stand — anywhere — and **do not move it again** until the session ends.
+4. Connect L-RCA to Arcam 7.1 **FL** input, R-RCA to Arcam 7.1 **FR** input.
+5. Wire desk speaker to Arcam **Front-Left** speaker terminals. Place desk speaker on a shelf or stand — anywhere — and **do not move it again** until the session ends.
 6. At the wall terminals: disconnect every driver. We'll connect one at a time.
 7. REW preferences:
    - Input device: UMIK-1 (load 0° cal file)
    - Output device: laptop stereo out
-   - Analysis → Use Acoustic Timing Reference: **ON**, channel = Right
+   - Analysis → Use Acoustic Timing Reference: **ON**, channel = **Left** (the desk speaker is on the L channel via Arcam FL)
    - Measurement default: log sweep, 512 k length, 20 Hz – 20 kHz, level −12 dBFS
    - Auto-name template: `{name}` with sequential suffix off (we'll name manually per sweep — fast enough with the template pre-loaded)
-8. Verify channel assignment: use REW's generator to send a 1 kHz tone on **left only**. Confirm only the FL Arcam output is active (touch the FL terminal wire — should see meter movement; desk speaker should be silent). Repeat with right only — desk speaker plays, FL is silent. If both channels play on one output, Arcam is not in Multichannel Direct mode.
+8. Verify channel assignment: use REW's generator to send a 1 kHz tone on **left only** — the desk speaker (on Arcam FL) should play; the FR (DUT) terminals should be silent. Repeat with **right only** — the FR terminals should be active (touch the FR terminal wire — meter movement / brief tap test); desk speaker silent. If both channels play on one output, Arcam is not in Multichannel Direct mode.
 
 ---
 
 ## 6. 2.83 V Calibration (10 min)
 
-1. Connect **only W2 (lower woofer)** to Arcam FL terminals. All other drivers disconnected. **Verify tweeter wires are not touching each other or anything conductive.**
-2. REW Generator → 60 Hz sine wave, left channel only, level −20 dBFS. Start.
+1. Connect **only W2 (lower woofer)** to Arcam **FR** terminals. All other drivers disconnected. **Verify tweeter wires are not touching each other or anything conductive.**
+2. REW Generator → 60 Hz sine wave, **right channel only**, level −20 dBFS. Start.
 3. DMM on AC V mode, probes across the W2 terminals at the wall.
 4. Slowly raise Arcam volume until DMM reads **2.83 V** (±0.02 V).
 5. **Stop generator.** Do not touch the Arcam volume knob for the remainder of the session. Consider taping over it.
@@ -172,10 +172,10 @@ One-time rigging. Do this before calibration.
 ## 7. Timing Reference Verification (5 min)
 
 1. Mic at 0° tape X (1 m on-axis).
-2. W2 still connected to FL. Other drivers disconnected.
+2. W2 still connected to **FR**. Other drivers disconnected.
 3. REW Measure → run a throwaway sweep.
 4. Check the log: REW must report "Timing reference found" or similar. The IR should show a clean, isolated leading edge.
-5. If timing reference not found: raise the pilot level in REW preferences, or raise Arcam Center output if it's too quiet (but then re-lock). Iterate until found.
+5. If timing reference not found: raise the pilot level in REW preferences, or raise Arcam FL output if it's too quiet (but then re-lock). Iterate until found.
 6. Once locked, **do not move the desk speaker or the mic** except along the arc.
 
 ---

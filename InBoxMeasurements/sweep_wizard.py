@@ -12,7 +12,7 @@ in order:
   2. 2.83 V calibration -- DMM at the upper woofer terminals, tweeter
                          physically disconnected. Records -12 dBFS anchor.
   3. Timing-ref verify -- confirm REW's Acoustic Timing Reference is
-                         using the small desk speaker on Arcam Center.
+                         using the small desk speaker on Arcam Front-Left.
   4. Acoustic sweeps  -- the 65-sweep matrix (H polar / V polar /
                          nearfield / distortion). API-automated when
                          possible, manual fallback otherwise.
@@ -174,7 +174,7 @@ def phase_calibration(log: ProgressLog) -> None:
 
     steps = [
         "Confirm tweeter wires are DISCONNECTED at the wall terminals.",
-        "Connect W1 (upper woofer) to Arcam Front-Left output.",
+        "Connect W1 (upper woofer) to Arcam Front-Right output.",
         "Set Arcam volume to a known reference (e.g., -20 dB). Do not change after.",
         "Put DMM probes on the W1 terminals, set to AC Volts, 20 V range.",
         "In REW: generator tab, select 60 Hz sine, start at -20 dBFS.",
@@ -206,13 +206,13 @@ def phase_timing_ref(log: ProgressLog) -> None:
     print()
     print("  Signal chain:")
     print("    Laptop 3.5 mm -> splitter -> Arcam 7.1 multichannel input")
-    print("    Left channel  -> Arcam Front-Left -> DUT (driver under test)")
-    print("    Right channel -> Arcam Center     -> small desk speaker (ref)")
+    print("    Left channel  -> Arcam Front-Left  -> small desk speaker (timing ref)")
+    print("    Right channel -> Arcam Front-Right -> DUT (driver under test)")
     print("    UMIK-1 USB    -> laptop (measurement mic)")
     print()
     print("  In REW:")
     print("    Preferences > Analysis > 'Use acoustic timing reference' = ON")
-    print("    Generator   > Reference output = Right (or whichever is Arcam Center)")
+    print("    Generator   > Reference output = Left (the desk speaker on Arcam FL)")
     print("    Reference pilot tone at a modest level (audible at mic, not loud).")
 
     if not prompt_yn("Run a test sweep and confirm REW shows a timing-reference peak?",

@@ -286,7 +286,7 @@
   <li>Plumb bob (nut on a string)</li>
   <li>Masking tape, sharpie, tape measure, protractor</li>
   <li>3.5 mm TRS → 2× RCA Y-splitter cable</li>
-  <li>Speaker wire for the desk-speaker tap to the Arcam Center terminal</li>
+  <li>Speaker wire for the desk-speaker tap to the Arcam Front-Left terminal</li>
   <li>Earplugs</li>
 </ul>
 
@@ -301,8 +301,8 @@
 </div>
 
 <pre><code>Laptop 3.5 mm stereo out
-   ├── L channel ─RCA─▶ Arcam 7.1-in "Front Left"  ─▶ Arcam FL amp     ─▶ driver under test (DUT) at wall
-   └── R channel ─RCA─▶ Arcam 7.1-in "Center"      ─▶ Arcam Center amp ─▶ Desk speaker (fixed)
+   ├── L channel ─RCA─▶ Arcam 7.1-in "Front Left"   ─▶ Arcam FL amp ─▶ Desk speaker (fixed, timing ref)
+   └── R channel ─RCA─▶ Arcam 7.1-in "Front Right"  ─▶ Arcam FR amp ─▶ driver under test (DUT) at wall
 
 UMIK-1 ─USB─▶ Laptop  (REW input)
 DATS V3 ─USB─▶ Laptop  (separate sessions, not simultaneous with REW)
@@ -349,16 +349,16 @@ DATS V3 ─USB─▶ Laptop  (separate sessions, not simultaneous with REW)
     <text class="lab-sm" x="420" y="80" text-anchor="middle">7.1 Multichannel / Direct</text>
 
     <rect class="box" x="330" y="96"  width="90" height="36" rx="3"/>
-    <text class="lab-sm" x="375" y="118" text-anchor="middle">7.1-in FL</text>
+    <text class="lab-sm" x="375" y="118" text-anchor="middle">7.1-in FR</text>
 
     <rect class="box" x="330" y="148" width="90" height="36" rx="3"/>
-    <text class="lab-sm" x="375" y="170" text-anchor="middle">7.1-in Center</text>
+    <text class="lab-sm" x="375" y="170" text-anchor="middle">7.1-in FL</text>
 
     <rect class="amp" x="440" y="96"  width="80" height="36" rx="3"/>
-    <text class="lab-sm" x="480" y="118" text-anchor="middle">FL amp</text>
+    <text class="lab-sm" x="480" y="118" text-anchor="middle">FR amp</text>
 
     <rect class="amp" x="440" y="148" width="80" height="36" rx="3"/>
-    <text class="lab-sm" x="480" y="170" text-anchor="middle">Center amp</text>
+    <text class="lab-sm" x="480" y="170" text-anchor="middle">FL amp</text>
 
     <text class="lab-sm" x="420" y="218" text-anchor="middle">Volume locked after Step 6</text>
 
@@ -390,21 +390,21 @@ DATS V3 ─USB─▶ Laptop  (separate sessions, not simultaneous with REW)
     <path class="wire-S" d="M150 105 H185"/>
     <text class="lab-sm" x="168" y="98" text-anchor="middle">3.5 mm</text>
 
-    <!-- Splitter L -> Arcam FL -->
-    <path class="wire-L" d="M275 100 C 295 100 310 114 330 114"/>
-    <text class="lab-sm" x="296" y="94" text-anchor="middle" fill="#2e86c1">L (sweep)</text>
+    <!-- Splitter R -> Arcam FR (top path -> DUT) -->
+    <path class="wire-R" d="M275 100 C 295 100 310 114 330 114"/>
+    <text class="lab-sm" x="296" y="94" text-anchor="middle" fill="#c0392b">R (sweep)</text>
 
-    <!-- Splitter R -> Arcam Center -->
-    <path class="wire-R" d="M275 115 C 295 130 310 166 330 166"/>
-    <text class="lab-sm" x="296" y="148" text-anchor="middle" fill="#c0392b">R (pilot)</text>
+    <!-- Splitter L -> Arcam FL (bottom path -> desk speaker) -->
+    <path class="wire-L" d="M275 115 C 295 130 310 166 330 166"/>
+    <text class="lab-sm" x="296" y="148" text-anchor="middle" fill="#2e86c1">L (pilot)</text>
 
-    <!-- Arcam FL amp -> DUT -->
-    <path class="wire-L" d="M520 114 C 555 114 565 114 590 114"/>
-    <text class="lab-sm" x="555" y="108" text-anchor="middle" fill="#2e86c1">FL speaker out</text>
+    <!-- Arcam FR amp -> DUT -->
+    <path class="wire-R" d="M520 114 C 555 114 565 114 590 114"/>
+    <text class="lab-sm" x="555" y="108" text-anchor="middle" fill="#c0392b">FR speaker out</text>
 
-    <!-- Arcam Center amp -> Desk speaker -->
-    <path class="wire-R" d="M520 166 C 555 180 565 214 590 214"/>
-    <text class="lab-sm" x="555" y="196" text-anchor="middle" fill="#c0392b">Center speaker out</text>
+    <!-- Arcam FL amp -> Desk speaker -->
+    <path class="wire-L" d="M520 166 C 555 180 565 214 590 214"/>
+    <text class="lab-sm" x="555" y="196" text-anchor="middle" fill="#2e86c1">FL speaker out</text>
 
     <!-- UMIK-1 -> Laptop USB (back up to laptop) -->
     <path class="wire-U" d="M85 280 V 170 H 135 V 150"/>
@@ -415,9 +415,9 @@ DATS V3 ─USB─▶ Laptop  (separate sessions, not simultaneous with REW)
       <rect class="box" x="0" y="0" width="260" height="128" rx="6"/>
       <text class="lab-b" x="10" y="20">Legend</text>
       <line class="wire-L" x1="15" y1="40" x2="55" y2="40"/>
-      <text class="lab-sm" x="65" y="44">L channel: sweep to DUT (2.83 V calibrated)</text>
+      <text class="lab-sm" x="65" y="44">L channel: REW pilot tone → desk speaker (timing ref)</text>
       <line class="wire-R" x1="15" y1="62" x2="55" y2="62"/>
-      <text class="lab-sm" x="65" y="66">R channel: REW pilot tone (timing ref)</text>
+      <text class="lab-sm" x="65" y="66">R channel: sweep → DUT (2.83 V calibrated)</text>
       <line class="wire-U" x1="15" y1="84" x2="55" y2="84"/>
       <text class="lab-sm" x="65" y="88">USB (mic / DATS)</text>
       <line class="wire-S" x1="15" y1="106" x2="55" y2="106"/>
@@ -426,9 +426,9 @@ DATS V3 ─USB─▶ Laptop  (separate sessions, not simultaneous with REW)
   </svg>
   <figcaption>
     Session signal chain. Laptop stereo out splits into two RCA lines —
-    left drives the driver under test via Arcam FL; right drives the
-    timing-reference desk speaker via Arcam Center. UMIK-1 returns over
-    USB. DATS runs in its own session and does not share the chain.
+    left drives the timing-reference desk speaker via Arcam FL; right
+    drives the driver under test via Arcam FR. UMIK-1 returns over USB.
+    DATS runs in its own session and does not share the chain.
   </figcaption>
 </figure>
 
@@ -573,8 +573,8 @@ DATS V3 ─USB─▶ Laptop  (separate sessions, not simultaneous with REW)
 
 <h3>Channel levels</h3>
 <ul>
-  <li>Laptop L channel = sweep → DUT (calibrated to 2.83 V)</li>
-  <li>Laptop R channel = REW timing-reference pilot → desk speaker (REW-attenuated, typically −20 dB)</li>
+  <li>Laptop L channel = REW timing-reference pilot → desk speaker on Arcam <strong>Front-Left</strong> (REW-attenuated, typically −20 dB)</li>
+  <li>Laptop R channel = sweep → DUT on Arcam <strong>Front-Right</strong> (calibrated to 2.83 V)</li>
   <li>Arcam volume is <strong>locked</strong> for the entire session after Step 6. Do not touch.</li>
 </ul>
 
@@ -897,11 +897,11 @@ DATS V3 ─USB─▶ Laptop  (separate sessions, not simultaneous with REW)
     (Direct mode), tone controls flat, bass management off. Set volume to
     the minimum first — you will calibrate it in Section 6.
   </li>
-  <li>Connect L-RCA to Arcam 7.1 FL input, R-RCA to Arcam 7.1 Center input.</li>
+  <li>Connect L-RCA to Arcam 7.1 <strong>FL</strong> input, R-RCA to Arcam 7.1 <strong>FR</strong> input.</li>
   <li>
-    Wire the desk speaker to Arcam Center speaker terminals. Place it on a
-    shelf or stand — anywhere — and <strong>do not move it again</strong>
-    until the session ends.
+    Wire the desk speaker to Arcam <strong>Front-Left</strong> speaker
+    terminals. Place it on a shelf or stand — anywhere — and
+    <strong>do not move it again</strong> until the session ends.
   </li>
   <li>
     At the wall terminals: disconnect every driver. We'll connect one at a
@@ -912,7 +912,7 @@ DATS V3 ─USB─▶ Laptop  (separate sessions, not simultaneous with REW)
     <ul>
       <li>Input device: UMIK-1 (load 0° cal file)</li>
       <li>Output device: laptop stereo out</li>
-      <li>Analysis → Use Acoustic Timing Reference: <strong>ON</strong>, channel = Right</li>
+      <li>Analysis → Use Acoustic Timing Reference: <strong>ON</strong>, channel = <strong>Left</strong> (the desk speaker is on the L channel via Arcam FL)</li>
       <li>Measurement default: log sweep, 512 k length, 20 Hz – 20 kHz, level −12 dBFS</li>
       <li>
         Auto-name template: <code>{name}</code> with sequential suffix off
@@ -923,11 +923,12 @@ DATS V3 ─USB─▶ Laptop  (separate sessions, not simultaneous with REW)
   </li>
   <li>
     Verify channel assignment: use REW's generator to send a 1 kHz tone on
-    <strong>left only</strong>. Confirm only the FL Arcam output is active
-    (touch the FL terminal wire — should see meter movement; desk speaker
-    should be silent). Repeat with right only — desk speaker plays, FL is
-    silent. If both channels play on one output, Arcam is not in
-    Multichannel Direct mode.
+    <strong>left only</strong> — the desk speaker (on Arcam FL) should
+    play; the FR (DUT) terminals should be silent. Repeat with
+    <strong>right only</strong> — the FR terminals should be active
+    (touch the FR terminal wire — meter movement / brief tap test);
+    desk speaker silent. If both channels play on one output, Arcam is
+    not in Multichannel Direct mode.
   </li>
 </ol>
 
@@ -947,13 +948,13 @@ DATS V3 ─USB─▶ Laptop  (separate sessions, not simultaneous with REW)
 
 <ol>
   <li>
-    Connect <strong>only W2 (lower woofer)</strong> to Arcam FL terminals.
+    Connect <strong>only W2 (lower woofer)</strong> to Arcam <strong>FR</strong> terminals.
     All other drivers disconnected.
     <strong>Verify tweeter wires are not touching each other or anything
     conductive.</strong>
   </li>
   <li>
-    REW Generator → 60 Hz sine wave, left channel only, level −20 dBFS.
+    REW Generator → 60 Hz sine wave, <strong>right channel only</strong>, level −20 dBFS.
     Start.
   </li>
   <li>DMM on AC V mode, probes across the W2 terminals at the wall.</li>
@@ -984,7 +985,7 @@ DATS V3 ─USB─▶ Laptop  (separate sessions, not simultaneous with REW)
 
 <ol>
   <li>Mic at 0° tape X (1 m on-axis).</li>
-  <li>W2 still connected to FL. Other drivers disconnected.</li>
+  <li>W2 still connected to <strong>FR</strong>. Other drivers disconnected.</li>
   <li>REW Measure → run a throwaway sweep.</li>
   <li>
     Check the log: REW must report "Timing reference found" or similar. The
@@ -992,7 +993,7 @@ DATS V3 ─USB─▶ Laptop  (separate sessions, not simultaneous with REW)
   </li>
   <li>
     If timing reference not found: raise the pilot level in REW
-    preferences, or raise Arcam Center output if it's too quiet (but then
+    preferences, or raise Arcam FL output if it's too quiet (but then
     re-lock). Iterate until found.
   </li>
   <li>
@@ -1004,7 +1005,7 @@ DATS V3 ─USB─▶ Laptop  (separate sessions, not simultaneous with REW)
 <div class="callout warn">
   <span class="tag">If it won't lock</span>
   Likely causes: desk speaker muted, wrong Arcam input, splitter polarity,
-  REW reference channel set wrong (should be Right), pilot level too low
+  REW reference channel set wrong (should be <strong>Left</strong>), pilot level too low
   for room noise. Re-check each one before forcing the level up.
 </div>
 

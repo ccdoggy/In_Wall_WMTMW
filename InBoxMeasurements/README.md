@@ -70,7 +70,7 @@ Available phases: `pre`, `dats`, `cal`, `ref`, `acoustic`, `export`, `sanity`,
    tweeter physically disconnected. Records the REW generator dBFS that gives
    2.83 V AC at 60 Hz.
 4. **Timing-reference verify** — confirms REW's Acoustic Timing Reference is
-   using the desk speaker on Arcam Center.
+   using the desk speaker on Arcam Front-Left.
 5. **Acoustic sweeps** — 65 sweeps in order: horizontal polars (50) → vertical
    polars (6) → nearfield (4) → distortion (5). Tries the REW API first;
    falls back to manual prompts if anything fails.

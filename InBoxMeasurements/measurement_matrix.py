@@ -165,7 +165,7 @@ for _angle in HORIZONTAL_ANGLES:
             action=(
                 f"Mic at the {_angle}° H tape mark, 1.00 m from tweeter, tweeter height. "
                 f"At the wall: disconnect previous driver, connect the {_drv.description} "
-                f"to Arcam FL. All other drivers stay disconnected."
+                f"to Arcam FR. All other drivers stay disconnected."
             ),
             **FULL_RANGE,
         ))
@@ -178,7 +178,7 @@ for _angle in HORIZONTAL_ANGLES:
         angle_desc=_angle_desc,
         action=(
             f"Mic at the {_angle}° H tape mark. Confirm REW: start=300 Hz, length=256 k. "
-            f"Connect the tweeter to Arcam FL; all others disconnected. Ear protection on."
+            f"Connect the tweeter to Arcam FR; all others disconnected. Ear protection on."
         ),
         safety_note=TWEETER_SAFETY,
         is_tweeter=True,
@@ -198,7 +198,7 @@ for _angle in VERTICAL_ANGLES_UP:
         _drv = DRIVERS[_tag]
         _action = (
             f"Move mic to {_geom}. Verify 1 m string from tweeter to mic tip. "
-            f"Connect the {_drv.description} to Arcam FL; all others disconnected."
+            f"Connect the {_drv.description} to Arcam FR; all others disconnected."
         )
         if _tag == "T":
             V_POLAR_SWEEPS.append(AcousticSweep(
@@ -238,7 +238,7 @@ NEARFIELD_SWEEPS: list[AcousticSweep] = [
         action=(
             f"Position mic tip <5 mm from the center of the {DRIVERS[_tag].description}'s "
             f"dust cap, pointed axially into the cone. No gating. "
-            f"Connect the {DRIVERS[_tag].description} to Arcam FL; all others disconnected."
+            f"Connect the {DRIVERS[_tag].description} to Arcam FR; all others disconnected."
         ),
         safety_note=NEARFIELD_NOTE,
         **FULL_RANGE,
@@ -264,7 +264,7 @@ for _tag in DISTORTION_DRIVERS:
             action=(
                 "Mic back at 0° H tape mark, 1 m on-axis. "
                 "REW: switch to Distortion measurement, set level to -21 dBFS (1 V), "
-                "start=300 Hz, length=256 k. Connect tweeter to Arcam FL. "
+                "start=300 Hz, length=256 k. Connect tweeter to Arcam FR. "
                 "Ear protection on."
             ),
             safety_note=TWEETER_1V_SAFETY,
@@ -281,7 +281,7 @@ for _tag in DISTORTION_DRIVERS:
             action=(
                 f"Mic back at 0° H tape mark, 1 m on-axis. "
                 f"REW: Distortion measurement, full range 20 Hz–20 kHz, level -12 dBFS (2.83 V). "
-                f"Connect the {_drv.description} to Arcam FL; all others disconnected."
+                f"Connect the {_drv.description} to Arcam FR; all others disconnected."
             ),
             **FULL_RANGE,
         ))
