@@ -1015,15 +1015,15 @@ DATS V3 ─USB─▶ Laptop  (separate sessions, not simultaneous with REW)
 
 <h2 id="sec-8">8. Horizontal Polar Sweeps</h2>
 
-<p class="subtle">Budget 90 – 120 minutes.</p>
+<p class="subtle">Budget 105 – 135 minutes.</p>
 
 <div class="callout info">
   <span class="tag">Why this order</span>
   The mic is on a tripod 1 m away — moving it means re-measuring the string
   and re-aiming at the tweeter. Wire swaps at the wall plate take seconds.
-  So we <strong>park the mic at one angle and sweep all five drivers
-  before moving the mic</strong>. Five driver swaps per mic position,
-  ten mic positions total = 50 sweeps.
+  So we <strong>park the mic at one angle and sweep all six driver
+  configurations before moving the mic</strong>. Six wiring swaps per mic
+  position, ten mic positions total = 60 sweeps.
 </div>
 
 <p>
@@ -1039,10 +1039,9 @@ DATS V3 ─USB─▶ Laptop  (separate sessions, not simultaneous with REW)
     to mic tip.
   </li>
   <li>
-    Sweep all five drivers without moving the mic. For each driver:
-    disconnect the previous one at the wall plate, connect this one, leave
-    all others disconnected, run the sweep. Each sweep saves
-    <code>.frd</code> + <code>.txt</code> + <code>.wav</code>.
+    Sweep all six driver configurations without moving the mic. For each:
+    rewire at the wall plate per the table below, then run the sweep.
+    Each sweep saves <code>.frd</code> + <code>.txt</code> + <code>.wav</code>.
   </li>
   <li>Move the mic to the next angle's tape X and repeat.</li>
 </ol>
@@ -1050,10 +1049,10 @@ DATS V3 ─USB─▶ Laptop  (separate sessions, not simultaneous with REW)
 <table>
   <thead>
     <tr>
-      <th style="width:22%">Driver</th>
-      <th style="width:36%">Filename stem (→ .frd, .txt, .wav)</th>
-      <th style="width:20%">Sweep range</th>
-      <th>Notes</th>
+      <th style="width:18%">Driver / config</th>
+      <th style="width:30%">Filename stem (→ .frd, .txt, .wav)</th>
+      <th style="width:18%">Sweep range</th>
+      <th>Wall wiring</th>
     </tr>
   </thead>
   <tbody>
@@ -1061,37 +1060,62 @@ DATS V3 ─USB─▶ Laptop  (separate sessions, not simultaneous with REW)
       <td>W1 upper woofer</td>
       <td><code>W1-UpperWoofer-H{ddd}deg</code></td>
       <td>20 Hz – 20 kHz, 512 k</td>
-      <td>Full range</td>
+      <td>W1 → FR; all others disconnected</td>
     </tr>
     <tr>
       <td>W2 lower woofer</td>
       <td><code>W2-LowerWoofer-H{ddd}deg</code></td>
       <td>20 Hz – 20 kHz, 512 k</td>
-      <td></td>
+      <td>W2 → FR; all others disconnected</td>
     </tr>
     <tr>
       <td>M3 upper mid</td>
       <td><code>M3-UpperMid-H{ddd}deg</code></td>
       <td>20 Hz – 20 kHz, 512 k</td>
-      <td></td>
+      <td>M3 → FR; <strong>M4 wall terminals shorted (jumper + to −)</strong>; others disconnected</td>
     </tr>
     <tr>
       <td>M4 lower mid</td>
       <td><code>M4-LowerMid-H{ddd}deg</code></td>
       <td>20 Hz – 20 kHz, 512 k</td>
-      <td></td>
+      <td>M4 → FR; <strong>M3 wall terminals shorted (jumper + to −)</strong>; others disconnected</td>
     </tr>
     <tr>
       <td>T tweeter</td>
       <td><code>T-Tweeter-H{ddd}deg</code></td>
       <td><strong>300 Hz – 20 kHz, 256 k</strong></td>
-      <td>See Section 0</td>
+      <td>T → FR; others disconnected. See Section 0</td>
+    </tr>
+    <tr>
+      <td>Pair <code>M3 ∥ M4</code></td>
+      <td><code>Pair-Mids-H{ddd}deg</code></td>
+      <td>20 Hz – 20 kHz, 512 k</td>
+      <td>M3 + M4 in parallel → FR; <strong>remove any mid-shorting jumpers</strong>; others disconnected</td>
     </tr>
   </tbody>
 </table>
 
+<div class="callout warn">
+  <span class="tag">Why short the unused mid</span>
+  M3 and M4 share the rear chamber. With one driven and the other
+  electrically open, the undriven cone passively radiates near its free-air
+  Fs (~50 Hz) and contaminates the measurement (visible as a second
+  impedance peak in the in-box DATS data). Shorting the unused voice coil
+  clamps cone motion via back-EMF damping. <strong>The wizard requires an
+  explicit yes/no confirmation that the jumper is in place before each
+  single-mid sweep — it will not advance until you confirm.</strong>
+</div>
+
+<div class="callout info">
+  <span class="tag">Why the Pair-Mids row</span>
+  The crossover wires M3 and M4 in parallel, so the operationally accurate
+  measurement is both driven together. The pair sweep captures this
+  directly with no passive cone in the chamber — and matches the existing
+  <code>Pair-Mids-InBox.zma</code> impedance file from DATS.
+</div>
+
 <p>
-  <strong>Total: 50 sweeps × 3 output formats = 150 files.</strong> Each
+  <strong>Total: 60 sweeps × 3 output formats = 180 files.</strong> Each
   sweep measures in ~5 – 10 s; the wizard auto-names and auto-exports.
 </p>
 
@@ -1105,12 +1129,12 @@ DATS V3 ─USB─▶ Laptop  (separate sessions, not simultaneous with REW)
 
 <h2 id="sec-9">9. Vertical Off-Axis</h2>
 
-<p class="subtle">Budget 15 – 20 minutes.</p>
+<p class="subtle">Budget 20 – 25 minutes.</p>
 
 <p>
   WMTMW is vertically symmetric around the tweeter, so measure one
-  direction only (upward). Only T, M3, M4 need vertical data — woofers
-  are omnidirectional at their operating band.
+  direction only (upward). T, M3, M4, and the M3∥M4 pair get vertical
+  data — woofers are omnidirectional at their operating band.
 </p>
 
 <p>At <strong>1 m radius from the tweeter</strong>:</p>
@@ -1231,10 +1255,11 @@ DATS V3 ─USB─▶ Laptop  (separate sessions, not simultaneous with REW)
       <text class="lab-sm" x="12" y="92">Verify each with the 1 m string from</text>
       <text class="lab-sm" x="12" y="106">tweeter to mic tip.</text>
 
-      <text class="lab-b"  x="12" y="136">Who gets vertical polars?</text>
-      <text class="lab-sm" x="12" y="156">T  — yes (300 Hz start, 256 k)</text>
-      <text class="lab-sm" x="12" y="172">M3 — yes (full range)</text>
-      <text class="lab-sm" x="12" y="188">M4 — yes (full range)</text>
+      <text class="lab-b"  x="12" y="130">Who gets vertical polars?</text>
+      <text class="lab-sm" x="12" y="148">T  — yes (300 Hz start, 256 k)</text>
+      <text class="lab-sm" x="12" y="162">M3 — yes (full range, M4 shorted)</text>
+      <text class="lab-sm" x="12" y="176">M4 — yes (full range, M3 shorted)</text>
+      <text class="lab-sm" x="12" y="190">M3 ∥ M4 — yes (Pair-Mids)</text>
       <text class="lab-sm" x="12" y="204">W1 / W2 — skip (omni in band)</text>
       <text class="lab-sm" x="12" y="220">(only upward side — speaker is symmetric)</text>
     </g>
@@ -1250,31 +1275,41 @@ DATS V3 ─USB─▶ Laptop  (separate sessions, not simultaneous with REW)
 <table>
   <thead>
     <tr>
-      <th style="width:14%">Driver</th>
-      <th style="width:56%">Filename stems (→ .frd, .txt, .wav)</th>
-      <th>Notes</th>
+      <th style="width:18%">Driver / config</th>
+      <th style="width:46%">Filename stems (→ .frd, .txt, .wav)</th>
+      <th>Wall wiring</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td>T</td>
       <td><code>T-Tweeter-V015deg</code>, <code>T-Tweeter-V030deg</code></td>
-      <td>300 Hz – 20 kHz, 256 k</td>
+      <td>T → FR; others disconnected. 300 Hz – 20 kHz, 256 k</td>
     </tr>
     <tr>
       <td>M3</td>
       <td><code>M3-UpperMid-V015deg</code>, <code>M3-UpperMid-V030deg</code></td>
-      <td>Full range</td>
+      <td>M3 → FR; <strong>M4 wall terminals shorted</strong>; others disconnected</td>
     </tr>
     <tr>
       <td>M4</td>
       <td><code>M4-LowerMid-V015deg</code>, <code>M4-LowerMid-V030deg</code></td>
-      <td>Full range</td>
+      <td>M4 → FR; <strong>M3 wall terminals shorted</strong>; others disconnected</td>
+    </tr>
+    <tr>
+      <td>Pair <code>M3 ∥ M4</code></td>
+      <td><code>Pair-Mids-V015deg</code>, <code>Pair-Mids-V030deg</code></td>
+      <td>M3 + M4 in parallel → FR; <strong>remove mid-shorting jumpers</strong>; others disconnected</td>
     </tr>
   </tbody>
 </table>
 
-<p><strong>Total: 6 sweeps × 3 formats = 18 files.</strong></p>
+<p>
+  The same shorting-confirmation gate applies for single-mid vertical sweeps
+  as for horizontal — the wizard blocks until the jumper is acknowledged.
+</p>
+
+<p><strong>Total: 8 sweeps × 3 formats = 24 files.</strong></p>
 
 <!-- ======================================================= -->
 <!-- Section 10 -->
@@ -1618,13 +1653,13 @@ its internal <code>.mdat</code> entry).</p>
 
 <h3>Counts</h3>
 <ul>
-  <li>Acoustic sweeps: 50 H + 6 V + 4 NF + 5 THD = <strong>65 sweeps</strong>.</li>
+  <li>Acoustic sweeps: 60 H + 8 V + 4 NF + 5 THD = <strong>77 sweeps</strong> (H and V each include <code>Pair-Mids</code> rows).</li>
   <li>Impedance sweeps: <strong>7</strong> (5 individual + 2 pairs).</li>
   <li>File outputs per acoustic sweep: 3 (<code>.frd</code>, <code>.txt</code>, <code>.wav</code>).</li>
   <li>File outputs per impedance sweep: 3 (<code>.zma</code>, <code>.tzz</code>, <code>.txt</code>).</li>
   <li>
-    Grand total: <strong>65 × 3 + 7 × 3 + 5 distortion + 1 REW session =
-    222 files</strong>.
+    Grand total: <strong>77 × 3 + 7 × 3 + 5 distortion + 1 REW session =
+    258 files</strong>.
   </li>
 </ul>
 

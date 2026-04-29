@@ -236,7 +236,7 @@ def phase_timing_ref(log: ProgressLog) -> None:
 # ---------------------------------------------------------------------------
 
 def phase_acoustic(api: RewApi, log: ProgressLog, manual: bool) -> None:
-    section("Phase 4: Acoustic sweeps (65 total)")
+    section("Phase 4: Acoustic sweeps (77 total)")
 
     done = log.done_names()
     remaining = [s for s in ACOUSTIC_SWEEPS if s.name not in done]
@@ -265,6 +265,12 @@ def phase_acoustic(api: RewApi, log: ProgressLog, manual: bool) -> None:
         print(f"  Action:  {sweep.action}")
         if sweep.safety_note:
             safety(sweep.safety_note)
+
+        # Blocking confirmation for sweeps that require an explicit setup check
+        # (currently: any single-mid sweep — confirm the OTHER mid is shorted).
+        if sweep.require_confirm:
+            while not prompt_yn(sweep.require_confirm, default=False):
+                warn("Setup not confirmed. Add the jumper at the wall, then re-confirm.")
 
         action = prompt_action(
             "Ready to measure? [Enter]=go  [s]=skip  [r]=redo-previous  [q]=quit",
