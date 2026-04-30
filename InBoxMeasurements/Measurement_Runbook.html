@@ -975,6 +975,70 @@ DATS V3 ─USB─▶ Laptop  (separate sessions, not simultaneous with REW)
   RMS correctly on a pure 60 Hz sine.
 </div>
 
+<h3>Coarse-DMM workaround — calibrate at a higher voltage</h3>
+
+<p>
+  If your DMM only resolves to 0.1 V (single-decimal AC range), reading
+  2.83 V precisely is impossible. Calibrate at a higher reference voltage
+  where the DMM has better relative resolution, then apply a fixed digital
+  offset to the REW generator level for the actual sweeps. The relationship
+  between REW dBFS and amp output voltage is linear, so the offset is exact.
+</p>
+
+<ol>
+  <li>
+    At step 4 above, raise the Arcam volume until the DMM reads a clean
+    target from the table below.
+  </li>
+  <li>
+    Note the Arcam volume <strong>and</strong> the REW generator dBFS that
+    achieved it.
+  </li>
+  <li>
+    For the actual sweeps, set the REW generator level to
+    <strong>(noted dBFS) + (offset from table)</strong>. The Arcam volume
+    stays where you set it.
+  </li>
+</ol>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width:25%">DMM target</th>
+      <th style="width:35%">Offset to apply for sweeps (dB)</th>
+      <th>Resulting voltage (sweeps)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>2.83 V</td><td>0.00 (direct, no offset)</td><td>2.83 V</td></tr>
+    <tr><td>4.00 V</td><td><strong>−3.00</strong></td><td>2.83 V</td></tr>
+    <tr><td>5.00 V</td><td><strong>−4.95</strong></td><td>2.83 V</td></tr>
+    <tr><td>6.00 V</td><td><strong>−6.51</strong></td><td>2.83 V</td></tr>
+    <tr><td>8.00 V</td><td><strong>−9.03</strong></td><td>2.83 V</td></tr>
+  </tbody>
+</table>
+
+<p>
+  Example: if 4.00 V on the DMM corresponds to REW generator level
+  −9 dBFS, then the actual sweeps should run at <strong>−12 dBFS</strong>
+  (= −9 − 3).
+</p>
+
+<p>
+  <strong>Cal accuracy with a 1-decimal DMM at 4 V:</strong> roughly ±2.5 %
+  reading uncertainty = <strong>±0.22 dB</strong>. Acceptable for crossover
+  work, but borrow a 3-decimal DMM if you can — it tightens to under 0.05 dB.
+</p>
+
+<div class="callout safety">
+  <span class="tag">Don't exceed driver limits</span>
+  8 V at 60 Hz on a small woofer can be loud and excursion-heavy. For W2,
+  4 – 6 V is comfortable; 8 V is the hard upper bound.
+  <strong>Never</strong> use this trick on a tweeter — calibration is on
+  W2 only by design, and the tweeter must remain physically disconnected
+  throughout.
+</div>
+
 <!-- ======================================================= -->
 <!-- Section 7 -->
 <!-- ======================================================= -->

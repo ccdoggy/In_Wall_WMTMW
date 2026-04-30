@@ -167,6 +167,29 @@ One-time rigging. Do this before calibration.
 
 **Your non-True-RMS meter is fine here.** A standard averaging meter reads RMS correctly on a pure 60 Hz sine.
 
+### Coarse-DMM workaround — calibrate at a higher voltage
+
+If your DMM only resolves to 0.1 V (single-decimal AC range), reading 2.83 V precisely is impossible. Calibrate at a higher reference voltage where the DMM has better relative resolution, then apply a fixed digital offset to the REW generator level for the actual sweeps. The relationship between REW dBFS and amp output voltage is linear, so the offset is exact.
+
+Procedure:
+1. At step 4 above, raise the Arcam volume until the DMM reads a clean target from the table below.
+2. Note the Arcam volume **and** the REW generator dBFS that achieved it.
+3. For the actual sweeps, set the REW generator level to **(noted dBFS) + (offset from table)**. The Arcam volume stays where you set it.
+
+| DMM target | Offset to apply for sweeps (dB) | Resulting voltage (sweeps) |
+|---|---|---|
+| 2.83 V | 0.00 (direct, no offset)    | 2.83 V |
+| 4.00 V | **−3.00**                    | 2.83 V |
+| 5.00 V | **−4.95**                    | 2.83 V |
+| 6.00 V | **−6.51**                    | 2.83 V |
+| 8.00 V | **−9.03**                    | 2.83 V |
+
+Example: if 4.00 V on the DMM corresponds to REW generator level −9 dBFS, then the actual sweeps should run at **−12 dBFS** (= −9 − 3).
+
+**Cal accuracy with a 1-decimal DMM at 4 V:** roughly ±2.5 % reading uncertainty = **±0.22 dB**. Acceptable for crossover work, but borrow a 3-decimal DMM if you can — it tightens to under 0.05 dB.
+
+**Caveat: do not exceed driver limits.** 8 V at 60 Hz on a small woofer can be loud and excursion-heavy. For W2, 4–6 V is comfortable; 8 V is the hard upper bound. **Never** use this trick on a tweeter — calibration is on W2 only by design, and the tweeter must remain physically disconnected.
+
 ---
 
 ## 7. Timing Reference Verification (5 min)
