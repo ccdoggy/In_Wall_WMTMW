@@ -5,7 +5,7 @@
 > left off. It contains all decisions, rationale, open questions, and current
 > state.
 >
-> **Last updated:** March 28, 2026
+> **Last updated:** April 30, 2026
 > **Primary design file:** `/home/cyc/WMTMW_InWall_Speaker_Design.md`
 
 ---
@@ -1088,3 +1088,143 @@ Design fully complete. Physical build underway. No open design questions.
 5. Design crossover (VituixCAD)
 6. Iterate and finalize
 7. Build remaining 2 speakers
+
+---
+
+## Session 12 — Prototype DATS Sweeps & Polyfill Tuning (April 2026)
+
+### 104. Initial in-box DATS sweeps (all drivers + parallel pairs)
+With the prototype installed in the wall, ran the full DATS impedance matrix:
+seven sweeps total — five individual drivers (W1, W2, M3, M4, T) plus two
+parallel pairs (W1∥W2, M3∥M4). All seven `.zma` / `.tzz` / `.txt` files
+saved to `InBoxMeasurements/dats/`.
+
+Initial findings:
+- Woofers showed clean single-peak sealed-box behavior with **Fc higher than
+  the 56 Hz design target**: W1 Fc = 62.75 Hz / Qtc = 0.728, W2 Fc = 58.88 Hz
+  / Qtc = 0.677. Pair-Woofers Fc = 62.48 Hz with Re = 2.85 Ω (matches
+  parallel-of-individuals Re exactly — wiring confirmed clean).
+- Mids (M3, M4) showed **two impedance peaks** at ~50 and ~76 Hz with a dip
+  at ~60 Hz when measured individually. This is the classic passive-radiator
+  signature — when one mid is driven and the other is electrically open, the
+  undriven cone sympathetically radiates at its own free-air Fs (~52 Hz),
+  loading the chamber. Pair-Mids Fc = 75.6 Hz with a single clean peak,
+  confirming the chamber itself is sealed; the double-peak in individual
+  sweeps is the passive-cone effect, not a leak.
+- Tweeter Fs essentially unchanged from free-air (1039 → 1050 Hz). Expected
+  for a tweeter chamber large compared to its required loading.
+
+### 105. Polyfill diagnosis from impedance back-solve
+Back-solving sealed-box equations from measured Fc + free-air Vas/Fs gave
+**effective Vb of 11.8 L (W1) and 13.7 L (W2)** — both *below* the
+geometric chamber volume of 14.4 L, and well below the 16.6 L target
+assumed in the original design (which expected polyfill isothermal mode
+to *increase* effective volume by ~15 %).
+
+Diagnosis: original 256 g of polyfill per chamber (1.11 lb/ft³) was
+**overstuffed**. The fibers were physically displacing air faster than they
+were producing isothermal benefit. Optimal density per published guidance
+is 0.5–1.0 lb/ft³.
+
+### 106. W2 stuffing iteration (lower woofer)
+**Step 1 — remove ~120 g (256 → ~136 g, density 0.59 lb/ft³):**
+- Fc: 58.88 → **60.97 Hz** (+2 Hz, *opposite of expected direction*)
+- Qtc: 0.677 → 0.709 (+0.03)
+- **Qms: 4.87 → 5.61 (+0.74)** ← key diagnostic
+
+The Qms jump revealed that the original 256 g state had polyfill in **light
+contact with the cone**, adding both mechanical mass loading (lowered Fc)
+and mechanical damping (lowered Qms). Removing fibers freed the cone — Fc
+rose because mass loading vanished, Qms rose because damping vanished. The
+"lower Fc" of the 256 g state was misleadingly good for the wrong reason.
+
+**Step 2 — add back 40 g, well lofted (~136 → 176 g, density 0.76 lb/ft³):**
+- Fc: 60.97 → **60.33 Hz**
+- Qtc: 0.709 → **0.699** (essentially dead-on the 0.69 design target)
+- Qms: 5.61 → 5.31 (intermediate — material now provides acoustic absorption
+  in the chamber volume without touching the cone)
+
+W2 final state declared: **176 g well-lofted polyfill, Fc 60.33 Hz, Qtc 0.699.**
+
+### 107. W1 stuffing iteration (upper woofer)
+**Step 1 — remove "less" (mass not weighed):**
+- Fc: 62.75 → 63.29 Hz, Qtc: 0.728 → 0.740
+- Qms: 5.44 → 5.69 (+0.25 — much smaller than W2's +0.74, suggesting W1's
+  original 256 g was less aggressively cone-loaded than W2's was, or that
+  less stuffing was removed)
+
+**Step 2 — remove another ~20 g and re-fluff:**
+- Fc: 63.29 → **63.29 Hz** (no change)
+- Qtc: 0.740 → 0.750 (+0.01)
+- Qms: 5.69 (no change)
+
+The Fc-stayed-the-same result identified the **chamber's natural floor**:
+at densities below ~180 g/14.4 L, lofting and removal don't move Fc further.
+Vb_eff is bottoming out around 11.5 L for W1, regardless of stuffing
+adjustments. Iteration declared complete.
+
+W1 final state declared: **~140 g well-lofted polyfill, Fc 63.29 Hz, Qtc 0.750.**
+
+### 108. Why W1 and W2 disagree by ~3 Hz Fc / 0.05 Qtc
+Math from free-air parameters predicts mismatch even with identical chambers
+and identical stuffing:
+- W1 free-air: Fs 36.67 Hz, Qts 0.46, Vas 22.74 L
+- W2 free-air: Fs 35.16 Hz, Qts 0.42, Vas 24.64 L
+
+Driver-parameter spread alone accounts for ~1.5 Hz of Fc difference and
+~0.04 of Qtc difference. The remaining ~1.5 Hz / 0.01 is from a small
+chamber effective-volume difference (W1 effective ~11.5 L vs W2 ~12.7 L,
+~1 L spread). Possible sources: divider position tolerances, bracing
+position, driver mounting, or a small leak. **Not pursued** — the cabinet
+joints were heavily glued during prototype build (per user), so disassembly
+to inspect would be disproportionate effort for a small audible benefit.
+
+### 109. Final as-built woofer alignment accepted
+
+| | Woofer 1 (upper) | Woofer 2 (lower) |
+|---|------------------|------------------|
+| Polyfill (final) | ~140 g, well lofted | 176 g, well lofted |
+| Density | ~0.61 lb/ft³ | 0.76 lb/ft³ |
+| Fc | 63.29 Hz | 60.33 Hz |
+| Qtc | 0.750 | 0.699 |
+| Qms | 5.69 | 5.31 |
+
+Verdict: a defensible, well-damped sealed pair. Both Qtc < 0.85 (no audible
+overshoot). 3 Hz Fc spread between woofers is small enough that the crossover
+and any sub crossover at 80 Hz handle it inaudibly. Plan of Record updated
+to reflect as-built values.
+
+### 110. Production-pair build spec (for the remaining 2 speakers)
+Lessons captured in the Plan of Record (Section 7, "Polyfill tuning notes"):
+
+- **Target ~150–180 g per chamber, density 0.6–0.8 lb/ft³.**
+- **Tease the polyfill apart thoroughly before stuffing** — lofted fibers
+  with no contact at the cone.
+- Distribute evenly through the chamber; don't pack against any one wall.
+- Don't aim for the original 56 Hz / 0.69 target — it assumed isothermal
+  mode that this enclosure can't deliver. Realistic target: Fc 60–63 Hz,
+  Qtc 0.70–0.75.
+
+### 111. File reorganization for the canonical DATS set
+- The prior `W1-UpperWoofer-InBox.{zma,tzz,txt}` and
+  `W2-LowerWoofer-InBox.{zma,tzz,txt}` (256 g state, no longer
+  representative) moved into `InBoxMeasurements/dats/Woofers_Stuffing_testing/`
+  with `-Original-256g` suffix.
+- The post-tuning final-state files copied into `InBoxMeasurements/dats/`
+  under the canonical names, so downstream tools (VituixCAD, LoudspeakerLab,
+  XMachina) consume the actual as-built impedance.
+- All iteration files (`-LessStuffing`, `-LessStuffing-AddedSomeBack`,
+  `-LessStuffing-RemoveMoreAndFluff`, `-Original-256g`) preserved in the
+  testing subfolder for posterity.
+
+### 112. Open follow-up: re-measure Pair-Woofers
+The current `Pair-Woofers-InBox.zma` was taken before stuffing changes and
+no longer represents the as-built parallel-pair impedance. Should be
+re-swept with both woofers at their final stuffing state next time the
+DATS rig is out. Low priority — the individual sweeps are the primary
+crossover input; pair impedance is a sanity check on amp loading.
+
+### Current Status (post-Session 12)
+DATS impedance phase complete. Stuffing tuning complete. Plan of Record
+updated. Ready for the acoustic measurement campaign (REW + UMIK-1 polar
+sweeps) per `InBoxMeasurements/Measurement_Runbook.md`.

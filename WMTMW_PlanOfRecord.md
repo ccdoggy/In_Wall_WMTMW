@@ -146,9 +146,9 @@ Two 1/2" MDF horizontal dividers create three sealed chambers.
 
 | Chamber | Height | Volume | Damping |
 |---------|--------|--------|---------|
-| Lower woofer | 14.71" | 14.4 L | Polyfill ~50% — **256 g measured (prototype)** |
+| Lower woofer | 14.71" | 14.4 L | Polyfill ~176 g lofted (W2 prototype, post-tuning) |
 | Mid / Tweeter (shared) | 16.08" | 15.7 L | Acousta-Blue denim on walls |
-| Upper woofer | 14.71" | 14.4 L | Polyfill ~50% — **256 g target (match lower)** |
+| Upper woofer | 14.71" | 14.4 L | Polyfill ~140 g lofted (W1 prototype, post-tuning) |
 
 **Divider positions** (from inside bottom):
 - Divider 1: 14.96" (center) — lower woofer / mid-tweeter boundary
@@ -156,15 +156,33 @@ Two 1/2" MDF horizontal dividers create three sealed chambers.
 
 Height check: 14.71 + 0.50 + 16.08 + 0.50 + 14.71 = 46.50" ✓
 
-### Sealed Woofer Alignment (measured, with polyfill ~16.6 L effective)
+### Sealed Woofer Alignment — as-built (post-stuffing-tuning, April 2026)
 
-| | Woofer 1 | Woofer 2 | Average |
-|---|----------|----------|---------|
-| Qtc | 0.71 | 0.67 | **0.69** |
-| Fc | 56 Hz | 55 Hz | 56 Hz |
-| F3 | ~56 Hz | ~58 Hz | **~57 Hz** |
+| | Woofer 1 (upper) | Woofer 2 (lower) | Average |
+|---|------------------|------------------|---------|
+| Polyfill | ~140 g, well lofted | 176 g, well lofted | – |
+| Density | ~0.61 lb/ft³ | 0.76 lb/ft³ | – |
+| Fc | **63.3 Hz** | **60.3 Hz** | 61.8 Hz |
+| Qtc | **0.750** | **0.699** | 0.72 |
+| Qms | 5.69 | 5.31 | – |
+| Re | 5.70 Ω | 5.72 Ω | – |
+| Zmax | 43.2 Ω | 43.5 Ω | – |
 
-Essentially ideal Butterworth (0.707). **Enclosure confirmed.**
+**As-built diverges from the original 56 Hz / 0.69 target.** The original target assumed ~16.6 L effective chamber volume from polyfill isothermal mode; the prototype's actual effective volume measures 11.5–12.7 L. This is a real-system result, not a measurement issue — see "Polyfill tuning notes" below.
+
+The measured pair (W1 Fc 63.3 / W2 Fc 60.3, both Qtc < 0.85) is a **defensible, well-damped sealed alignment**. The 3 Hz Fc spread between woofers is partly driver-pair variance (W1 has higher free-air Fs and Qts than W2) and partly small chamber-volume difference (~1 L). Spread is well within crossover-trim range and below audibility for the L+R+sub system.
+
+### Polyfill tuning notes (for the production-pair build)
+
+Iterative testing on the prototype (April 2026, see `WMTMW_Development_History.md` Session 12) found that:
+
+1. **Initial ~256 g per chamber was overstuffed** at 1.11 lb/ft³. Dense fibers were in light contact with the cone, adding mass loading and mechanical damping. This produced misleadingly "lower" Fc readings (cone-loaded, not air-loaded) with depressed Qms.
+2. **Removing stuffing raised Qms** as the cone freed itself from fiber contact — the diagnostic signature of cone contact.
+3. **The chamber's effective volume floor is ~12 L**, regardless of polyfill mass below ~180 g. Adding more material past that point compresses air without providing isothermal benefit; removing more does not lower Fc further (proven by the W1 RemoveMore+Fluff iteration, which moved Fc by 0 Hz).
+4. **Final spec for the production-pair build:** ~150–180 g per chamber, **well teased apart and lofted, distributed evenly through the chamber, not packed against the cone or any wall.** Target density 0.6–0.8 lb/ft³.
+
+Original target left here for posterity:
+> Original (pre-build) target: Qtc 0.69, Fc 56 Hz, F3 ~57 Hz — based on an assumed 16.6 L effective volume that polyfill could not deliver in the actual prototype.
 
 ---
 
@@ -308,7 +326,7 @@ Tweeter:  HPF ~2.5 kHz (LR4) + L-pad (~10–13 dB) + Zobel + impedance EQ
 ### Completed
 - [x] Driver selection and procurement (prototype set: 2 woofers, 2 mids, 1 tweeter reused)
 - [x] Free-air T/S measurement of all prototype drivers (3 break-in rounds for woofers)
-- [x] Sealed alignment confirmed with measured values (Qtc ≈ 0.70, F3 ≈ 56 Hz)
+- [x] Sealed alignment measured as-built (W1 Fc 63.3 / Qtc 0.75; W2 Fc 60.3 / Qtc 0.70 — see Section 7)
 - [x] Full enclosure engineering (dimensions, chambers, bracing, damping)
 - [x] Baffle layout with all driver positions and routing specs
 - [x] Cut list finalized
