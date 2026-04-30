@@ -10,7 +10,7 @@ physical setup, the wizard drives the software.
 | File | Role |
 |------|------|
 | `Measurement_Runbook.md` | Printable runbook. Equipment, signal chain, arc geometry, safety, full matrix. |
-| `measurement_matrix.py`  | Pure data: 65 acoustic sweeps + 7 DATS sweeps as structured records. |
+| `measurement_matrix.py`  | Pure data: 77 acoustic sweeps + 7 DATS sweeps as structured records. |
 | `rew_api.py`             | Thin adapter for the REW HTTP API (REW 5.20+). Never raises. |
 | `prompts.py`             | UI helpers (banner, section headers, progress log, yes/no, action prompt). |
 | `sweep_wizard.py`        | **Main entry point.** Orchestrates all phases. |
@@ -70,13 +70,17 @@ Available phases: `pre`, `dats`, `cal`, `ref`, `acoustic`, `export`, `sanity`,
    tweeter physically disconnected. Records the REW generator dBFS that gives
    2.83 V AC at 60 Hz.
 4. **Timing-reference verify** — confirms REW's Acoustic Timing Reference is
-   using the desk speaker on Arcam Center.
-5. **Acoustic sweeps** — 65 sweeps in order: horizontal polars (50) → vertical
-   polars (6) → nearfield (4) → distortion (5). Tries the REW API first;
-   falls back to manual prompts if anything fails.
+   using the desk speaker on Arcam Front-Left.
+5. **Acoustic sweeps** — 77 sweeps in order: horizontal polars (60) → vertical
+   polars (8) → nearfield (4) → distortion (5). Polars include 12 `Pair-Mids`
+   sweeps where M3 and M4 are driven in parallel — the operationally accurate
+   measurement for a symmetric WMTMW. For sweeps that drive only one mid, the
+   wizard requires a blocking yes/no confirmation that the **other mid's wall
+   terminals are shorted** (jumper + to −) so its cone doesn't passively radiate
+   in the shared chamber. Tries the REW API first; falls back to manual prompts.
 6. **Export** — triggers REW batch export to `export/`. Falls back to a manual
    File → Export walkthrough.
-7. **Sanity check** — compares logged 'done' names against the expected 72
+7. **Sanity check** — compares logged 'done' names against the expected 84
    entries and lists anything missing.
 
 ## Interactive prompts

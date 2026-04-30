@@ -2,17 +2,24 @@
 measurement_matrix.py
 =====================
 
-Data module: the full 72-measurement matrix for the WMTMW in-wall session.
+Data module: the full 84-measurement matrix for the WMTMW in-wall session.
 No logic, no I/O, no API calls — just structured records the wizard consumes.
 
 Counts (must match Measurement_Runbook.md):
-  Horizontal polars:  50  (10 angles × 5 drivers)
-  Vertical polars:     6  (2 angles × 3 drivers: T/M3/M4)
+  Horizontal polars:  60  (10 angles × 5 individual drivers + Pair-Mids)
+  Vertical polars:     8  (2 angles × 3 individual drivers + Pair-Mids)
   Nearfield:           4  (W1/W2/M3/M4; tweeter excluded)
   Distortion:          5  (all drivers; tweeter at 1 V)
-  Acoustic total:     65
+  Acoustic total:     77
   DATS impedance:      7  (5 individual + 2 pair)
-  Grand total:        72 measurements
+  Grand total:        84 measurements
+
+Mid-only sweeps (M3 alone or M4 alone) carry a `require_confirm` prompt that
+the wizard blocks on. Both mids share the rear chamber; if the unused mid
+is left electrically open, its cone passively radiates and contaminates the
+measurement. Shorting the unused mid's wall terminals (jumper + to −)
+dampens passive cone motion via back-EMF. The `Pair-Mids` sweeps drive both
+mids in parallel — no passive cone, no contamination.
 """
 from __future__ import annotations
 
@@ -50,6 +57,9 @@ class AcousticSweep:
     action: str            # instruction text printed by the wizard
     safety_note: str = ""
     is_tweeter: bool = False
+    require_confirm: str = ""   # blocking yes/no prompt; "" = no extra confirmation
+                                # used for mid-only sweeps to confirm the OTHER
+                                # mid's wall terminals are shorted
 
 
 @dataclass(frozen=True)
@@ -146,6 +156,28 @@ NEARFIELD_NOTE = (
     "No gate applied. Timing reference remains active."
 )
 
+# When measuring one mid alone, the OTHER mid sits in the shared chamber and
+# passively radiates unless its voice coil is electrically shorted (jumper at
+# the wall terminals). A short clamps the cone via back-EMF damping.
+def _short_other_mid_note(other_mid_tag: str) -> str:
+    other_drv = DRIVERS[other_mid_tag]
+    return (
+        f"SHORT {other_mid_tag} ({other_drv.description}) wall terminals "
+        f"together with a jumper (+ to −) to dampen passive cone motion in "
+        f"the shared mid chamber."
+    )
+
+def _short_other_mid_confirm(other_mid_tag: str) -> str:
+    other_drv = DRIVERS[other_mid_tag]
+    return (
+        f"Confirmed: {other_mid_tag} ({other_drv.description}) wall terminals "
+        f"are shorted together (jumper + to −)?"
+    )
+
+# Pairs use the existing Pair-Mids / Pair-Woofers naming convention.
+MID_PAIR_TAG  = "Pair"
+MID_PAIR_NAME = "Mids"
+
 
 # ---------------------------------------------------------------------------
 # Horizontal polar sweeps (50)
@@ -156,17 +188,30 @@ for _angle in HORIZONTAL_ANGLES:
     _angle_desc = f"{_angle}° horizontal"
     for _tag in ["W1", "W2", "M3", "M4"]:
         _drv = DRIVERS[_tag]
+        _other_mid = "M4" if _tag == "M3" else "M3" if _tag == "M4" else None
+        if _other_mid:
+            _action = (
+                f"Mic at the {_angle}° H tape mark, 1.00 m from tweeter, tweeter height. "
+                f"At the wall: disconnect previous driver, connect the {_drv.description} "
+                f"to Arcam FR. {_short_other_mid_note(_other_mid)} "
+                f"All other drivers stay disconnected."
+            )
+            _confirm = _short_other_mid_confirm(_other_mid)
+        else:
+            _action = (
+                f"Mic at the {_angle}° H tape mark, 1.00 m from tweeter, tweeter height. "
+                f"At the wall: disconnect previous driver, connect the {_drv.description} "
+                f"to Arcam FR. All other drivers stay disconnected."
+            )
+            _confirm = ""
         H_POLAR_SWEEPS.append(AcousticSweep(
             name=f"{_tag}-{_drv.name}-H{_angle:03d}deg",
             driver_tag=_tag,
             driver_name=_drv.name,
             phase="h_polar",
             angle_desc=_angle_desc,
-            action=(
-                f"Mic at the {_angle}° H tape mark, 1.00 m from tweeter, tweeter height. "
-                f"At the wall: disconnect previous driver, connect the {_drv.description} "
-                f"to Arcam FL. All other drivers stay disconnected."
-            ),
+            action=_action,
+            require_confirm=_confirm,
             **FULL_RANGE,
         ))
     # Tweeter row — tweeter-safe params
@@ -178,11 +223,26 @@ for _angle in HORIZONTAL_ANGLES:
         angle_desc=_angle_desc,
         action=(
             f"Mic at the {_angle}° H tape mark. Confirm REW: start=300 Hz, length=256 k. "
-            f"Connect the tweeter to Arcam FL; all others disconnected. Ear protection on."
+            f"Connect the tweeter to Arcam FR; all others disconnected. Ear protection on."
         ),
         safety_note=TWEETER_SAFETY,
         is_tweeter=True,
         **TWEETER_SAFE,
+    ))
+    # Pair-Mids row — both mids driven in parallel, no passive cone in the chamber
+    H_POLAR_SWEEPS.append(AcousticSweep(
+        name=f"{MID_PAIR_TAG}-{MID_PAIR_NAME}-H{_angle:03d}deg",
+        driver_tag=MID_PAIR_TAG,
+        driver_name=MID_PAIR_NAME,
+        phase="h_polar",
+        angle_desc=_angle_desc,
+        action=(
+            f"Mic at the {_angle}° H tape mark, 1.00 m from tweeter, tweeter height. "
+            f"At the wall: connect M3 AND M4 in parallel to Arcam FR "
+            f"(both + tied to FR+, both − tied to FR−). Remove any mid-shorting "
+            f"jumpers from the previous M3/M4 sweeps. All other drivers disconnected."
+        ),
+        **FULL_RANGE,
     ))
 
 
@@ -196,10 +256,21 @@ for _angle in VERTICAL_ANGLES_UP:
     _geom = VERTICAL_GEOMETRY[_angle]
     for _tag in VERTICAL_DRIVERS:
         _drv = DRIVERS[_tag]
-        _action = (
-            f"Move mic to {_geom}. Verify 1 m string from tweeter to mic tip. "
-            f"Connect the {_drv.description} to Arcam FL; all others disconnected."
-        )
+        _other_mid = "M4" if _tag == "M3" else "M3" if _tag == "M4" else None
+        if _other_mid:
+            _action = (
+                f"Move mic to {_geom}. Verify 1 m string from tweeter to mic tip. "
+                f"Connect the {_drv.description} to Arcam FR. "
+                f"{_short_other_mid_note(_other_mid)} "
+                f"All other drivers disconnected."
+            )
+            _confirm = _short_other_mid_confirm(_other_mid)
+        else:
+            _action = (
+                f"Move mic to {_geom}. Verify 1 m string from tweeter to mic tip. "
+                f"Connect the {_drv.description} to Arcam FR; all others disconnected."
+            )
+            _confirm = ""
         if _tag == "T":
             V_POLAR_SWEEPS.append(AcousticSweep(
                 name=f"T-Tweeter-V{_angle:03d}deg",
@@ -220,31 +291,61 @@ for _angle in VERTICAL_ANGLES_UP:
                 phase="v_polar",
                 angle_desc=_angle_desc,
                 action=_action,
+                require_confirm=_confirm,
                 **FULL_RANGE,
             ))
+    # Pair-Mids vertical row at this angle
+    V_POLAR_SWEEPS.append(AcousticSweep(
+        name=f"{MID_PAIR_TAG}-{MID_PAIR_NAME}-V{_angle:03d}deg",
+        driver_tag=MID_PAIR_TAG,
+        driver_name=MID_PAIR_NAME,
+        phase="v_polar",
+        angle_desc=_angle_desc,
+        action=(
+            f"Move mic to {_geom}. Verify 1 m string from tweeter to mic tip. "
+            f"At the wall: connect M3 AND M4 in parallel to Arcam FR. "
+            f"Remove any mid-shorting jumpers. All other drivers disconnected."
+        ),
+        **FULL_RANGE,
+    ))
 
 
 # ---------------------------------------------------------------------------
 # Nearfield sweeps (4) — W1, W2, M3, M4 only
 # ---------------------------------------------------------------------------
 
-NEARFIELD_SWEEPS: list[AcousticSweep] = [
-    AcousticSweep(
-        name=f"{_tag}-{DRIVERS[_tag].name}-NearField",
+def _build_nearfield(_tag: str) -> AcousticSweep:
+    _drv = DRIVERS[_tag]
+    _other_mid = "M4" if _tag == "M3" else "M3" if _tag == "M4" else None
+    if _other_mid:
+        _action = (
+            f"Position mic tip <5 mm from the center of the {_drv.description}'s "
+            f"dust cap, pointed axially into the cone. No gating. "
+            f"Connect the {_drv.description} to Arcam FR. "
+            f"{_short_other_mid_note(_other_mid)} "
+            f"All other drivers disconnected."
+        )
+        _confirm = _short_other_mid_confirm(_other_mid)
+    else:
+        _action = (
+            f"Position mic tip <5 mm from the center of the {_drv.description}'s "
+            f"dust cap, pointed axially into the cone. No gating. "
+            f"Connect the {_drv.description} to Arcam FR; all others disconnected."
+        )
+        _confirm = ""
+    return AcousticSweep(
+        name=f"{_tag}-{_drv.name}-NearField",
         driver_tag=_tag,
-        driver_name=DRIVERS[_tag].name,
+        driver_name=_drv.name,
         phase="nearfield",
         angle_desc="on-axis nearfield",
-        action=(
-            f"Position mic tip <5 mm from the center of the {DRIVERS[_tag].description}'s "
-            f"dust cap, pointed axially into the cone. No gating. "
-            f"Connect the {DRIVERS[_tag].description} to Arcam FL; all others disconnected."
-        ),
+        action=_action,
         safety_note=NEARFIELD_NOTE,
+        require_confirm=_confirm,
         **FULL_RANGE,
     )
-    for _tag in NEARFIELD_DRIVERS
-]
+
+NEARFIELD_SWEEPS: list[AcousticSweep] = [_build_nearfield(_t) for _t in NEARFIELD_DRIVERS]
 
 
 # ---------------------------------------------------------------------------
@@ -264,7 +365,7 @@ for _tag in DISTORTION_DRIVERS:
             action=(
                 "Mic back at 0° H tape mark, 1 m on-axis. "
                 "REW: switch to Distortion measurement, set level to -21 dBFS (1 V), "
-                "start=300 Hz, length=256 k. Connect tweeter to Arcam FL. "
+                "start=300 Hz, length=256 k. Connect tweeter to Arcam FR. "
                 "Ear protection on."
             ),
             safety_note=TWEETER_1V_SAFETY,
@@ -272,17 +373,31 @@ for _tag in DISTORTION_DRIVERS:
             **TWEETER_DISTORTION_1V,
         ))
     else:
+        _other_mid = "M4" if _tag == "M3" else "M3" if _tag == "M4" else None
+        if _other_mid:
+            _action = (
+                f"Mic back at 0° H tape mark, 1 m on-axis. "
+                f"REW: Distortion measurement, full range 20 Hz–20 kHz, level -12 dBFS (2.83 V). "
+                f"Connect the {_drv.description} to Arcam FR. "
+                f"{_short_other_mid_note(_other_mid)} "
+                f"All other drivers disconnected."
+            )
+            _confirm = _short_other_mid_confirm(_other_mid)
+        else:
+            _action = (
+                f"Mic back at 0° H tape mark, 1 m on-axis. "
+                f"REW: Distortion measurement, full range 20 Hz–20 kHz, level -12 dBFS (2.83 V). "
+                f"Connect the {_drv.description} to Arcam FR; all others disconnected."
+            )
+            _confirm = ""
         DISTORTION_SWEEPS.append(AcousticSweep(
             name=f"{_tag}-{_drv.name}-Distortion",
             driver_tag=_tag,
             driver_name=_drv.name,
             phase="distortion",
             angle_desc="on-axis distortion at 2.83 V",
-            action=(
-                f"Mic back at 0° H tape mark, 1 m on-axis. "
-                f"REW: Distortion measurement, full range 20 Hz–20 kHz, level -12 dBFS (2.83 V). "
-                f"Connect the {_drv.description} to Arcam FL; all others disconnected."
-            ),
+            action=_action,
+            require_confirm=_confirm,
             **FULL_RANGE,
         ))
 
@@ -375,13 +490,13 @@ DATS_SWEEPS: list[DatsSweep] = [
 # ---------------------------------------------------------------------------
 
 EXPECTED_COUNTS = {
-    "h_polar":    50,
-    "v_polar":     6,
+    "h_polar":    60,   # 50 individual + 10 Pair-Mids
+    "v_polar":     8,   # 6 individual + 2 Pair-Mids
     "nearfield":   4,
     "distortion":  5,
-    "acoustic":   65,
+    "acoustic":   77,
     "dats":        7,
-    "grand_total": 72,
+    "grand_total": 84,
 }
 
 assert len(H_POLAR_SWEEPS)    == EXPECTED_COUNTS["h_polar"],   "H polar count drift"

@@ -48,7 +48,7 @@ The Scan-Speak H2606/9200 voice coil can burn out in **seconds** if driven with 
 - Plumb bob (nut on a string)
 - Masking tape, sharpie, tape measure, protractor
 - 3.5 mm TRS → 2× RCA Y-splitter cable
-- Speaker wire for desk-speaker tap to Arcam Center terminal
+- Speaker wire for desk-speaker tap to Arcam Front-Left terminal
 - Earplugs
 
 **Signal chain**
@@ -57,8 +57,8 @@ The Scan-Speak H2606/9200 voice coil can burn out in **seconds** if driven with 
 
 ```
 Laptop 3.5mm stereo out
-   ├── L channel ─RCA─► Arcam 7.1-in "Front Left"  ─► Arcam FL amp ─► driver under test (DUT) at wall
-   └── R channel ─RCA─► Arcam 7.1-in "Center"      ─► Arcam Center amp ─► Desk speaker (fixed position)
+   ├── L channel ─RCA─► Arcam 7.1-in "Front Left"   ─► Arcam FL amp ─► Desk speaker (fixed position, timing ref)
+   └── R channel ─RCA─► Arcam 7.1-in "Front Right"  ─► Arcam FR amp ─► driver under test (DUT) at wall
 
 UMIK-1 ─USB─► Laptop (REW input)
 DATS V3 ─USB─► Laptop (separate sessions, not simultaneous with REW)
@@ -79,8 +79,8 @@ Arcam source selection: **7.1 Multichannel Input / Direct** (no DSP, no decoder,
 **One mic position, all drivers.** At each angle, all five drivers are measured from the same mic position (centered on the tweeter arc). This is close enough for crossover design — LoudspeakerLab and VituixCAD both reconstruct the full system from per-driver data plus the baffle layout.
 
 **Channel levels.**
-- Laptop L channel = sweep → driver under test (DUT), calibrated to 2.83 V
-- Laptop R channel = REW timing-reference pilot → desk speaker (REW-attenuated, typically −20 dB)
+- Laptop L channel = REW timing-reference pilot → desk speaker on Arcam **Front-Left** (REW-attenuated, typically −20 dB)
+- Laptop R channel = sweep → driver under test (DUT) on Arcam **Front-Right**, calibrated to 2.83 V
 - Arcam volume is **locked** for the entire session after Step 6. Do not touch.
 
 **File-naming convention.** Every saved file uses the pattern `<DriverTag>-<DriverName>-<AngleOrKind>.<ext>`. Angles are zero-padded to 3 digits so files sort numerically. The wizard enforces this automatically; if you save manually in REW, use the same pattern.
@@ -143,23 +143,23 @@ One-time rigging. Do this before calibration.
 1. HVAC off. Note the time; you have limited quiet minutes.
 2. Deploy toddler distraction.
 3. Arcam: power on, input = 7.1 Multichannel, all DSP off (Direct mode), tone controls flat, bass management off. Set volume to the minimum first — you'll calibrate it in Step 6.
-4. Connect L-RCA to Arcam 7.1 FL input, R-RCA to Arcam 7.1 Center input.
-5. Wire desk speaker to Arcam Center speaker terminals. Place desk speaker on a shelf or stand — anywhere — and **do not move it again** until the session ends.
+4. Connect L-RCA to Arcam 7.1 **FL** input, R-RCA to Arcam 7.1 **FR** input.
+5. Wire desk speaker to Arcam **Front-Left** speaker terminals. Place desk speaker on a shelf or stand — anywhere — and **do not move it again** until the session ends.
 6. At the wall terminals: disconnect every driver. We'll connect one at a time.
 7. REW preferences:
    - Input device: UMIK-1 (load 0° cal file)
    - Output device: laptop stereo out
-   - Analysis → Use Acoustic Timing Reference: **ON**, channel = Right
+   - Analysis → Use Acoustic Timing Reference: **ON**, channel = **Left** (the desk speaker is on the L channel via Arcam FL)
    - Measurement default: log sweep, 512 k length, 20 Hz – 20 kHz, level −12 dBFS
    - Auto-name template: `{name}` with sequential suffix off (we'll name manually per sweep — fast enough with the template pre-loaded)
-8. Verify channel assignment: use REW's generator to send a 1 kHz tone on **left only**. Confirm only the FL Arcam output is active (touch the FL terminal wire — should see meter movement; desk speaker should be silent). Repeat with right only — desk speaker plays, FL is silent. If both channels play on one output, Arcam is not in Multichannel Direct mode.
+8. Verify channel assignment: use REW's generator to send a 1 kHz tone on **left only** — the desk speaker (on Arcam FL) should play; the FR (DUT) terminals should be silent. Repeat with **right only** — the FR terminals should be active (touch the FR terminal wire — meter movement / brief tap test); desk speaker silent. If both channels play on one output, Arcam is not in Multichannel Direct mode.
 
 ---
 
 ## 6. 2.83 V Calibration (10 min)
 
-1. Connect **only W2 (lower woofer)** to Arcam FL terminals. All other drivers disconnected. **Verify tweeter wires are not touching each other or anything conductive.**
-2. REW Generator → 60 Hz sine wave, left channel only, level −20 dBFS. Start.
+1. Connect **only W2 (lower woofer)** to Arcam **FR** terminals. All other drivers disconnected. **Verify tweeter wires are not touching each other or anything conductive.**
+2. REW Generator → 60 Hz sine wave, **right channel only**, level −20 dBFS. Start.
 3. DMM on AC V mode, probes across the W2 terminals at the wall.
 4. Slowly raise Arcam volume until DMM reads **2.83 V** (±0.02 V).
 5. **Stop generator.** Do not touch the Arcam volume knob for the remainder of the session. Consider taping over it.
@@ -167,48 +167,76 @@ One-time rigging. Do this before calibration.
 
 **Your non-True-RMS meter is fine here.** A standard averaging meter reads RMS correctly on a pure 60 Hz sine.
 
+### Coarse-DMM workaround — calibrate at a higher voltage
+
+If your DMM only resolves to 0.1 V (single-decimal AC range), reading 2.83 V precisely is impossible. Calibrate at a higher reference voltage where the DMM has better relative resolution, then apply a fixed digital offset to the REW generator level for the actual sweeps. The relationship between REW dBFS and amp output voltage is linear, so the offset is exact.
+
+Procedure:
+1. At step 4 above, raise the Arcam volume until the DMM reads a clean target from the table below.
+2. Note the Arcam volume **and** the REW generator dBFS that achieved it.
+3. For the actual sweeps, set the REW generator level to **(noted dBFS) + (offset from table)**. The Arcam volume stays where you set it.
+
+| DMM target | Offset to apply for sweeps (dB) | Resulting voltage (sweeps) |
+|---|---|---|
+| 2.83 V | 0.00 (direct, no offset)    | 2.83 V |
+| 4.00 V | **−3.00**                    | 2.83 V |
+| 5.00 V | **−4.95**                    | 2.83 V |
+| 6.00 V | **−6.51**                    | 2.83 V |
+| 8.00 V | **−9.03**                    | 2.83 V |
+
+Example: if 4.00 V on the DMM corresponds to REW generator level −9 dBFS, then the actual sweeps should run at **−12 dBFS** (= −9 − 3).
+
+**Cal accuracy with a 1-decimal DMM at 4 V:** roughly ±2.5 % reading uncertainty = **±0.22 dB**. Acceptable for crossover work, but borrow a 3-decimal DMM if you can — it tightens to under 0.05 dB.
+
+**Caveat: do not exceed driver limits.** 8 V at 60 Hz on a small woofer can be loud and excursion-heavy. For W2, 4–6 V is comfortable; 8 V is the hard upper bound. **Never** use this trick on a tweeter — calibration is on W2 only by design, and the tweeter must remain physically disconnected.
+
 ---
 
 ## 7. Timing Reference Verification (5 min)
 
 1. Mic at 0° tape X (1 m on-axis).
-2. W2 still connected to FL. Other drivers disconnected.
+2. W2 still connected to **FR**. Other drivers disconnected.
 3. REW Measure → run a throwaway sweep.
 4. Check the log: REW must report "Timing reference found" or similar. The IR should show a clean, isolated leading edge.
-5. If timing reference not found: raise the pilot level in REW preferences, or raise Arcam Center output if it's too quiet (but then re-lock). Iterate until found.
+5. If timing reference not found: raise the pilot level in REW preferences, or raise Arcam FL output if it's too quiet (but then re-lock). Iterate until found.
 6. Once locked, **do not move the desk speaker or the mic** except along the arc.
 
 ---
 
-## 8. Horizontal Polar Sweeps (90–120 min)
+## 8. Horizontal Polar Sweeps (105–135 min)
 
-**Why this order.** Moving the mic is slow (tripod + 1 m string check + re-aim at the tweeter). Wire swaps at the wall plate take seconds. So park the mic at one angle and sweep all five drivers before moving the mic. Five driver swaps per mic position, ten mic positions = 50 sweeps.
+**Why this order.** Moving the mic is slow (tripod + 1 m string check + re-aim at the tweeter). Wire swaps at the wall plate take seconds. So park the mic at one angle and sweep all six driver configurations before moving the mic. Six wiring swaps per mic position, ten mic positions = 60 sweeps.
 
 For each of the ten angles `[000, 010, 020, 030, 040, 050, 060, 070, 080, 090]` (the zero-padded number also goes into the filename):
 
 1. Move tripod so mic tip sits directly over that angle's tape X. Aim the mic at the tweeter. Verify 1 m with the string from tweeter to mic tip.
-2. Sweep all five drivers without moving the mic. For each driver: disconnect the previous one at the wall plate, connect this one, leave all others disconnected, run the sweep. Each saves .frd + .txt + .wav.
+2. Sweep all six driver configurations without moving the mic. For each: rewire at the wall plate per the row below, then run the sweep. Each saves .frd + .txt + .wav.
 3. Move the mic to the next angle's tape X and repeat.
 
 Driver rows for the inner loop:
 
-| Driver | Filename stem (→ .frd, .txt, .wav) | Sweep range | Notes |
-|--------|-----------|------------|-------|
-| W1 upper woofer | `W1-UpperWoofer-H{ddd}deg` | 20 Hz – 20 kHz, 512 k | Full range |
-| W2 lower woofer | `W2-LowerWoofer-H{ddd}deg` | 20 Hz – 20 kHz, 512 k | |
-| M3 upper mid    | `M3-UpperMid-H{ddd}deg`    | 20 Hz – 20 kHz, 512 k | |
-| M4 lower mid    | `M4-LowerMid-H{ddd}deg`    | 20 Hz – 20 kHz, 512 k | |
-| T  tweeter      | `T-Tweeter-H{ddd}deg`      | **300 Hz – 20 kHz, 256 k** | See Section 0 |
+| Driver / config | Filename stem (→ .frd, .txt, .wav) | Sweep range | Wall wiring |
+|-----------------|------------------------------------|------------|-------------|
+| W1 upper woofer | `W1-UpperWoofer-H{ddd}deg` | 20 Hz – 20 kHz, 512 k | W1 → FR; all others disconnected |
+| W2 lower woofer | `W2-LowerWoofer-H{ddd}deg` | 20 Hz – 20 kHz, 512 k | W2 → FR; all others disconnected |
+| M3 upper mid    | `M3-UpperMid-H{ddd}deg`    | 20 Hz – 20 kHz, 512 k | M3 → FR; **M4 wall terminals shorted (jumper + to −)**; others disconnected |
+| M4 lower mid    | `M4-LowerMid-H{ddd}deg`    | 20 Hz – 20 kHz, 512 k | M4 → FR; **M3 wall terminals shorted (jumper + to −)**; others disconnected |
+| T  tweeter      | `T-Tweeter-H{ddd}deg`      | **300 Hz – 20 kHz, 256 k** | T → FR; others disconnected. See Section 0 |
+| Pair `M3 ∥ M4`  | `Pair-Mids-H{ddd}deg`      | 20 Hz – 20 kHz, 512 k | M3 + M4 in parallel → FR; **remove any mid-shorting jumpers**; others disconnected |
 
-**Total: 50 sweeps × 3 output formats = 150 files.** Each sweep ~5–10 s measure time; wizard auto-names and auto-exports.
+**Why short the unused mid.** M3 and M4 share the rear chamber. With one driven and the other electrically open, the undriven cone passively radiates near its free-air Fs (~50 Hz) and contaminates the measurement (visible as a second impedance peak in the in-box DATS data). Shorting the unused voice coil clamps cone motion via back-EMF damping. The wizard requires an explicit yes/no confirmation that the jumper is in place before each single-mid sweep.
+
+**Why the `Pair-Mids` row.** The crossover wires M3 and M4 in parallel, so the operationally accurate measurement is both driven together. The pair sweep captures this directly with no passive cone in the chamber.
+
+**Total: 60 sweeps × 3 output formats = 180 files.** Each sweep ~5–10 s measure time; wizard auto-names and auto-exports.
 
 Keep the timing-reference desk speaker in place the entire time.
 
 ---
 
-## 9. Vertical Off-Axis (15–20 min)
+## 9. Vertical Off-Axis (20–25 min)
 
-WMTMW is vertically symmetric around the tweeter, so measure one direction only (upward). Only T, M3, M4 need vertical data — woofers are omni at their operating band.
+WMTMW is vertically symmetric around the tweeter, so measure one direction only (upward). Only T, M3, M4, and the M3∥M4 pair need vertical data — woofers are omni at their operating band.
 
 At **1 m radius from tweeter**:
 - **+15° vertical:** mic is 96.6 cm out from baffle, 25.9 cm above tweeter height.
@@ -218,13 +246,16 @@ Measure these offsets from the 0° on-axis point: raise the tripod by the height
 
 Sweeps (each saves .frd + .txt + .wav):
 
-| Driver | Filename stems | Notes |
-|--------|------|-------|
-| T  | `T-Tweeter-V015deg`, `T-Tweeter-V030deg` | 300 Hz – 20 kHz, 256 k |
-| M3 | `M3-UpperMid-V015deg`, `M3-UpperMid-V030deg` | Full range |
-| M4 | `M4-LowerMid-V015deg`, `M4-LowerMid-V030deg` | Full range |
+| Driver / config | Filename stems | Wall wiring |
+|-----------------|----------------|-------------|
+| T  | `T-Tweeter-V015deg`, `T-Tweeter-V030deg` | T → FR; others disconnected. 300 Hz – 20 kHz, 256 k |
+| M3 | `M3-UpperMid-V015deg`, `M3-UpperMid-V030deg` | M3 → FR; **M4 wall terminals shorted**; others disconnected |
+| M4 | `M4-LowerMid-V015deg`, `M4-LowerMid-V030deg` | M4 → FR; **M3 wall terminals shorted**; others disconnected |
+| Pair `M3 ∥ M4` | `Pair-Mids-V015deg`, `Pair-Mids-V030deg` | M3 + M4 in parallel → FR; **remove mid-shorting jumpers**; others disconnected |
 
-**Total: 6 sweeps × 3 formats = 18 files.**
+The same shorting-confirmation gate applies for single-mid vertical sweeps as for horizontal — the wizard blocks until the jumper is acknowledged.
+
+**Total: 8 sweeps × 3 formats = 24 files.**
 
 ---
 
@@ -328,11 +359,11 @@ InBoxMeasurements/
 ```
 
 **Counts.**
-- Acoustic sweeps: 50 H + 6 V + 4 NF + 5 THD = **65 sweeps**.
+- Acoustic sweeps: 60 H + 8 V + 4 NF + 5 THD = **77 sweeps** (H and V each include `Pair-Mids` rows).
 - Impedance sweeps: **7** (5 individual + 2 pairs).
 - File outputs per acoustic sweep: 3 (.frd, .txt, .wav).
 - File outputs per impedance sweep: 3 (.zma, .tzz, .txt).
-- Grand total: **65 × 3 + 7 × 3 + 5 distortion + 1 REW session = 222 files**.
+- Grand total: **77 × 3 + 7 × 3 + 5 distortion + 1 REW session = 258 files**.
 
 ---
 
