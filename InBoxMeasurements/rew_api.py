@@ -72,6 +72,15 @@ class ExportResult:
     debug_log: list[str] = field(default_factory=list)
 
 
+@dataclass
+class ExportLatestResult:
+    ok: bool
+    frd_path: Optional[Path] = None
+    error: Optional[str] = None
+    manual_required: bool = False
+    debug_log: list[str] = field(default_factory=list)
+
+
 # ---------------------------------------------------------------------------
 # Adapter
 # ---------------------------------------------------------------------------
@@ -89,6 +98,11 @@ _OPENAPI_PATHS = ("/doc.json", "/openapi.json")
 _MEASURE_START_PATHS = ("/measure", "/measurements/measure", "/measurements")
 _MEASURE_STATUS_PATHS = ("/measure/status", "/measurements/{id}/status", "/measurements/{id}")
 _EXPORT_ALL_PATHS = ("/measurements/export-all", "/measurements/export", "/export/all")
+_EXPORT_LATEST_PATHS = (
+    "/measurements/{id}/export",
+    "/measurements/last/export",
+    "/measurements/export-last",
+)
 
 
 class RewApi:
@@ -218,6 +232,52 @@ class RewApi:
         return ExportResult(
             ok=True,
             files_written=files,
+            debug_log=list(self._debug),
+        )
+
+    def export_latest(
+        self,
+        out_dir: Path,
+        measurement_id: Optional[int] = None,
+    ) -> "ExportLatestResult":
+        """Export the most recent measurement as FRD. Best-effort.
+
+        Tries several endpoint patterns. On success, scans out_dir for the
+        most recently modified .frd file and returns its path. If the API
+        doesn't support per-measurement export, returns manual_required=True.
+        """
+        self._debug = []
+        out_dir = Path(out_dir)
+        out_dir.mkdir(parents=True, exist_ok=True)
+
+        payload = {
+            "directory": str(out_dir.resolve()),
+            "formats": ["frd"],
+            "includePhase": True,
+        }
+
+        # Try ID-based path, then "last", then generic last-export
+        id_str = str(measurement_id) if measurement_id is not None else "last"
+        candidate_paths = tuple(
+            p.replace("{id}", id_str) for p in _EXPORT_LATEST_PATHS
+        )
+        status, body, err = self._try_post_any(candidate_paths, payload, timeout=30.0)
+
+        if not (status and 200 <= status < 300):
+            return ExportLatestResult(
+                ok=False,
+                manual_required=True,
+                error=f"Per-measurement export not available: {err or status}",
+                debug_log=list(self._debug),
+            )
+
+        # Find the most recently modified .frd file in out_dir
+        frd_files = sorted(out_dir.glob("*.frd"), key=lambda p: p.stat().st_mtime)
+        frd_path = frd_files[-1] if frd_files else None
+
+        return ExportLatestResult(
+            ok=True,
+            frd_path=frd_path,
             debug_log=list(self._debug),
         )
 
